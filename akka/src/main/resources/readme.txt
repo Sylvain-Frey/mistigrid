@@ -1,0 +1,1 @@
+This an OSGi wrapper for Akka framework 2.0.

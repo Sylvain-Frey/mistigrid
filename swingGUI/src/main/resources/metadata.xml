@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
+	xmlns="org.apache.felix.ipojo" xmlns:jmx="org.apache.felix.ipojo.handlers.jmx">
+       
+    <instance component="LocalView" name="localView">
+        <property name="x" value="10" />
+        <property name="y" value="10" />
+        <property name="width" value="1000" />
+        <property name="height" value="1000" />    
+    </instance>
+        
+<!--     <instance component="LoadController" name="loadController"> -->
+<!--         <property name="x" value="400" /> -->
+<!--         <property name="y" value="20" /> -->
+<!--         <property name="width" value="60" /> -->
+<!--         <property name="height" value="40" />     -->
+<!--         <property name="layer" value="1" />        -->
+<!--         <property name="period" value="200" />  -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="topic" value="loadTopic" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+<!--     <instance component="SolarPanelView" name="solarPanelView"> -->
+<!--         <property name="x" value="380" /> -->
+<!--         <property name="y" value="70" /> -->
+<!--         <property name="width" value="100" /> -->
+<!--         <property name="height" value="40" />     -->
+<!--         <property name="layer" value="1" />        -->
+<!--         <property name="period" value="200" />  -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="solarPanel" value="solarPanel" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="StorageView" name="storageView"> -->
+<!--         <property name="x" value="380" /> -->
+<!--         <property name="y" value="120" /> -->
+<!--         <property name="width" value="100" /> -->
+<!--         <property name="height" value="120" />     -->
+<!--         <property name="layer" value="1" />        -->
+<!--         <property name="period" value="200" />  -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="storage" value="storage" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="ThermicObjectView" name="atmosphereView"> -->
+<!--         <property name="period" value="200" />  -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="atmosphere_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="ThermicObjectView" name="kitchenView"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="kitchen_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="ThermicObjectView" name="bathroomView"> -->
+<!--         <property name="period" value="200" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="bathroom_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="ThermicObjectView" name="roomView"> -->
+<!--         <property name="period" value="200" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="room_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="ThermicObjectView" name="livingroomView"> -->
+<!--         <property name="period" value="200" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="livingroom_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="ThermicObjectView" name="entranceView"> -->
+<!--         <property name="period" value="200" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="entrance_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+    
+    
+<!--     <instance component="ThermicObjectView" name="wcView"> -->
+<!--         <property name="period" value="200" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="wc_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+    
+    
+    
+    
+    
+<!--     <instance component="HeaterView" name="heater_kitchen_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_kitchen_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+<!--     <instance component="HeaterManagerView" name="heater_kitchen_manager_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_kitchen_manager_layout" /> -->
+<!--             <property name="room" value="kitchen_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="HeaterView" name="heater_bathroom_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_bathroom_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+<!--     <instance component="HeaterManagerView" name="heater_bathroom_manager_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_bathroom_manager_layout" /> -->
+<!--             <property name="room" value="bathroom_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+                
+<!--     <instance component="HeaterView" name="heater_room_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_room_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+<!--     <instance component="HeaterManagerView" name="heater_room_manager_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_room_manager_layout" /> -->
+<!--             <property name="room" value="room_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+                
+<!--     <instance component="HeaterView" name="heater_livingroom1_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_livingroom1_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="HeaterManagerView" name="heater_livingroom1_manager_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_livingroom1_manager_layout" /> -->
+<!--             <property name="room" value="livingroom_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+                
+<!--     <instance component="HeaterView" name="heater_livingroom2_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_livingroom2_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="HeaterManagerView" name="heater_livingroom2_manager_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_livingroom2_manager_layout" /> -->
+<!--             <property name="room" value="livingroom_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+                
+<!--     <instance component="HeaterView" name="heater_entrance_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_entrance_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+<!--     <instance component="HeaterManagerView" name="heater_entrance_manager_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_entrance_manager_layout" /> -->
+<!--             <property name="room" value="entrance_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+            
+            
+<!--     <instance component="WallView" name="wall_br_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_br_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+<!--     <instance component="WallView" name="wall_er_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_er_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+<!--     <instance component="WallView" name="wall_els_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_els_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+<!--     <instance component="WallView" name="wall_ae_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_ae_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+<!--     <instance component="WallView" name="wall_ke_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_ke_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+<!--     <instance component="WallView" name="wall_we_view"> -->
+<!--         <property name="period" value="200" />      -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_we_layout" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+    
+
+</ipojo>

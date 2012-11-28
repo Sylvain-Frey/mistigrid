@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
+	xmlns="org.apache.felix.ipojo" xmlns:jmx="org.apache.felix.ipojo.handlers.jmx">
+
+<!-- 	Controller -->
+<!-- 	<instance component="ProsumptionController" name="aggregatorController"> -->
+<!-- 		<property name="actorPath" value="aggregatorController" /> -->
+<!-- 		<property name="period" value="500" /> -->
+<!-- 		<property name="maxConsumption" value="1800" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="prosumer" value="houseAggregator" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
+
+	<!-- Collaboration -->
+	<!-- <instance component="LoadAnalyser" name="loadAnalyser" > -->
+	<!-- <property name="actorPath" value="loadAnalyser" /> -->
+	<!-- <property name="period" value="500" /> -->
+	<!-- <property name="lowThreshold" value="-1000" /> -->
+	<!-- <property name="highThreshold" value="-1800" /> -->
+	<!-- <property name="requires.from"> -->
+	<!-- <property name="prosumer" value="houseAggregator" /> -->
+	<!-- <property name="loadTopic" value="loadTopic" /> -->
+	<!-- </property> -->
+	<!-- </instance> -->
+
+<!-- 	<instance component="Topic" name="loadTopic"> -->
+<!-- 		<property name="topicPath" value="loadTopic" /> -->
+<!-- 	</instance> -->
+
+<!-- Hierarchy -->
+<!-- 	<instance component="LoadHierarch" name="loadHierarch"> -->
+<!-- 		<property name="actorPath" value="loadHierarch" /> -->
+<!-- 		<property name="period" value="500" /> -->
+<!-- 		<property name="highThreshold" value="-1800" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="aggregator" value="houseAggregator" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
+
+
+<!-- 	<instance component="MonolithicHeaterManager" name="heater_kitchen_manager"> -->
+<!-- 		<property name="actorPath" value="kitchen_heater_manager" /> -->
+<!-- 		<property name="period" value="50" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!-- 		<property name="isCollaborative" value="true" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="loadTopic" value="loadTopic" /> -->
+<!-- 			<property name="controller" value="aggregatorController" /> -->
+<!--             <property name="hierarch" value="loadHierarch" /> -->
+<!-- 			<property name="heater" value="heater_kitchen" /> -->
+<!-- 			<property name="room" value="kitchen" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
+
+<!-- 	<instance component="MonolithicHeaterManager" name="heater_bathroom_manager"> -->
+<!-- 		<property name="actorPath" value="bathroom_heater_manager" /> -->
+<!-- 		<property name="period" value="50" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!-- 		<property name="isCollaborative" value="true" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="loadTopic" value="loadTopic" /> -->
+<!-- 			<property name="controller" value="aggregatorController" /> -->
+<!--             <property name="hierarch" value="loadHierarch" /> -->
+<!-- 			<property name="heater" value="heater_bathroom" /> -->
+<!-- 			<property name="room" value="bathroom" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
+
+<!-- 	<instance component="MonolithicHeaterManager" name="heater_room_manager"> -->
+<!-- 		<property name="actorPath" value="room_heater_manager" /> -->
+<!-- 		<property name="period" value="50" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!-- 		<property name="isCollaborative" value="true" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="loadTopic" value="loadTopic" /> -->
+<!-- 			<property name="controller" value="aggregatorController" /> -->
+<!--             <property name="hierarch" value="loadHierarch" /> -->
+<!-- 			<property name="heater" value="heater_room" /> -->
+<!-- 			<property name="room" value="room" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
+
+<!-- 	<instance component="MonolithicHeaterManager" name="heater_livingroom1_manager"> -->
+<!-- 		<property name="actorPath" value="livingroom_heater1_manager" /> -->
+<!-- 		<property name="period" value="50" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!-- 		<property name="isCollaborative" value="true" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="loadTopic" value="loadTopic" /> -->
+<!-- 			<property name="controller" value="aggregatorController" /> -->
+<!--             <property name="hierarch" value="loadHierarch" /> -->
+<!-- 			<property name="heater" value="heater_livingroom1" /> -->
+<!-- 			<property name="room" value="livingroom" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
+
+<!-- 	<instance component="MonolithicHeaterManager" name="heater_livingroom2_manager"> -->
+<!-- 		<property name="actorPath" value="livingroom_heater2_manager" /> -->
+<!-- 		<property name="period" value="50" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!-- 		<property name="isCollaborative" value="true" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="loadTopic" value="loadTopic" /> -->
+<!-- 			<property name="controller" value="aggregatorController" /> -->
+<!--             <property name="hierarch" value="loadHierarch" /> -->
+<!-- 			<property name="heater" value="heater_livingroom2" /> -->
+<!-- 			<property name="room" value="livingroom" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
+
+<!-- 	<instance component="MonolithicHeaterManager" name="heater_entrance_manager"> -->
+<!-- 		<property name="actorPath" value="entrance_heater_manager" /> -->
+<!-- 		<property name="period" value="50" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!-- 		<property name="isCollaborative" value="true" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="loadTopic" value="loadTopic" /> -->
+<!-- 			<property name="controller" value="aggregatorController" /> -->
+<!--             <property name="hierarch" value="loadHierarch" /> -->
+<!-- 			<property name="heater" value="heater_entrance" /> -->
+<!-- 			<property name="room" value="entrance" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
+
+	<!-- <instance component="Topic" name="loadTopic"> -->
+	<!-- <property name="topicPath" value="loadTopic" /> -->
+	<!-- </instance> -->
+
+	<!-- <instance component="SimpleStorageManager" name="storage_MAPE"> -->
+	<!-- <property name="actorPath" value="storage_MAPE" /> -->
+	<!-- <property name="requires.from"> -->
+	<!-- <property name="topic" value="loadTopic" /> -->
+	<!-- <property name="storage" value="storage" /> -->
+	<!-- </property> -->
+	<!-- </instance> -->
+
+	<!-- <instance component="SimpleRoomMonitor" name="room2_MA"> -->
+	<!-- <property name="actorPath" value="room2_MA" /> -->
+	<!-- <property name="period" value="200" /> -->
+	<!-- <property name="requires.from"> -->
+	<!-- <property name="topic" value="topic" /> -->
+	<!-- <property name="room" value="room2" /> -->
+	<!-- </property> -->
+	<!-- </instance> -->
+
+	<!-- <instance component="Topic" name="topic"> -->
+	<!-- <property name="topicPath" value="topic" /> -->
+	<!-- </instance> -->
+
+	<!-- <instance component="PIDHeaterManager" name="heater_PE"> -->
+	<!-- <property name="actorPath" value="heater_PE" /> -->
+	<!-- <property name="requiredTemperature" value="22" /> -->
+	<!-- <property name="requires.from"> -->
+	<!-- <property name="topic" value="topic" /> -->
+	<!-- <property name="controller" value="aggregatorController" /> -->
+	<!-- <property name="heater" value="heater" /> -->
+	<!-- </property> -->
+	<!-- </instance> -->
+
+</ipojo>

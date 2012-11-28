@@ -1,0 +1,1033 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
+   xmlns="org.apache.felix.ipojo" xmlns:jmx="org.apache.felix.ipojo.handlers.jmx">
+
+
+   <instance component="Aggregator" name="houseAggregator">
+      <property name="instance.name" value="houseAggregator" />
+        <property name="actorPath" value="houseAggregator" />
+        <property name="hasRemoteParent" value="true" />
+        <property name="remoteParentURL" value="akka://MisTiGriD@137.194.205.134:4004/user/districtAggregator" />
+   </instance>
+
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!-- FROM HERE ON ARE OBJECTS THAT ARE ATTACHED TO FIRST ARDUINO BOARD ON PORT 0 -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+  
+   <instance component="ArduinoAtmosphere" name="atmosphere">
+      <property name="instance.name" value="atmosphere" />
+      <property name="temperature" value="20" />
+      <property name="period" value="800" />
+      <property name="getCurrentTempCode" value="1" />
+      <property name="arduinoBoardCode" value="0" />
+   </instance>
+   
+   <instance component="ArduinoRoom" name="bedroom1">
+      <property name="instance.name" value="bedroom1" />
+      <property name="temperature" value="24" />
+        <property name="period" value="500" />
+        <property name="getCurrentRoomTempCode" value="2" />
+      <property name="arduinoBoardCode" value="0" />
+   </instance>
+   
+   <instance component="ArduinoRoom" name="bedroom2">
+      <property name="instance.name" value="bedroom2" />
+      <property name="temperature" value="24" />
+        <property name="period" value="600" />
+        <property name="getCurrentRoomTempCode" value="3" />
+      <property name="arduinoBoardCode" value="0" />
+   </instance>
+   
+   <instance component="ArduinoRoom" name="bedroom3">
+      <property name="instance.name" value="bedroom3" />
+      <property name="temperature" value="24" />
+        <property name="period" value="500" />
+        <property name="getCurrentRoomTempCode" value="4" />
+      <property name="arduinoBoardCode" value="0" />
+   </instance>
+   
+   <instance component="ArduinoRoom" name="bathroom">
+      <property name="instance.name" value="bathroom" />
+      <property name="temperature" value="24" />
+        <property name="period" value="500" />
+        <property name="getCurrentRoomTempCode" value="5" />
+      <property name="arduinoBoardCode" value="0" />
+   </instance>
+   
+   <instance component="ArduinoRoom" name="entrance">
+      <property name="instance.name" value="entrance" />
+      <property name="temperature" value="24" />
+        <property name="period" value="500" />
+        <property name="getCurrentRoomTempCode" value="6" />
+      <property name="arduinoBoardCode" value="0" />
+   </instance>
+   
+   <instance component="ArduinoHeater" name="heater_bedroom1">
+        <property name="instance.name" value="heater_bedroom1" />
+        <property name="prosumedPower" value="0" />
+<!--         <property name="heatConductance" value="0.05"/> -->
+        <property name="maxEmissionPower" value="400"/>
+        <property name="setHeatingPowerCode" value="7" />
+      <property name="arduinoBoardCode" value="0" />
+        <property name="requires.from">
+         <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="bedroom1" />
+        </property>
+    </instance>
+    
+       <instance component="ArduinoHeater" name="heater_bedroom2">
+        <property name="instance.name" value="heater_bedroom2" />
+        <property name="prosumedPower" value="0" />
+<!--         <property name="heatConductance" value="0.05"/> -->
+        <property name="maxEmissionPower" value="400"/>
+        <property name="setHeatingPowerCode" value="8" />
+      <property name="arduinoBoardCode" value="0" />
+        <property name="requires.from">
+         <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="bedroom2" />
+        </property>
+    </instance>
+    
+       <instance component="ArduinoHeater" name="heater_bedroom3">
+        <property name="instance.name" value="heater_bedroom3" />
+        <property name="prosumedPower" value="0" />
+<!--         <property name="heatConductance" value="0.05"/> -->
+        <property name="maxEmissionPower" value="400"/>
+        <property name="setHeatingPowerCode" value="9" />
+      <property name="arduinoBoardCode" value="0" />
+        <property name="requires.from">
+         <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="bedroom3" />
+        </property>
+    </instance>
+    
+       <instance component="ArduinoHeater" name="heater_bathroom">
+        <property name="instance.name" value="heater_bathroom" />
+        <property name="prosumedPower" value="0" />
+<!--         <property name="heatConductance" value="0.05"/> -->
+        <property name="maxEmissionPower" value="400"/>
+        <property name="setHeatingPowerCode" value="10" />
+      <property name="arduinoBoardCode" value="0" />
+        <property name="requires.from">
+         <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="bathroom" />
+        </property>
+    </instance>
+    
+       <instance component="ArduinoHeater" name="heater_entrance">
+        <property name="instance.name" value="heater_entrance" />
+        <property name="prosumedPower" value="0" />
+<!--         <property name="heatConductance" value="0.05"/> -->
+        <property name="maxEmissionPower" value="400"/>
+        <property name="setHeatingPowerCode" value="11" />
+      <property name="arduinoBoardCode" value="0" />
+        <property name="requires.from">
+         <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="entrance" />
+        </property>
+    </instance>
+   
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!-- FROM HERE ON ARE OBJECT THAT ARE ATTACHED TO SECOND ARDUINO BOARD ON PORT 1 -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+   <instance component="ArduinoRoom" name="livingRoom1">
+      <property name="instance.name" value="livingRoom1" />
+      <property name="temperature" value="24" />
+        <property name="period" value="600" />
+        <property name="getCurrentRoomTempCode" value="1" />
+      <property name="arduinoBoardCode" value="1" />
+   </instance>
+   
+   <instance component="ArduinoRoom" name="livingRoom2">
+      <property name="instance.name" value="livingRoom2" />
+      <property name="temperature" value="24" />
+        <property name="period" value="600" />
+        <property name="getCurrentRoomTempCode" value="2" />
+      <property name="arduinoBoardCode" value="1" />
+   </instance>
+   
+      <instance component="ArduinoRoom" name="livingRoom">
+      <property name="instance.name" value="livingRoom" />
+      <property name="temperature" value="24" />
+        <property name="period" value="600" />
+        <property name="getCurrentRoomTempCode" value="3" /> 
+      <property name="arduinoBoardCode" value="1" />
+   </instance>
+      
+
+   <instance component="ArduinoRoom" name="kitchen">
+      <property name="instance.name" value="kitchen" />
+      <property name="temperature" value="24" />
+      <property name="period" value="600" />
+        <property name="getCurrentRoomTempCode" value="3" />
+      <property name="arduinoBoardCode" value="1" />
+   </instance>
+   
+   <instance component="ArduinoRoom" name="wc">
+      <property name="instance.name" value="wc" />
+      <property name="temperature" value="24" />
+        <property name="period" value="600" />
+        <property name="getCurrentRoomTempCode" value="4" />
+      <property name="arduinoBoardCode" value="1" />
+   </instance>
+   
+    <instance component="ArduinoLamp" name="lamp_bathroom">
+        <property name="instance.name" value="lamp_bathroom" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="60"/>
+        <property name="getLampPowerCode" value="11" />            
+      <property name="arduinoBoardCode" value="1" />
+        <property name="requires.from">
+            <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="bathroom" />
+         </property>
+    </instance>
+    
+    
+    <instance component="ArduinoLamp" name="lamp_kitchen">
+        <property name="instance.name" value="lamp_kitchen" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="60"/>
+        <property name="getLampPowerCode" value="13" /> 
+        <property name="turnLampOn" value="14" />
+        <property name="turnLampOff" value="15" />           
+      <property name="arduinoBoardCode" value="1" />
+        <property name="requires.from">
+            <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="kitchen" />
+         </property>
+    </instance>
+
+   
+    <instance component="ArduinoHeater" name="heater_livingRoom1">
+        <property name="instance.name" value="heater_livingRoom1" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="400"/>
+        <property name="setHeatingPowerCode" value="5" />
+      <property name="arduinoBoardCode" value="1" />
+        <property name="requires.from">
+         <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="livingRoom1" />
+        </property>
+    </instance>
+   
+    <instance component="ArduinoHeater" name="heater_livingRoom2">
+        <property name="instance.name" value="heater_livingRoom2" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="400"/>
+        <property name="setHeatingPowerCode" value="6" />
+      <property name="arduinoBoardCode" value="1" />
+        <property name="requires.from">
+         <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="livingRoom2" />
+        </property>
+    </instance>
+
+    <instance component="ArduinoHeater" name="heater_kitchen">
+        <property name="instance.name" value="heater_kitchen" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="400"/>
+        <property name="setHeatingPowerCode" value="7" />
+      <property name="arduinoBoardCode" value="1" />
+        <property name="requires.from">
+         <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="kitchen" />
+        </property>
+    </instance>
+
+    <instance component="ArduinoLamp" name="lamp_wc">
+        <property name="instance.name" value="lamp_wc" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="60"/>
+         <property name="getLampPowerCode" value="12" />    
+      <property name="arduinoBoardCode" value="1" />
+        <property name="requires.from">
+            <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="wc" />
+         </property>
+    </instance>
+
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!-- FROM HERE ON ARE OBJECT THAT ARE ATTACHED TO THIRD ARDUINO BOARD ON PORT 2 -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+   
+   
+   <instance component="ArduinoSolarPanel" name="solarPanel">
+      <property name="instance.name" value="solarPanel" />
+        <property name="period" value="1000" />
+      <property name="arduinoSensorBrightness" value="0" />
+      <property name="getCurrentBrightnessCode" value="1" />      
+      <property name="arduinoBoardCode" value="2" />
+      <property name="requires.from">
+         <property name="aggregator" value="houseAggregator" />
+      </property>    
+   </instance> 
+   
+  
+    <instance component="ArduinoLamp" name="lamp_livingRoom1">
+        <property name="instance.name" value="lamp_livingRoom1" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="60"/>
+        <property name="getLampPowerCode" value="2" />          
+      <property name="arduinoBoardCode" value="2" />
+        <property name="requires.from">
+            <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="livingRoom1" />
+         </property>
+    </instance>
+ 
+    <instance component="ArduinoLamp" name="lamp_livingRoom2">
+        <property name="instance.name" value="lamp_livingRoom2" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="60"/>
+        <property name="getLampPowerCode" value="2" />            
+      <property name="arduinoBoardCode" value="2" />
+        <property name="requires.from">
+            <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="livingRoom2" />
+         </property>
+    </instance>
+
+    <instance component="ArduinoLamp" name="lamp_bedroom1">
+        <property name="instance.name" value="lamp_bedroom1" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="60"/>
+        <property name="getLampPowerCode" value="3" />         
+      <property name="arduinoBoardCode" value="2" />
+        <property name="requires.from">
+            <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="bedroom1" />
+         </property>
+    </instance>
+ 
+    <instance component="ArduinoLamp" name="lamp_bedroom2">
+        <property name="instance.name" value="lamp_bedroom2" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="60"/>
+        <property name="getLampPowerCode" value="4" />            
+      <property name="arduinoBoardCode" value="2" />
+        <property name="requires.from">
+            <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="bedroom2" />
+         </property>
+    </instance>
+
+    <instance component="ArduinoLamp" name="lamp_bedroom3">
+        <property name="instance.name" value="lamp_bedroom3" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="60"/>
+        <property name="getLampPowerCode" value="5" />          
+      <property name="arduinoBoardCode" value="2" />
+        <property name="requires.from">
+            <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="bedroom3" />
+         </property>
+    </instance>
+    
+    <instance component="ArduinoLamp" name="lamp_entrance">
+        <property name="instance.name" value="lamp_entrance" />
+        <property name="prosumedPower" value="0" />
+        <property name="maxEmissionPower" value="60"/>
+        <property name="getLampPowerCode" value="6" />         
+      <property name="arduinoBoardCode" value="2" />
+        <property name="requires.from">
+            <property name="aggregator" value="houseAggregator" />
+            <property name="room" value="entrance" />
+         </property>
+    </instance>
+    
+ 
+ 
+ 
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!--                          HEATER MANAGERS                                      -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+
+
+
+	<instance component="ArduinoHeaterManager" name="heater_kitchen_manager">
+		<property name="actorPath" value="kitchen_heater_manager" />
+		<property name="period" value="500" />
+		<property name="requiredTemperature" value="22" />
+		<property name="isCollaborative" value="true" />
+		<property name="requires.from">
+			<property name="loadTopic" value="loadTopic" />
+			<property name="controller" value="aggregatorController" />
+			<property name="hierarch" value="loadHierarch" />
+			<property name="heater" value="heater_kitchen" />
+			<property name="room" value="kitchen" />
+		</property>
+	</instance>
+	
+	<instance component="ArduinoHeaterManager" name="heater_bedroom1_manager">
+		<property name="actorPath" value="bedroom1_heater_manager" />
+		<property name="period" value="500" />
+		<property name="requiredTemperature" value="22" />
+		<property name="isCollaborative" value="true" />
+		<property name="requires.from">
+			<property name="loadTopic" value="loadTopic" />
+			<property name="controller" value="aggregatorController" />
+			<property name="hierarch" value="loadHierarch" />
+			<property name="heater" value="heater_bedroom1" />
+			<property name="room" value="bedroom1" />
+		</property>
+	</instance>
+	
+	<instance component="ArduinoHeaterManager" name="heater_bedroom2_manager">
+		<property name="actorPath" value="bedroom2_heater_manager" />
+		<property name="period" value="500" />
+		<property name="requiredTemperature" value="22" />
+		<property name="isCollaborative" value="true" />
+		<property name="requires.from">
+			<property name="loadTopic" value="loadTopic" />
+			<property name="controller" value="aggregatorController" />
+			<property name="hierarch" value="loadHierarch" />
+			<property name="heater" value="heater_bedroom2" />
+			<property name="room" value="bedroom2" />
+		</property>
+	</instance>
+	
+	<instance component="ArduinoHeaterManager" name="heater_bedroom3_manager">
+		<property name="actorPath" value="bedroom3_heater_manager" />
+		<property name="period" value="500" />
+		<property name="requiredTemperature" value="22" />
+		<property name="isCollaborative" value="true" />
+		<property name="requires.from">
+			<property name="loadTopic" value="loadTopic" />
+			<property name="controller" value="aggregatorController" />
+			<property name="hierarch" value="loadHierarch" />
+			<property name="heater" value="heater_bedroom3" />
+			<property name="room" value="bedroom3" />
+		</property>
+	</instance>
+	
+	<instance component="ArduinoHeaterManager" name="heater_bathroom_manager">
+		<property name="actorPath" value="bathroom_heater_manager" />
+		<property name="period" value="500" />
+		<property name="requiredTemperature" value="22" />
+		<property name="isCollaborative" value="true" />
+		<property name="requires.from">
+			<property name="loadTopic" value="loadTopic" />
+			<property name="controller" value="aggregatorController" />
+			<property name="hierarch" value="loadHierarch" />
+			<property name="heater" value="heater_bathroom" />
+			<property name="room" value="bathroom" />
+		</property>
+	</instance>
+	
+	<instance component="ArduinoHeaterManager" name="heater_entrance_manager">
+		<property name="actorPath" value="entrance_heater_manager" />
+		<property name="period" value="500" />
+		<property name="requiredTemperature" value="22" />
+		<property name="isCollaborative" value="true" />
+		<property name="requires.from">
+			<property name="loadTopic" value="loadTopic" />
+			<property name="controller" value="aggregatorController" />
+			<property name="hierarch" value="loadHierarch" />
+			<property name="heater" value="heater_entrance" />
+			<property name="room" value="entrance" />
+		</property>
+	</instance>
+	
+	<instance component="ArduinoHeaterManager" name="heater_livingRoom1_manager">
+		<property name="actorPath" value="livingRoom1_heater_manager" />
+		<property name="period" value="500" />
+		<property name="requiredTemperature" value="22" />
+		<property name="isCollaborative" value="true" />
+		<property name="requires.from">
+			<property name="loadTopic" value="loadTopic" />
+			<property name="controller" value="aggregatorController" />
+			<property name="hierarch" value="loadHierarch" />
+			<property name="heater" value="heater_livingRoom1" />
+			<property name="room" value="livingRoom1" />
+		</property>
+	</instance>
+	
+	<instance component="ArduinoHeaterManager" name="heater_livingRoom2_manager">
+		<property name="actorPath" value="livingRoom2_heater_manager" />
+		<property name="period" value="500" />
+		<property name="requiredTemperature" value="22" />
+		<property name="isCollaborative" value="true" />
+		<property name="requires.from">
+			<property name="loadTopic" value="loadTopic" />
+			<property name="controller" value="aggregatorController" />
+			<property name="hierarch" value="loadHierarch" />
+			<property name="heater" value="heater_livingRoom2" />
+			<property name="room" value="livingRoom2" />
+		</property>
+	</instance>
+
+
+
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!--                          SERIAL PORTS                                      -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+   <instance component="ArduinoSerialReaderPort0" name="serialReaderport0">
+      <property name="instance.name" value="serialReaderport0" />
+      <property name="portName" value="/dev/ttyACM0" />
+      <property name="requires.from">
+         <property name="room0" value="atmosphere" />            
+            <property name="room1" value="bedroom1" />
+            <property name="room2" value="bedroom2" />
+            <property name="room3" value="bedroom3" />
+            <property name="room4" value="bathroom" />
+            <property name="room5" value="entrance" />
+        </property>
+   </instance>
+
+   <instance component="ArduinoSerialWriterPort0" name="serialWriterport0">
+      <property name="instance.name" value="serialWriterport0" />
+<!--     <property name="hBedroom1" value="7" /> -->
+<!--     <property name="hBedroom2" value="8" /> -->
+<!--     <property name="hBedroom3" value="9" /> -->
+<!--     <property name="hBathroom" value="10" /> -->
+<!--     <property name="hEntrance" value="11" /> -->
+<!--     <property name="requires.from">            -->
+<!--             <property name="heater1" value="heater_bedroom1" /> -->
+<!--             <property name="heater2" value="heater_bedroom2" /> -->
+<!--             <property name="heater3" value="heater_bedroom3" /> -->
+<!--             <property name="heater4" value="heater_bathroom" /> -->
+<!--             <property name="heater5" value="heater_entrance" /> -->
+<!--         </property> -->
+   </instance>
+   
+   <instance component="ArduinoSerialReaderPort1" name="serialReaderport1">
+      <property name="instance.name" value="serialReaderport1" />
+      <property name="portName" value="/dev/ttyACM1" />
+      <property name="requires.from">
+            <property name="room1" value="livingRoom1" />
+            <property name="room2" value="livingRoom2" />
+            <property name="room3" value="kitchen" />
+            <property name="room4" value="wc" />
+            <property name="room5" value="livingRoom" />
+            <property name="lamp1" value="lamp_bathroom" />
+            <property name="lamp2" value="lamp_wc" />
+        </property>
+   </instance>
+
+   <instance component="ArduinoSerialWriterPort1" name="serialWriterport1">
+      <property name="instance.name" value="serialWriterport1" />
+<!--     <property name="hLivingRoom1" value="5" /> -->
+<!--     <property name="hLivingRoom2" value="6" /> -->
+<!--     <property name="hKitchen" value="7" /> -->
+<!--     <property name="requires.from">            -->
+<!--             <property name="heater1" value="heater_livingRoom1" /> -->
+<!--             <property name="heater2" value="heater_livingRoom2" /> -->
+<!--             <property name="heater3" value="heater_kitchen" /> -->
+<!--         </property> -->
+   </instance>
+
+   <instance component="ArduinoSerialReaderPort2" name="serialReaderport2">
+      <property name="instance.name" value="serialReaderport2" />
+      <property name="portName" value="/dev/ttyACM2" />
+      <property name="requires.from">
+         <property name="lamp1" value="lamp_entrance" />
+            <property name="lamp2" value="lamp_livingRoom1" />
+            <property name="lamp3" value="lamp_livingRoom2" />
+            <property name="lamp4" value="lamp_bedroom1" />
+            <property name="lamp5" value="lamp_bedroom2" />
+            <property name="lamp6" value="lamp_bedroom3" />
+            <property name="solarPanel" value="solarPanel" />
+        </property>
+   </instance>
+
+   <instance component="ArduinoSerialWriterPort2" name="serialWriterport2">
+      <property name="instance.name" value="serialWriterport2" />
+   </instance>
+   
+   
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!--                              OTHER                                         -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+
+<!--     <instance component="ArduinoLamp" name="lamp_kitchen"> -->
+<!--         <property name="instance.name" value="lamp_kitchen" /> -->
+<!--         <property name="prosumedPower" value="0" /> -->
+<!--         <property name="maxEmissionPower" value="60"/> -->
+<!--         <property name="getLampPowerCode" value="1" /> -->
+<!--         <property name="requires.from"> -->
+<!--              <property name="aggregator" value="houseAggregator" /> -->
+<!--              <property name="room" value="kitchen" /> -->
+<!--           </property> -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="ArduinoFan" name="fan_kitchen"> -->
+<!--         <property name="instance.name" value="fan_kitchen" /> -->
+<!--         <property name="prosumedPower" value="0" /> -->
+<!--         <property name="maxEmissionPower" value="100"/> -->
+<!--         <property name="getLampPowerCode" value="5" /> -->
+<!--         <property name="requires.from"> -->
+<!--              <property name="aggregator" value="houseAggregator" /> -->
+<!--              <property name="room" value="kitchen" /> -->
+<!--           </property> -->
+<!--     </instance> -->
+      
+   
+<!--  <instance component="ArduinoOpening" name="wall_ke"> -->
+<!--         <property name="instance.name" value="wall_ke" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="3" /> -->
+<!--         <property name="openWindowCode" value="3" /> -->
+<!--         <property name="closeWindowCode" value="4" /> -->
+<!--     </instance> -->
+
+
+
+
+
+
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!--                              LAYOUTS                                       -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+
+
+<instance component="ThermicObjectLayout" name="atmosphereLayout">
+        <property name="x" value="0" />
+        <property name="y" value="0" />
+        <property name="width" value="1350" />
+        <property name="height" value="760" />   
+        <property name="layer" value="1" />       
+        <property name="requires.from">
+            <property name="thermicObject" value="atmosphere" />
+        </property>        
+    </instance>
+    
+    
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!--                                  ROOMS                                     -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+    
+    <instance component="ThermicObjectLayout" name="bedroom1Layout">
+        <property name="x" value="820" />
+        <property name="y" value="400" />
+        <property name="width" value="400" />
+        <property name="height" value="420" />       
+        <property name="layer" value="5" />   
+        <property name="requires.from">
+            <property name="thermicObject" value="bedroom1" />
+        </property>        
+    </instance>
+    
+    <instance component="ThermicObjectLayout" name="bathroomLayout">
+      <property name="x" value="820" />
+        <property name="y" value="220" />
+        <property name="width" value="400" />
+        <property name="height" value="180" />       
+        <property name="layer" value="5" />           
+        <property name="requires.from">
+            <property name="thermicObject" value="bathroom" />
+        </property>        
+    </instance>
+    
+    <instance component="ThermicObjectLayout" name="bedroom2Layout">    
+        <property name="x" value="620" />
+        <property name="y" value="480" />
+        <property name="width" value="200" />
+        <property name="height" value="340" />       
+        <property name="layer" value="5" />       
+        <property name="requires.from">
+            <property name="thermicObject" value="bedroom2" />
+        </property>        
+    </instance>
+    
+    <instance component="ThermicObjectLayout" name="entranceLayout">
+        <property name="x" value="620" />
+        <property name="y" value="20" />
+        <property name="width" value="200" />
+        <property name="height" value="460" />       
+        <property name="layer" value="5" />   
+        <property name="requires.from">
+            <property name="thermicObject" value="entrance" />
+        </property>        
+    </instance>
+    
+    <instance component="ThermicObjectLayout" name="wcLayout">
+        <property name="x" value="540" />
+        <property name="y" value="420" />
+        <property name="width" value="160" />
+        <property name="height" value="200" />       
+        <property name="layer" value="7" />   
+        <property name="requires.from">
+            <property name="thermicObject" value="wc" />
+        </property>        
+    </instance>
+    
+    <instance component="ThermicObjectLayout" name="kitchenLayout">
+        <property name="x" value="20" />
+        <property name="y" value="620" />
+        <property name="width" value="280" />
+        <property name="height" value="200" />       
+        <property name="layer" value="5" />   
+        <property name="requires.from">
+            <property name="thermicObject" value="kitchen" />
+        </property>        
+    </instance>
+    
+    <instance component="ThermicObjectLayout" name="bedroom3Layout">
+        <property name="x" value="300" />
+        <property name="y" value="620" />
+        <property name="width" value="320" />
+        <property name="height" value="200" />       
+        <property name="layer" value="5" />   
+        <property name="requires.from">
+            <property name="thermicObject" value="bedroom3" />
+        </property>        
+    </instance>
+    
+    <instance component="ThermicObjectLayout" name="livingRoomLayout">
+        <property name="x" value="20" />
+        <property name="y" value="20" />
+        <property name="width" value="600" />
+        <property name="height" value="600" />       
+        <property name="layer" value="5" />   
+        <property name="requires.from">
+            <property name="thermicObject" value="livingRoom" />
+        </property>        
+    </instance>
+
+
+    
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!--                          SOLAR PANEL                                       -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+
+    
+            
+    <instance component="ProsumerLayout" name="solarPanelLayout">
+        <property name="x" value="950" />
+        <property name="y" value="50" />
+        <property name="width" value="100" />
+        <property name="height" value="40" />    
+        <property name="layer" value="10" />       
+        <property name="requires.from">
+            <property name="prosumer" value="solarPanel" />
+        </property>        
+    </instance>
+    
+    
+    
+    
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!--                          LAMPS                                             -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    
+    
+     
+    <instance component="ProsumerLayout" name="lamp_wc_Layout">
+        <property name="x" value="570" />
+        <property name="y" value="480" />
+        <property name="width" value="60" />
+        <property name="height" value="40" />    
+        <property name="layer" value="10" />       
+        <property name="requires.from">
+            <property name="prosumer" value="lamp_wc" />
+        </property>        
+    </instance>
+    
+    <instance component="ProsumerLayout" name="lamp_bathroom_Layout">
+      <property name="x" value="1080" />
+        <property name="y" value="300" />
+        <property name="width" value="60" />
+        <property name="height" value="40" />    
+        <property name="layer" value="10" />       
+        <property name="requires.from">
+            <property name="prosumer" value="lamp_bathroom" />
+        </property>        
+    </instance>
+    
+    <instance component="LampLayout" name="lamp_kitchen_Layout">
+      <property name="x" value="185" />
+        <property name="y" value="670" />
+        <property name="width" value="60" />
+        <property name="height" value="40" />    
+        <property name="layer" value="10" />       
+        <property name="requires.from">
+            <property name="lamp" value="lamp_kitchen" />
+        </property>        
+    </instance>
+    
+    <instance component="ProsumerLayout" name="lamp_bedroom1_Layout">
+      <property name="x" value="1080" />
+        <property name="y" value="600" />
+        <property name="width" value="60" />
+        <property name="height" value="40" />    
+        <property name="layer" value="10" />       
+        <property name="requires.from">
+            <property name="prosumer" value="lamp_bedroom1" />
+        </property>        
+    </instance>
+    
+    <instance component="ProsumerLayout" name="lamp_bedroom2_Layout">
+      <property name="x" value="750" />
+        <property name="y" value="530" />
+        <property name="width" value="60" />
+        <property name="height" value="40" />    
+        <property name="layer" value="10" />       
+        <property name="requires.from">
+            <property name="prosumer" value="lamp_bedroom2" />
+        </property>        
+    </instance>
+
+    <instance component="ProsumerLayout" name="lamp_bedroom3_Layout">
+      <property name="x" value="465" />
+        <property name="y" value="670" />
+        <property name="width" value="60" />
+        <property name="height" value="40" />    
+        <property name="layer" value="10" />       
+        <property name="requires.from">
+            <property name="prosumer" value="lamp_bedroom3" />
+        </property>        
+    </instance>
+
+    <instance component="ProsumerLayout" name="lamp_livingRoom1_Layout">
+      <property name="x" value="60" />
+        <property name="y" value="370" />
+        <property name="width" value="60" />
+        <property name="height" value="40" />    
+        <property name="layer" value="10" />       
+        <property name="requires.from">
+            <property name="prosumer" value="lamp_livingRoom1" />
+        </property>        
+    </instance>
+        
+    <instance component="ProsumerLayout" name="lamp_livingRoom2_Layout">
+      <property name="x" value="170" />
+        <property name="y" value="470" />
+        <property name="width" value="60" />
+        <property name="height" value="40" />    
+        <property name="layer" value="10" />       
+        <property name="requires.from">
+            <property name="prosumer" value="lamp_livingRoom2" />
+        </property>        
+    </instance>    
+    
+    <instance component="ProsumerLayout" name="lamp_entrance_Layout">
+      <property name="x" value="650" />
+        <property name="y" value="300" />
+        <property name="width" value="60" />
+        <property name="height" value="40" />    
+        <property name="layer" value="10" />       
+        <property name="requires.from">
+            <property name="prosumer" value="lamp_entrance" />
+        </property>        
+    </instance>    
+
+    
+    
+    
+      
+    
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<!--                          HEATERS AND MANAGERS                              -->
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+
+
+    <instance component="HeaterLayout" name="heater_bedroom1_Layout">
+        <property name="x" value="860" />
+        <property name="y" value="640" />
+        <property name="width" value="100" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="heater" value="heater_bedroom1" />
+        </property>        
+    </instance>
+    
+    <instance component="HeaterManagerLayout" name="heater_bedroom1_manager_Layout">
+        <property name="x" value="860" />
+        <property name="y" value="590" />
+        <property name="width" value="100" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="manager" value="heater_bedroom1_manager" />
+            <property name="room" value="bedroom1" />
+        </property>        
+    </instance>
+    
+    
+        <instance component="HeaterLayout" name="heater_bedroom2_Layout">
+        <property name="x" value="660" />
+        <property name="y" value="680" />
+        <property name="width" value="100" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="heater" value="heater_bedroom2" />
+        </property>        
+    </instance>
+    <instance component="HeaterManagerLayout" name="heater_bedroom2_manager_Layout">
+        <property name="x" value="660" />
+        <property name="y" value="630" />
+        <property name="width" value="100" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="manager" value="heater_bedroom2_manager" />
+            <property name="room" value="bedroom2" />
+        </property>        
+    </instance>
+    
+    
+        <instance component="HeaterLayout" name="heater_bedroom3_Layout">
+        <property name="x" value="340" />
+        <property name="y" value="680" />
+        <property name="width" value="110" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="heater" value="heater_bedroom3" />
+        </property>        
+    </instance>
+    <instance component="HeaterManagerLayout" name="heater_bedroom3_manager_Layout">
+        <property name="x" value="340" />
+        <property name="y" value="630" />
+        <property name="width" value="110" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="manager" value="heater_bedroom3_manager" />
+            <property name="room" value="bedroom3" />
+        </property>        
+    </instance>
+    
+    
+        <instance component="HeaterLayout" name="heater_bathroom_Layout">
+        <property name="x" value="860" />
+        <property name="y" value="320" />
+        <property name="width" value="110" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="heater" value="heater_bathroom" />
+        </property>        
+    </instance>
+    <instance component="HeaterManagerLayout" name="heater_bathroom_manager_Layout">
+        <property name="x" value="860" />
+        <property name="y" value="270" />
+        <property name="width" value="110" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="manager" value="heater_bathroom_manager" />
+            <property name="room" value="bathroom" />
+        </property>        
+    </instance>
+    
+    
+        <instance component="HeaterLayout" name="heater_entrance_Layout">
+        <property name="x" value="680" />
+        <property name="y" value="220" />
+        <property name="width" value="110" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="heater" value="heater_entrance" />
+        </property>        
+    </instance>
+    <instance component="HeaterManagerLayout" name="heater_entrance_manager_Layout">
+        <property name="x" value="680" />
+        <property name="y" value="170" />
+        <property name="width" value="110" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="manager" value="heater_entrance_manager" />
+            <property name="room" value="entrance" />
+        </property>        
+    </instance>
+    
+                
+    <instance component="HeaterLayout" name="heater_livingroom1_Layout">
+        <property name="x" value="60" />
+        <property name="y" value="220" />
+        <property name="width" value="125" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="heater" value="heater_livingRoom1" />
+        </property>        
+    </instance>
+
+
+    <instance component="HeaterManagerLayout" name="heater_livingroom1_manager_Layout">
+        <property name="x" value="60" />
+        <property name="y" value="170" />
+        <property name="width" value="125" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="manager" value="heater_livingRoom1_manager" />
+            <property name="room" value="livingRoom1" />
+        </property>        
+    </instance>
+         
+                
+<instance component="HeaterLayout" name="heater_livingroom2_Layout">
+        <property name="x" value="460" />
+        <property name="y" value="360" />
+        <property name="width" value="125" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="heater" value="heater_livingRoom2" />
+        </property>        
+    </instance>
+
+
+    <instance component="HeaterManagerLayout" name="heater_livingroom2_manager_Layout">
+        <property name="x" value="460" />
+        <property name="y" value="310" />
+        <property name="width" value="125" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="manager" value="heater_livingRoom2_manager" />
+            <property name="room" value="livingRoom2" />
+        </property>        
+    </instance>
+    
+    <instance component="HeaterLayout" name="heater_kitchen_Layout">
+        <property name="x" value="60" />
+        <property name="y" value="680" />
+        <property name="width" value="110" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="heater" value="heater_kitchen" />
+        </property>        
+    </instance>
+    <instance component="HeaterManagerLayout" name="heater_kitchen_manager_Layout">
+        <property name="x" value="60" />
+        <property name="y" value="630" />
+        <property name="width" value="110" />
+        <property name="height" value="50" />    
+        <property name="layer" value="10" />      
+        <property name="requires.from">
+            <property name="manager" value="heater_kitchen_manager" />
+            <property name="room" value="kitchen" />
+        </property>        
+    </instance>
+  
+
+</ipojo>

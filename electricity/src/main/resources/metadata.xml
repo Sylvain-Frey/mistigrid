@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
+	xmlns="org.apache.felix.ipojo" xmlns:jmx="org.apache.felix.ipojo.handlers.jmx">
+
+	    
+<!-- 	<instance component="Aggregator" name="houseAggregator"> -->
+<!-- 		<property name="instance.name" value="houseAggregator" /> -->
+<!--         <property name="actorPath" value="houseAggregator" /> -->
+<!--         <property name="hasRemoteParent" value="false" /> -->
+<!--         <property name="remoteParentURL" value="!!_TO_BE_FIXED_!!akka://grid@127.0.0.1:2563/user/districtAggregator" /> -->
+<!-- 	</instance> -->
+
+<!-- 	<instance component="SolarPanel" name="solarPanel"> -->
+<!-- 		<property name="instance.name" value="solarPanel" /> -->
+<!-- 		<property name="maximalProducedPower" value="1000" /> -->
+<!--         <property name="period" value="50" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="aggregator" value="houseAggregator" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
+
+<!--     <instance component="SimpleStorage" name="storage"> -->
+<!--         <property name="instance.name" value="storage" /> -->
+<!--         <property name="MAX_LOAD" value="-1000" /> -->
+<!--         <property name="MAX_POWER_IN" value="-100" /> -->
+<!--         <property name="MAX_POWER_OUT" value="100" /> -->
+<!--         <property name="period" value="50" /> -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="aggregator" value="houseAggregator" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+
+</ipojo>

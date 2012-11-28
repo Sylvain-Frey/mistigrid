@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
+	xmlns="org.apache.felix.ipojo" xmlns:jmx="org.apache.felix.ipojo.handlers.jmx">
+    
+<!--     <instance component="ThermicObjectLayout" name="atmosphere_layout"> -->
+<!--         <property name="x" value="0" /> -->
+<!--         <property name="y" value="0" /> -->
+<!--         <property name="width" value="1000" /> -->
+<!--         <property name="height" value="1000" />    -->
+<!--         <property name="layer" value="1" />        -->
+<!--         <property name="period" value="200" />  -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="atmosphere" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="ThermicObjectLayout" name="kitchen_layout"> -->
+<!--         <property name="x" value="50" /> -->
+<!--         <property name="y" value="50" /> -->
+<!--         <property name="width" value="300" /> -->
+<!--         <property name="height" value="400" />        -->
+<!--         <property name="layer" value="5" />    -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="kitchen" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="ThermicObjectLayout" name="bathroom_layout"> -->
+<!--         <property name="x" value="350" /> -->
+<!--         <property name="y" value="50" /> -->
+<!--         <property name="width" value="200" /> -->
+<!--         <property name="height" value="300" />    -->
+<!--         <property name="layer" value="5" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="bathroom" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="ThermicObjectLayout" name="room_layout"> -->
+<!--         <property name="x" value="550" /> -->
+<!--         <property name="y" value="50" /> -->
+<!--         <property name="width" value="400" /> -->
+<!--         <property name="height" value="500" />    -->
+<!--         <property name="layer" value="5" />        -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="room" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="ThermicObjectLayout" name="livingroom_layout"> -->
+<!--         <property name="x" value="50" /> -->
+<!--         <property name="y" value="550" /> -->
+<!--         <property name="width" value="900" /> -->
+<!--         <property name="height" value="400" />    -->
+<!--         <property name="layer" value="3" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="livingroom" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="ThermicObjectLayout" name="entrance_layout"> -->
+<!--         <property name="x" value="50" /> -->
+<!--         <property name="y" value="450" /> -->
+<!--         <property name="width" value="500" /> -->
+<!--         <property name="height" value="200" />    -->
+<!--         <property name="layer" value="5" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="entrance" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+    
+    
+<!--     <instance component="ThermicObjectLayout" name="wc_layout"> -->
+<!--         <property name="x" value="350" /> -->
+<!--         <property name="y" value="350" /> -->
+<!--         <property name="width" value="200" /> -->
+<!--         <property name="height" value="100" />    -->
+<!--         <property name="layer" value="5" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="thermicObject" value="wc" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+    
+    
+    
+    
+    
+<!--     <instance component="HeaterLayout" name="heater_kitchen_layout"> -->
+<!--         <property name="x" value="50" /> -->
+<!--         <property name="y" value="250" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_kitchen" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+<!--     <instance component="HeaterManagerLayout" name="heater_kitchen_manager_layout"> -->
+<!--         <property name="x" value="50" /> -->
+<!--         <property name="y" value="200" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_kitchen_manager" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+<!--     <instance component="HeaterLayout" name="heater_bathroom_layout"> -->
+<!--         <property name="x" value="350" /> -->
+<!--         <property name="y" value="250" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_bathroom" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+<!--     <instance component="HeaterManagerLayout" name="heater_bathroom_manager_layout"> -->
+<!--         <property name="x" value="350" /> -->
+<!--         <property name="y" value="200" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_bathroom_manager" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+                
+<!--     <instance component="HeaterLayout" name="heater_room_layout"> -->
+<!--         <property name="x" value="750" /> -->
+<!--         <property name="y" value="450" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_room" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+<!--     <instance component="HeaterManagerLayout" name="heater_room_manager_layout"> -->
+<!--         <property name="x" value="750" /> -->
+<!--         <property name="y" value="400" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_room_manager" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+                
+<!--     <instance component="HeaterLayout" name="heater_livingroom1_layout"> -->
+<!--         <property name="x" value="850" /> -->
+<!--         <property name="y" value="650" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_livingroom1" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+<!--     <instance component="HeaterManagerLayout" name="heater_livingroom1_manager_layout"> -->
+<!--         <property name="x" value="850" /> -->
+<!--         <property name="y" value="600" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_livingroom1_manager" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+                
+<!--     <instance component="HeaterLayout" name="heater_livingroom2_layout"> -->
+<!--         <property name="x" value="350" /> -->
+<!--         <property name="y" value="850" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_livingroom2" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+<!--     <instance component="HeaterManagerLayout" name="heater_livingroom2_manager_layout"> -->
+<!--         <property name="x" value="350" /> -->
+<!--         <property name="y" value="800" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_livingroom2_manager" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+                
+<!--     <instance component="HeaterLayout" name="heater_entrance_layout"> -->
+<!--         <property name="x" value="450" /> -->
+<!--         <property name="y" value="550" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="heater" value="heater_entrance" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+<!--     <instance component="HeaterManagerLayout" name="heater_entrance_manager_layout"> -->
+<!--         <property name="x" value="450" /> -->
+<!--         <property name="y" value="500" /> -->
+<!--         <property name="width" value="90" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_entrance_manager" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+            
+            
+<!--     <instance component="WallLayout" name="wall_br_layout"> -->
+<!--         <property name="x" value="540" /> -->
+<!--         <property name="y" value="250" /> -->
+<!--         <property name="width" value="20" /> -->
+<!--         <property name="height" value="80" />     -->
+<!--         <property name="layer" value="6" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_br" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+<!--     <instance component="WallLayout" name="wall_er_layout"> -->
+<!--         <property name="x" value="540" /> -->
+<!--         <property name="y" value="460" /> -->
+<!--         <property name="width" value="20" /> -->
+<!--         <property name="height" value="80" />     -->
+<!--         <property name="layer" value="6" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_er" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+<!--     <instance component="WallLayout" name="wall_els_layout"> -->
+<!--         <property name="x" value="250" /> -->
+<!--         <property name="y" value="640" /> -->
+<!--         <property name="width" value="80" /> -->
+<!--         <property name="height" value="20" />     -->
+<!--         <property name="layer" value="6" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_els" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+<!--     <instance component="WallLayout" name="wall_ae_layout"> -->
+<!--         <property name="x" value="40" /> -->
+<!--         <property name="y" value="550" /> -->
+<!--         <property name="width" value="20" /> -->
+<!--         <property name="height" value="80" />     -->
+<!--         <property name="layer" value="6" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_ae" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+<!--     <instance component="WallLayout" name="wall_ke_layout"> -->
+<!--         <property name="x" value="160" /> -->
+<!--         <property name="y" value="440" /> -->
+<!--         <property name="width" value="80" /> -->
+<!--         <property name="height" value="20" />     -->
+<!--         <property name="layer" value="6" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_ke" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+            
+<!--     <instance component="WallLayout" name="wall_we_layout"> -->
+<!--         <property name="x" value="360" /> -->
+<!--         <property name="y" value="440" /> -->
+<!--         <property name="width" value="80" /> -->
+<!--         <property name="height" value="20" />     -->
+<!--         <property name="layer" value="6" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="opening" value="wall_we" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
+    
+    
+
+</ipojo>

@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
+	xmlns="org.apache.felix.ipojo" xmlns:jmx="org.apache.felix.ipojo.handlers.jmx">
+
+<!-- 	<instance component="Atmosphere" name="atmosphere"> -->
+<!-- 		<property name="instance.name" value="atmosphere" /> -->
+<!-- 		<property name="temperature" value="20" /> -->
+<!-- 		<property name="minTemperature" value="12" /> -->
+<!-- 		<property name="maxTemperature" value="22" /> -->
+<!--         <property name="period" value="50" /> -->
+<!-- 	</instance> -->
+	
+
+<!-- 	<instance component="Wall" name="wall_akn"> -->
+<!-- 		<property name="instance.name" value="wall_akn" /> -->
+<!-- 		<property name="surfacicHeatConductance" value="0.01" /> -->
+<!-- 		<property name="isOpen" value="false" /> -->
+<!-- 		<property name="openHeatConductance" value="0.05" /> -->
+<!-- 		<property name="size" value="3" /> -->
+<!-- 		<property name="requires.filters"> -->
+<!-- 			<property name="thermicNeighbours" -->
+<!-- 				value="(| -->
+<!--                 (instance.name=atmosphere) -->
+<!-- 				(instance.name=kitchen))" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
+
+<!--     <instance component="Wall" name="wall_ab"> -->
+<!--         <property name="instance.name" value="wall_ab" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="2" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=atmosphere) -->
+<!--                 (instance.name=bathroom))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+<!--     <instance component="Wall" name="wall_arn"> -->
+<!--         <property name="instance.name" value="wall_arn" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="4" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=atmosphere) -->
+<!--                 (instance.name=room))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+<!--     <instance component="Wall" name="wall_rae"> -->
+<!--         <property name="instance.name" value="wall_rae" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="5" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=atmosphere) -->
+<!--                 (instance.name=room))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="Wall" name="wall_lae"> -->
+<!--         <property name="instance.name" value="wall_lae" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="4" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=atmosphere) -->
+<!--                 (instance.name=livingroom))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+
+    
+<!--     <instance component="Wall" name="wall_las"> -->
+<!--         <property name="instance.name" value="wall_las" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="9" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=atmosphere) -->
+<!--                 (instance.name=livingroom))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+<!--     <instance component="Wall" name="wall_alw"> -->
+<!--         <property name="instance.name" value="wall_alw" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="3" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=atmosphere) -->
+<!--                 (instance.name=livingroom))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+
+
+    
+<!--     <instance component="Wall" name="wall_ae"> -->
+<!--         <property name="instance.name" value="wall_ae" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="2" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=atmosphere) -->
+<!--                 (instance.name=livingroom))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+
+    
+<!--     <instance component="Wall" name="wall_akw"> -->
+<!--         <property name="instance.name" value="wall_akw" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="4" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=atmosphere) -->
+<!--                 (instance.name=kitchen))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+
+    
+<!--     <instance component="Wall" name="wall_kb"> -->
+<!--         <property name="instance.name" value="wall_kb" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="3" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=kitchen) -->
+<!--                 (instance.name=bathroom))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+        
+<!--     <instance component="Wall" name="wall_br"> -->
+<!--         <property name="instance.name" value="wall_br" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="3" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=bathroom) -->
+<!--                 (instance.name=room))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+<!--     <instance component="Wall" name="wall_rl"> -->
+<!--         <property name="instance.name" value="wall_rl" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="4" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=room) -->
+<!--                 (instance.name=livingroom))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+<!--     <instance component="Wall" name="wall_er"> -->
+<!--         <property name="instance.name" value="wall_er" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="1" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=entrance) -->
+<!--                 (instance.name=room))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+<!--     <instance component="Wall" name="wall_ele"> -->
+<!--         <property name="instance.name" value="wall_ele" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="1" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=entrance) -->
+<!--                 (instance.name=livingroom))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+<!--     <instance component="Wall" name="wall_els"> -->
+<!--         <property name="instance.name" value="wall_els" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="5" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=entrance) -->
+<!--                 (instance.name=livingroom))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="Wall" name="wall_ke"> -->
+<!--         <property name="instance.name" value="wall_ke" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="3" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=kitchen) -->
+<!--                 (instance.name=entrance))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="Wall" name="wall_kw"> -->
+<!--         <property name="instance.name" value="wall_kw" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="1" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=kitchen) -->
+<!--                 (instance.name=wc))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="Wall" name="wall_bw"> -->
+<!--         <property name="instance.name" value="wall_bw" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="2" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=bathroom) -->
+<!--                 (instance.name=wc))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="Wall" name="wall_wr"> -->
+<!--         <property name="instance.name" value="wall_wr" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="1" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=wc) -->
+<!--                 (instance.name=room))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="Wall" name="wall_we"> -->
+<!--         <property name="instance.name" value="wall_we" /> -->
+<!--         <property name="surfacicHeatConductance" value="0.01" /> -->
+<!--         <property name="isOpen" value="false" /> -->
+<!--         <property name="openHeatConductance" value="0.05" /> -->
+<!--         <property name="size" value="2" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="thermicNeighbours" -->
+<!--                 value="(| -->
+<!--                 (instance.name=wc) -->
+<!--                 (instance.name=entrance))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+    
+    
+    
+    
+    
+<!-- 	<instance component="ThermicObject" name="kitchen"> -->
+<!-- 		<property name="instance.name" value="kitchen" /> -->
+<!-- 		<property name="temperature" value="24" /> -->
+<!-- 		<property name="heatCapacity" value="12" /> -->
+<!--         <property name="period" value="50" /> -->
+<!-- 		<property name="requires.filters"> -->
+<!-- 			<property name="walls" -->
+<!-- 				value="(| -->
+<!-- 				(instance.name=wall_akw) -->
+<!-- 				(instance.name=wall_akn) -->
+<!-- 				(instance.name=wall_kb) -->
+<!-- 				(instance.name=wall_kw) -->
+<!--                 (instance.name=wall_ke) -->
+<!-- 				(instance.name=heater_kitchen))" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
+	
+	
+<!--     <instance component="ThermicObject" name="bathroom"> -->
+<!--         <property name="instance.name" value="bathroom" /> -->
+<!--         <property name="temperature" value="24" /> -->
+<!--         <property name="heatCapacity" value="6" /> -->
+<!--         <property name="period" value="50" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="walls" -->
+<!--                 value="(| -->
+<!--                 (instance.name=wall_ab) -->
+<!--                 (instance.name=wall_br) -->
+<!--                 (instance.name=wall_bw) -->
+<!--                 (instance.name=wall_kb) -->
+<!--                 (instance.name=heater_bathroom))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+    
+<!--     <instance component="ThermicObject" name="room"> -->
+<!--         <property name="instance.name" value="room" /> -->
+<!--         <property name="temperature" value="24" /> -->
+<!--         <property name="heatCapacity" value="20" /> -->
+<!--         <property name="period" value="50" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="walls" -->
+<!--                 value="(| -->
+<!--                 (instance.name=wall_arn) -->
+<!--                 (instance.name=wall_rae) -->
+<!--                 (instance.name=wall_rl) -->
+<!--                 (instance.name=wall_er) -->
+<!--                 (instance.name=wall_wr) -->
+<!--                 (instance.name=wall_br) -->
+<!--                 (instance.name=heater_room))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+
+
+<!--     <instance component="ThermicObject" name="livingroom"> -->
+<!--         <property name="instance.name" value="livingroom" /> -->
+<!--         <property name="temperature" value="24" /> -->
+<!--         <property name="heatCapacity" value="31" /> -->
+<!--         <property name="period" value="50" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="walls" -->
+<!--                 value="(| -->
+<!--                 (instance.name=wall_els) -->
+<!--                 (instance.name=wall_ele) -->
+<!--                 (instance.name=wall_rl) -->
+<!--                 (instance.name=wall_lae) -->
+<!--                 (instance.name=wall_las) -->
+<!--                 (instance.name=wall_alw) -->
+<!--                 (instance.name=heater_livingroom1) -->
+<!--                 (instance.name=heater_livingroom2))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+    
+    
+<!--     <instance component="ThermicObject" name="entrance"> -->
+<!--         <property name="instance.name" value="entrance" /> -->
+<!--         <property name="temperature" value="24" /> -->
+<!--         <property name="heatCapacity" value="10" /> -->
+<!--         <property name="period" value="50" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="walls" -->
+<!--                 value="(| -->
+<!--                 (instance.name=wall_ke) -->
+<!--                 (instance.name=wall_we) -->
+<!--                 (instance.name=wall_er) -->
+<!--                 (instance.name=wall_ele) -->
+<!--                 (instance.name=wall_els) -->
+<!--                 (instance.name=wall_ae) -->
+<!--                 (instance.name=heater_entrance))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+    
+    
+<!--     <instance component="ThermicObject" name="wc"> -->
+<!--         <property name="instance.name" value="wc" /> -->
+<!--         <property name="temperature" value="24" /> -->
+<!--         <property name="heatCapacity" value="2" /> -->
+<!--         <property name="period" value="50" /> -->
+<!--         <property name="requires.filters"> -->
+<!--             <property name="walls" -->
+<!--                 value="(| -->
+<!--                 (instance.name=wall_bw) -->
+<!--                 (instance.name=wall_wr) -->
+<!--                 (instance.name=wall_we) -->
+<!--                 (instance.name=wall_kw))" /> -->
+<!--         </property> -->
+<!--     </instance> -->
+    
+    
+</ipojo>

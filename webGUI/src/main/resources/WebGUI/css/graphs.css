@@ -1,0 +1,14 @@
+#separator {
+    position: relative;
+    height: 30px;
+    float: left;
+    clear: both;
+}
+
+#graphContainer {
+    height: 1000px;
+    width: 100%;
+    position: relative;
+    float: left;
+    clear: left;
+}
