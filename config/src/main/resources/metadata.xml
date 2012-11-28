@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
+	xmlns="org.apache.felix.ipojo" xmlns:jmx="org.apache.felix.ipojo.handlers.jmx">
+
+<!-- 	<component classname="fr.tpt.s3.misTiGriD.config.HouseFactoryImpl" immediate="true" > -->
+		
+<!-- 		<provides specifications="fr.tpt.s3.misTiGriD.config.MetaFactory"/> -->
+<!--       <provides specifications="fr.tpt.s3.misTiGriD.config.HouseFactory"/> -->
+      
+<!-- 		<requires aggregate="true"> -->
+<!-- 			<callback type="bind" method="bind" /> -->
+<!-- 			<callback type="unbind" method="unbind" /> -->
+<!-- 		</requires> -->
+		
+<!-- 		<callback transition="validate" method="start"/> -->
+		
+<!-- 	</component> -->
+	
+<!-- 	<component classname="fr.tpt.s3.misTiGriD.config.HouseConfig" immediate="true" > -->
+            
+<!--       <requires aggregate="true"> -->
+<!--          <callback type="bind" method="bindHouseFactory" /> -->
+<!--       </requires> -->
+      
+<!--    </component> -->
+   
+	<instance component="fr.tpt.s3.misTiGriD.config.HouseFactoryImpl" />
+<!--    <instance component="fr.tpt.s3.misTiGriD.config.HouseConfig" /> -->
+
+</ipojo>

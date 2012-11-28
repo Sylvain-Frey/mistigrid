@@ -1,0 +1,66 @@
+Manifest-Version: 1.0
+Export-Package: fr.tpt.s3.misTiGriD.conf;uses:="scala.runtime,scala,sc
+ ala.collection,scala.reflect,scala.collection.immutable,org.apache.fe
+ lix.ipojo,scala.collection.mutable,org.osgi.framework,org.apache.feli
+ x.ipojo.annotations,scala.collection.generic"
+iPOJO-Components: instance { $component="fr.tpt.s3.misTiGriD.config.Ho
+ useFactoryImpl" }component { $name="fr.tpt.s3.misTiGriD.conf.HouseFac
+ toryImpl" $classname="fr.tpt.s3.misTiGriD.conf.HouseFactoryImpl" $pub
+ lic="true" callback { $transition="validate" $method="start" }provide
+ s { $specifications="{fr.tpt.s3.misTiGriD.conf.HouseFactory}" }manipu
+ lation { field { $name="factorables" $type="java.util.HashMap" }field
+  { $name="factories" $type="java.util.HashMap" }field { $name="factRe
+ fs" $type="org.osgi.framework.ServiceReference[]" }method { $name="fa
+ ctories" $return="java.util.HashMap" }method { $name="factRefs" $retu
+ rn="org.osgi.framework.ServiceReference[]" }method { $arguments="{org
+ .osgi.framework.ServiceReference[]}" $name="factRefs_$eq" }method { $
+ name="factorables" $return="java.util.HashMap" }method { $arguments="
+ {org.apache.felix.ipojo.Factory}" $name="bind" }method { $arguments="
+ {org.apache.felix.ipojo.Factory}" $name="unbind" }method { $arguments
+ ="{java.lang.String,scala.collection.Seq}" $name="spawn" }method { $a
+ rguments="{java.util.List}" $name="parse" $return="java.util.Dictiona
+ ry" }method { $arguments="{scala.collection.Seq}" $name="$amp" $retur
+ n="java.util.List" }method { $name="start" }method { $arguments="{fr.
+ tpt.s3.misTiGriD.conf.Atmosphere,scala.collection.immutable.Map,scala
+ .collection.immutable.Map,scala.collection.immutable.Map,scala.collec
+ tion.immutable.Map,scala.collection.immutable.Map,scala.collection.im
+ mutable.Map}" $name="make" }method { $arguments="{java.lang.String,fr
+ .tpt.s3.misTiGriD.conf.TH}" $name="makeTH" }method { $arguments="{jav
+ a.lang.String,fr.tpt.s3.misTiGriD.conf.Wall}" $name="makeWall" }metho
+ d { $arguments="{java.lang.String,fr.tpt.s3.misTiGriD.conf.Heater}" $
+ name="makeHeater" }method { $arguments="{java.lang.String,fr.tpt.s3.m
+ isTiGriD.conf.HeaterManager}" $name="makeHeaterManager" }method { $ar
+ guments="{java.lang.String,fr.tpt.s3.misTiGriD.conf.Dim,java.lang.Str
+ ing}" $name="makeTOLayout" }method { $arguments="{java.lang.String,fr
+ .tpt.s3.misTiGriD.conf.Dim,java.lang.String}" $name="makeWallLayout" 
+ }method { $arguments="{java.lang.String,fr.tpt.s3.misTiGriD.conf.Dim,
+ java.lang.String}" $name="makeHeaterLayout" }method { $arguments="{ja
+ va.lang.String,fr.tpt.s3.misTiGriD.conf.Dim,java.lang.String}" $name=
+ "makeHeaterManagerLayout" }method { $arguments="{java.lang.String,jav
+ a.lang.String}" $name="makeTOView" }method { $arguments="{java.lang.S
+ tring,java.lang.String}" $name="makeHeaterView" }method { $arguments=
+ "{java.lang.String,java.lang.String,java.lang.String}" $name="makeHea
+ terManagerView" }method { $arguments="{java.lang.String,java.lang.Str
+ ing}" $name="makeWallView" }method { $name="$init" }interface { $name
+ ="fr.tpt.s3.misTiGriD.conf.HouseFactory" }interface { $name="scala.Sc
+ alaObject" }}requires { $id="" $aggregate="true" callback { $method="
+ bind" $type="bind" }callback { $method="unbind" $type="unbind" }}}ins
+ tance { $component="fr.tpt.s3.misTiGriD.conf.HouseFactoryImpl" }
+Built-By: syl
+Tool: Bnd-0.0.357
+Bundle-Name: Micro_Smart_Grid_config
+Created-By: Apache Maven Bundle Plugin & iPOJO  1.6.0
+Bundle-Version: 1.0
+Build-Jdk: 1.7.0
+Bnd-LastModified: 1340803215615
+Bundle-ManifestVersion: 2
+Import-Package: scala.collection;version="[2.8.1,2.8.1]", scala.collec
+ tion.immutable;version="[2.8.1,2.8.1]", scala.collection.mutable;vers
+ ion="[2.8.1,2.8.1]", org.apache.felix.ipojo;version=1.6, fr.tpt.s3.mi
+ sTiGriD.conf, scala.runtime;version="[2.8.1,2.8.1]", scala;version="[
+ 2.8.1,2.8.1]", org.osgi.service.log;version=1.3, org.apache.felix.ipo
+ jo.architecture;version= 1.6.0, scala.reflect;version="[2.8.1,2.8.1]"
+ , org.osgi.framework;version=1.5, org.apache.felix.ipojo.annotations,
+ org.osgi.service.cm;version=1.2, scala.collection.generic;version="[2
+ .8.1,2.8.1]"
+Bundle-SymbolicName: Micro_Smart_Grid_config
