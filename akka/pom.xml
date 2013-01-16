@@ -17,104 +17,61 @@
 	<packaging>bundle</packaging>
 
 	<repositories>
-		<repository>
-			<id>typesafe</id>
-			<name>Typesafe Repository</name>
-			<url>http://repo.typesafe.com/typesafe/releases/</url>
-		</repository>
+      <repository>
+         <id>akka.repository</id>
+         <name>Akka Maven Repository</name>
+         <url>http://akka.io/repository</url>
+      </repository>
 	</repositories>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.scala-lang</groupId>
-			<artifactId>scala-library</artifactId>
-			<version>2.9.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.core</artifactId>
-			<version>4.2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.typesafe.akka</groupId>
-			<artifactId>akka-actor</artifactId>
-			<version>2.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/akka/akka-actor-2.0.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.typesafe.akka</groupId>
-			<artifactId>akka-remote</artifactId>
-			<version>2.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/akka/akka-remote-2.0.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.google</groupId>
-			<artifactId>protobuf</artifactId>
-			<version>2.4.1</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/akka/protobuf-java-2.4.1.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>sjson</groupId>
-			<artifactId>sjson.json</artifactId>
-			<version>2.9.1-0.15</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/akka/sjson_2.9.1-0.15.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>dispatchjson</groupId>
-			<artifactId>dispatch.json</artifactId>
-			<version>2.9.1-0.8.5</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/akka/dispatch-json_2.9.1-0.8.5.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>h2</groupId>
-			<artifactId>h2-lzf</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/akka/h2-lzf-1.0.jar</systemPath>
-		</dependency>
+      <dependency>
+         <groupId>com.typesafe.akka</groupId>
+         <artifactId>akka-remote_2.10</artifactId>
+         <version>2.1.0</version>
+      </dependency>
+      <dependency>
+         <groupId>com.typesafe.akka</groupId>
+         <artifactId>akka-actor_2.10</artifactId>
+         <version>2.1.0</version>
+      </dependency>
+      <dependency>
+         <groupId>org.osgi</groupId>
+         <artifactId>org.osgi.core</artifactId>
+         <version>4.2.0</version>
+      </dependency>
+      <dependency>
+         <groupId>org.uncommons.maths</groupId>
+         <artifactId>uncommons-maths</artifactId>
+         <version>1.2.2a</version>
+      </dependency>
+      <dependency>
+         <groupId>com.google.protobuf</groupId>
+         <artifactId>protobuf-java</artifactId>
+         <version>2.4.1</version>
+      </dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.0.1</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
-						<Bundle-Version>${project.version}</Bundle-Version>
-						<Bundle-Activator>fr.tpt.s3.akka.ActorSystemProviderImpl</Bundle-Activator>
-						<Export-Package>
-							akka.*, com.google.*, com.typesafe.*, fr.tpt.s3.akka.*
-						</Export-Package>
-						<Embed-Dependency>*;scope=system</Embed-Dependency>
-						<DynamicImport-Package>*</DynamicImport-Package> <!-- Evil, but hey. -->
-					</instructions>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-ipojo-plugin</artifactId>
-				<version>1.6.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>ipojo-bundle</goal>
-						</goals>
-						<configuration>
-							<metadata>metadata.xml</metadata>
-							<ignoreAnnotations>true</ignoreAnnotations>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-bundle-plugin</artifactId>
+            <version>2.0.1</version>
+            <extensions>true</extensions>
+            <configuration>
+               <instructions>
+                  <Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
+                  <Bundle-Version>${project.version}</Bundle-Version>
+                  <Bundle-Activator>fr.tpt.s3.akka.ActorSystemProviderImpl</Bundle-Activator>
+                  <Export-Package>
+                     fr.tpt.s3.akka.*,
+                     org.uncommons.maths.*
+                  </Export-Package>
+                  <Embed-Dependency>artifactId=uncommons-maths</Embed-Dependency>
+               </instructions>
+            </configuration>
+         </plugin>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
