@@ -6,31 +6,31 @@
 	</properties>
 
 	<parent>
-		<artifactId>microSmartGridSimulation</artifactId>
-		<groupId>fr.tpt.s3</groupId>
-		<version>1.0</version>
+      <groupId>fr.sylfrey</groupId>
+      <artifactId>misTiGriD</artifactId>
+      <version>1.1</version>
 		<relativePath>../microSmartGridSimulation</relativePath>
 	</parent>
 
-	<artifactId>managementResources</artifactId>
+	<artifactId>misTiGriD_managementResources</artifactId>
 	<name>Micro_Smart_Grid_managementResources</name>
 	<packaging>bundle</packaging>
 
 	<dependencies>
 		<dependency>
-			<groupId>fr.tpt.s3</groupId>
-			<version>1.0</version>
-			<artifactId>appliances</artifactId>
+      <groupId>fr.sylfrey</groupId>
+			<version>1.1</version>
+			<artifactId>misTiGriD_appliances</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>fr.tpt.s3</groupId>
-			<version>1.0</version>
-			<artifactId>temperature</artifactId>
+      <groupId>fr.sylfrey</groupId>
+			<version>1.1</version>
+			<artifactId>misTiGriD_temperature</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>fr.tpt.s3</groupId>
-			<version>1.0</version>
-			<artifactId>framework</artifactId>
+      <groupId>fr.sylfrey</groupId>
+			<version>1.1</version>
+			<artifactId>misTiGriD_framework</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.jmock</groupId>
@@ -66,7 +66,7 @@
 						<Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
                         <Export-Package>
-                            fr.tpt.s3.microSmartGridSimulation.management.*
+                            fr.sylfrey.misTiGriD.management.*
                         </Export-Package>
 					</instructions>
 				</configuration>
