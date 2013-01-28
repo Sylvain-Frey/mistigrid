@@ -1,4 +1,4 @@
-fr.tpt.s3.microSmartGridSimulation.arduino
-fr.tpt.s3.microSmartGridSimulation.arduino.impl
-fr.tpt.s3.microSmartGridSimulation.arduino.management
-fr.tpt.s3.microSmartGridSimulation.arduino.serialConnection
+fr.sylfrey.misTiGriD.arduino
+fr.sylfrey.misTiGriD.arduino.impl
+fr.sylfrey.misTiGriD.arduino.management
+fr.sylfrey.misTiGriD.arduino.serialConnection
