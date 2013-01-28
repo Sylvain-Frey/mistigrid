@@ -1,4 +1,4 @@
-package fr.tpt.s3.iris;
+package fr.sylfrey.iris;
 
 public class NotFoundException extends Exception {
 

@@ -1,4 +1,4 @@
-package fr.tpt.s3.iris.ws;
+package fr.sylfrey.iris.ws;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -8,7 +8,7 @@ import org.apache.felix.ipojo.annotations.Provides;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.http.NamespaceException;
 
-import fr.tpt.s3.iris.IrisProvider;
+import fr.sylfrey.iris.IrisProvider;
 
 @Component
 @Provides

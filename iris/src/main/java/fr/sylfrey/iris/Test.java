@@ -1,4 +1,4 @@
-package fr.tpt.s3.iris;
+package fr.sylfrey.iris;
 
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Invalidate;
@@ -6,7 +6,7 @@ import org.apache.felix.ipojo.annotations.Requires;
 import org.apache.felix.ipojo.annotations.Validate;
 import org.osgi.service.http.NamespaceException;
 
-import fr.tpt.s3.iris.akka.AkkaProvider;
+import fr.sylfrey.iris.akka.AkkaProvider;
 
 
 @Component(immediate=true)

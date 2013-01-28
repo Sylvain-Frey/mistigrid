@@ -1,4 +1,4 @@
-package fr.tpt.s3.iris.webSockets;
+package fr.sylfrey.iris.webSockets;
 
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Requires;
@@ -8,7 +8,7 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.jboss.netty.handler.codec.http.websocketx.WebSocketFrame;
 
-import fr.tpt.s3.iris.NotFoundException;
+import fr.sylfrey.iris.NotFoundException;
 
 @Component(immediate=true)
 //@Instantiate

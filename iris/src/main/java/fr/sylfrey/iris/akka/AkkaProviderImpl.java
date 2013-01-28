@@ -1,4 +1,4 @@
-package fr.tpt.s3.iris.akka;
+package fr.sylfrey.iris.akka;
 
 import org.apache.felix.ipojo.annotations.Bind;
 import org.apache.felix.ipojo.annotations.Component;
@@ -10,8 +10,8 @@ import akka.actor.ActorSystem;
 import akka.actor.TypedActor;
 import akka.actor.TypedProps;
 import akka.japi.Creator;
-import fr.tpt.s3.akka.ActorSystemProvider;
-import fr.tpt.s3.iris.NotFoundException;
+import fr.sylfrey.akka.ActorSystemProvider;
+import fr.sylfrey.iris.NotFoundException;
 
 @Component
 @Provides

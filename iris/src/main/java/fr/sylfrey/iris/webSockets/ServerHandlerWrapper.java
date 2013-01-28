@@ -1,4 +1,4 @@
-package fr.tpt.s3.iris.webSockets;
+package fr.sylfrey.iris.webSockets;
 
 
 import static org.jboss.netty.handler.codec.http.HttpHeaders.isKeepAlive;

@@ -1,4 +1,4 @@
-package fr.tpt.s3.iris;
+package fr.sylfrey.iris;
 
 import org.osgi.service.http.NamespaceException;
 

@@ -1,9 +1,9 @@
-package fr.tpt.s3.iris.webSockets;
+package fr.sylfrey.iris.webSockets;
 
 import org.jboss.netty.channel.Channel;
 import org.osgi.service.http.NamespaceException;
 
-import fr.tpt.s3.iris.NotFoundException;
+import fr.sylfrey.iris.NotFoundException;
 
 public interface WebSocketProvider {
 	

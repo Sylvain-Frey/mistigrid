@@ -1,4 +1,4 @@
-package fr.tpt.s3.iris.webSockets;
+package fr.sylfrey.iris.webSockets;
 
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Requires;

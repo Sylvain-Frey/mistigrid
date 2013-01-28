@@ -1,4 +1,4 @@
-package fr.tpt.s3.iris.webSockets;
+package fr.sylfrey.iris.webSockets;
 
 import static org.jboss.netty.channel.Channels.pipeline;
 
@@ -33,7 +33,7 @@ import org.jboss.netty.handler.codec.http.websocketx.WebSocketVersion;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.http.NamespaceException;
 
-import fr.tpt.s3.iris.NotFoundException;
+import fr.sylfrey.iris.NotFoundException;
 
 @Component
 @Provides

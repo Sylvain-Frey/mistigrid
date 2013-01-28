@@ -1,4 +1,4 @@
-package fr.tpt.s3.iris.jsonrpc;
+package fr.sylfrey.iris.jsonrpc;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -24,7 +24,7 @@ import org.json.rpc.server.JsonRpcServletTransport;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
-import fr.tpt.s3.iris.NotFoundException;
+import fr.sylfrey.iris.NotFoundException;
 
 @Component
 @Provides
