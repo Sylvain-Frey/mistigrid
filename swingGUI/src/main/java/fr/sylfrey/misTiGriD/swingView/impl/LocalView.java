@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.swingView.impl;
+package fr.sylfrey.misTiGriD.swingView.impl;
 
 import java.awt.Dimension;
 
@@ -14,7 +14,7 @@ import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Unbind;
 import org.apache.felix.ipojo.annotations.Validate;
 
-import fr.tpt.s3.microSmartGridSimulation.swingView.SwingView;
+import fr.sylfrey.misTiGriD.swingView.SwingView;
 
 @Component(name="LocalView",immediate=true)
 public class LocalView extends JFrame {

@@ -1,9 +1,9 @@
-package fr.tpt.s3.microSmartGridSimulation.swingView;
+package fr.sylfrey.misTiGriD.swingView;
 
 import java.awt.Component;
 
-import fr.tpt.s3.microSmartGridSimulation.environment.Updatable;
-import fr.tpt.s3.microSmartGridSimulation.layout.Layout;
+import fr.sylfrey.misTiGriD.environment.Updatable;
+import fr.sylfrey.misTiGriD.layout.Layout;
 
 /**
  * Swing wrapper for a Layout.

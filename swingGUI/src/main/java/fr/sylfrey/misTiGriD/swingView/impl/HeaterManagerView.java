@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.swingView.impl;
+package fr.sylfrey.misTiGriD.swingView.impl;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -16,11 +16,11 @@ import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.apache.felix.ipojo.annotations.Validate;
 
-import fr.tpt.s3.microSmartGridSimulation.environment.Updatable;
-import fr.tpt.s3.microSmartGridSimulation.layout.HeaterManagerLayout;
-import fr.tpt.s3.microSmartGridSimulation.layout.Layout;
-import fr.tpt.s3.microSmartGridSimulation.layout.ThermicObjectLayout;
-import fr.tpt.s3.microSmartGridSimulation.swingView.SwingView;
+import fr.sylfrey.misTiGriD.environment.Updatable;
+import fr.sylfrey.misTiGriD.layout.HeaterManagerLayout;
+import fr.sylfrey.misTiGriD.layout.Layout;
+import fr.sylfrey.misTiGriD.layout.ThermicObjectLayout;
+import fr.sylfrey.misTiGriD.swingView.SwingView;
 
 @Component(name="HeaterManagerView")
 @Provides(specifications={SwingView.class, Updatable.class})

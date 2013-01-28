@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.swingView.impl;
+package fr.sylfrey.misTiGriD.swingView.impl;
 
 import javax.swing.BorderFactory;
 import javax.swing.JTextPane;
@@ -12,10 +12,10 @@ import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.apache.felix.ipojo.annotations.Validate;
 
-import fr.tpt.s3.microSmartGridSimulation.environment.Updatable;
-import fr.tpt.s3.microSmartGridSimulation.layout.Layout;
-import fr.tpt.s3.microSmartGridSimulation.layout.ProsumerLayout;
-import fr.tpt.s3.microSmartGridSimulation.swingView.SwingView;
+import fr.sylfrey.misTiGriD.environment.Updatable;
+import fr.sylfrey.misTiGriD.layout.Layout;
+import fr.sylfrey.misTiGriD.layout.ProsumerLayout;
+import fr.sylfrey.misTiGriD.swingView.SwingView;
 
 @Component(name="SolarPanelView",immediate=true)
 @Provides(specifications={SwingView.class, Updatable.class})

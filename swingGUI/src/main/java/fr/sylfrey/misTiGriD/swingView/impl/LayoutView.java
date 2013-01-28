@@ -1,9 +1,9 @@
-package fr.tpt.s3.microSmartGridSimulation.swingView.impl;
+package fr.sylfrey.misTiGriD.swingView.impl;
 
 import java.awt.Component;
 
-import fr.tpt.s3.microSmartGridSimulation.layout.Layout;
-import fr.tpt.s3.microSmartGridSimulation.swingView.SwingView;
+import fr.sylfrey.misTiGriD.layout.Layout;
+import fr.sylfrey.misTiGriD.swingView.SwingView;
 
 public abstract class LayoutView implements SwingView {
 
