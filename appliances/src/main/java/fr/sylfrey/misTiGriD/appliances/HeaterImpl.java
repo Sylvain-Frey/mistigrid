@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.appliances;
+package fr.sylfrey.misTiGriD.appliances;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,11 @@ import org.apache.felix.ipojo.annotations.Requires;
 import org.apache.felix.ipojo.annotations.Unbind;
 import org.apache.felix.ipojo.annotations.Validate;
 
-import fr.tpt.s3.microSmartGridSimulation.electricalGrid.Aggregator;
-import fr.tpt.s3.microSmartGridSimulation.electricalGrid.BlackOut;
-import fr.tpt.s3.microSmartGridSimulation.electricalGrid.Prosumer;
-import fr.tpt.s3.microSmartGridSimulation.temperature.ThermicObject;
-import fr.tpt.s3.microSmartGridSimulation.temperature.Wall;
+import fr.sylfrey.misTiGriD.electricalGrid.Aggregator;
+import fr.sylfrey.misTiGriD.electricalGrid.BlackOut;
+import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
+import fr.sylfrey.misTiGriD.temperature.ThermicObject;
+import fr.sylfrey.misTiGriD.temperature.Wall;
 
 @Component(name="Heater",immediate=true)
 @Provides(specifications={Heater.class,Prosumer.class,Wall.class})

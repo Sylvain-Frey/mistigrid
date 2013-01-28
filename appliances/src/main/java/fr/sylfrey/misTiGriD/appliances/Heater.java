@@ -1,8 +1,8 @@
-package fr.tpt.s3.microSmartGridSimulation.appliances;
+package fr.sylfrey.misTiGriD.appliances;
 
-import fr.tpt.s3.microSmartGridSimulation.electricalGrid.TunableProsumer;
-import fr.tpt.s3.microSmartGridSimulation.temperature.ThermicObject;
-import fr.tpt.s3.microSmartGridSimulation.temperature.Wall;
+import fr.sylfrey.misTiGriD.electricalGrid.TunableProsumer;
+import fr.sylfrey.misTiGriD.temperature.ThermicObject;
+import fr.sylfrey.misTiGriD.temperature.Wall;
 
 /**
  * Describes a heater, that is, a ThermicObject which temperature is determined
