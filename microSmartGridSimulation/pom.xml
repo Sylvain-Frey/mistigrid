@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>fr.tpt.s3</groupId>
-	<artifactId>microSmartGridSimulation</artifactId>
-	<version>1.0</version>
+	<groupId>fr.sylfrey</groupId>
+	<artifactId>misTiGriD</artifactId>
+	<version>1.1</version>
 	<name>Micro Smart Grid Simulation</name>
 	<packaging>pom</packaging>
 
@@ -23,6 +23,8 @@
 <!-- 		<module>../swingGUI</module> -->
 		<module>../webGUI</module>
       <module>../iris</module>
+      <module>../alba</module>
+      <module>../deploy</module>
 	</modules>
 
 	<build>

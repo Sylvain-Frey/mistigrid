@@ -1,0 +1,93 @@
+val spawn = $[HouseFactory].spawn _
+val & = $[HouseFactory].& _
+
+spawn("ProsumptionController",
+    "instance.name" -> "aggregatorController",
+    "actorPath" -> "aggregatorController",
+    "period" -> "500",
+    "maxConsumption" -> "1800",
+    "requires.from" -> &("prosumer" -> "houseAggregator")
+)
+
+spawn("Topic",
+    "instance.name" -> "loadTopic",
+    "topicPath" -> "loadTopic"
+)
+
+spawn("LoadHierarch",
+    "instance.name" -> "loadHierarch",
+    "actorPath" -> "loadHierarch",
+    "period" -> "500",
+    "highThreshold" -> "-2600",
+    "requires.from" -> &("aggregator" -> "houseAggregator")
+)
+
+
+spawn("Lamp",
+    "instance.name" -> "lamp_kitchen",
+    "prosumedPower" -> "0",
+    "maxEmissionPower" -> "400",
+    "requires.from" -> &("aggregator" -> "houseAggregator")
+)
+
+spawn("LampLayout",
+    "instance.name" -> "lamp_kitchen_layout",
+    "x" -> "200",
+    "y" -> "650",
+    "width" -> "60",
+    "height" -> "40",
+    "layer" -> "10",
+    "requires.from" -> &("lamp" -> "lamp_kitchen")    
+)
+
+spawn("Lamp",
+    "instance.name" -> "lamp_visitors_room",
+    "prosumedPower" -> "0",
+    "maxEmissionPower" -> "400",
+    "requires.from" -> &("aggregator" -> "houseAggregator")
+)
+
+spawn("LampLayout",
+    "instance.name" -> "lamp_visitors_room_layout",
+    "x" -> "550",
+    "y" -> "650",
+    "width" -> "60",
+    "height" -> "40",
+    "layer" -> "10",
+    "requires.from" -> &("lamp" -> "lamp_visitors_room")    
+)
+
+spawn("Lamp",
+    "instance.name" -> "lamp_living_1",
+    "prosumedPower" -> "0",
+    "maxEmissionPower" -> "400",
+    "requires.from" -> &("aggregator" -> "houseAggregator")
+)
+
+spawn("LampLayout",
+    "instance.name" -> "lamp_living_1_layout",
+    "x" -> "200",
+    "y" -> "400",
+    "width" -> "60",
+    "height" -> "40",
+    "layer" -> "10",
+    "requires.from" -> &("lamp" -> "lamp_living_1")    
+)
+
+
+spawn("Lamp",
+    "instance.name" -> "lamp_living_2",
+    "prosumedPower" -> "0",
+    "maxEmissionPower" -> "400",
+    "requires.from" -> &("aggregator" -> "houseAggregator")
+)
+
+spawn("LampLayout",
+    "instance.name" -> "lamp_living_2_layout",
+    "x" -> "400",
+    "y" -> "400",
+    "width" -> "60",
+    "height" -> "40",
+    "layer" -> "10",
+    "requires.from" -> &("lamp" -> "lamp_living_2")    
+)
