@@ -1,7 +1,7 @@
-package fr.tpt.s3.microSmartGridSimulation.framework.topic;
+package fr.sylfrey.misTiGriD.framework.topic;
 
-import fr.tpt.s3.microSmartGridSimulation.framework.Consumer;
-import fr.tpt.s3.microSmartGridSimulation.framework.Publisher;
+import fr.sylfrey.misTiGriD.framework.Consumer;
+import fr.sylfrey.misTiGriD.framework.Publisher;
 
 public interface Topic<Message> extends Publisher<Message>, Consumer<Message> {
 

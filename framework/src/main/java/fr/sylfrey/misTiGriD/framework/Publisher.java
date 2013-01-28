@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.framework;
+package fr.sylfrey.misTiGriD.framework;
 
 public interface Publisher<Message> {
 	

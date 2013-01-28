@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.framework.topic;
+package fr.sylfrey.misTiGriD.framework.topic;
 
 import org.apache.felix.ipojo.annotations.Bind;
 import org.apache.felix.ipojo.annotations.Component;
@@ -10,8 +10,8 @@ import org.apache.felix.ipojo.annotations.Validate;
 import akka.actor.ActorSystem;
 import akka.actor.TypedActor;
 import akka.actor.TypedProps;
-import fr.tpt.s3.akka.ActorSystemProvider;
-import fr.tpt.s3.microSmartGridSimulation.framework.ActorContainer;
+import fr.sylfrey.akka.ActorSystemProvider;
+import fr.sylfrey.misTiGriD.framework.ActorContainer;
 
 @Component(name="Topic",immediate=true)
 @Provides(specifications={ActorContainer.class})

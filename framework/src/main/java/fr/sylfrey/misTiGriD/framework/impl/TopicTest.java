@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.framework.impl;
+package fr.sylfrey.misTiGriD.framework.impl;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -7,8 +7,8 @@ import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Invalidate;
 import org.apache.felix.ipojo.annotations.Validate;
 
-import fr.tpt.s3.microSmartGridSimulation.framework.ActorContainer;
-import fr.tpt.s3.microSmartGridSimulation.framework.topic.Topic;
+import fr.sylfrey.misTiGriD.framework.ActorContainer;
+import fr.sylfrey.misTiGriD.framework.topic.Topic;
 
 
 @Component(name="TopicTest", immediate=true)

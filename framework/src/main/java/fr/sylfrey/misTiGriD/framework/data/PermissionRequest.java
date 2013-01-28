@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.framework.data;
+package fr.sylfrey.misTiGriD.framework.data;
 
 import java.io.Serializable;
 

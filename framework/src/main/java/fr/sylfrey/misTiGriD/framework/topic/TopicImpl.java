@@ -1,9 +1,9 @@
-package fr.tpt.s3.microSmartGridSimulation.framework.topic;
+package fr.sylfrey.misTiGriD.framework.topic;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import fr.tpt.s3.microSmartGridSimulation.framework.Consumer;
+import fr.sylfrey.misTiGriD.framework.Consumer;
 
 public class TopicImpl<Msg> implements Topic<Msg> {
 
