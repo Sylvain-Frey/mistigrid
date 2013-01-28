@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.webGUI;
+package fr.sylfrey.misTiGriD.webGUI;
 
 public interface Traces {
 	

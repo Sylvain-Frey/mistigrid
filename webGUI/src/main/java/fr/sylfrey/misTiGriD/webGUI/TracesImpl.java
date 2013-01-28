@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.webGUI;
+package fr.sylfrey.misTiGriD.webGUI;
 
 import java.util.Collection;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -22,11 +22,11 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.actor.UntypedActorFactory;
 import akka.event.EventBus;
-import fr.tpt.s3.akka.ActorSystemProvider;
-import fr.tpt.s3.iris.webSockets.WebSocketHandler;
-import fr.tpt.s3.iris.webSockets.WebSocketProvider;
-import fr.tpt.s3.microSmartGridSimulation.trace.Archiver;
-import fr.tpt.s3.microSmartGridSimulation.trace.ArchiverImpl.ArchiverEvent;
+import fr.sylfrey.akka.ActorSystemProvider;
+import fr.sylfrey.iris.webSockets.WebSocketHandler;
+import fr.sylfrey.iris.webSockets.WebSocketProvider;
+import fr.sylfrey.misTiGriD.trace.Archiver;
+import fr.sylfrey.misTiGriD.trace.ArchiverImpl.ArchiverEvent;
 
 @Component(name="Traces",immediate=true)
 @Provides(specifications= {WebSocketHandler.class})

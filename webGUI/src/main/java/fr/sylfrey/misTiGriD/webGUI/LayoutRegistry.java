@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.webGUI;
+package fr.sylfrey.misTiGriD.webGUI;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,16 +21,16 @@ import org.codehaus.jackson.node.ObjectNode;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
-import fr.tpt.s3.microSmartGridSimulation.framework.ActorContainer;
-import fr.tpt.s3.microSmartGridSimulation.layout.AtmosphereLayout;
-import fr.tpt.s3.microSmartGridSimulation.layout.HeaterLayout;
-import fr.tpt.s3.microSmartGridSimulation.layout.HeaterManagerLayout;
-import fr.tpt.s3.microSmartGridSimulation.layout.LampLayout;
-import fr.tpt.s3.microSmartGridSimulation.layout.Layout;
-import fr.tpt.s3.microSmartGridSimulation.layout.OpeningLayout;
-import fr.tpt.s3.microSmartGridSimulation.layout.ProsumerLayout;
-import fr.tpt.s3.microSmartGridSimulation.layout.ThermicObjectLayout;
-import fr.tpt.s3.microSmartGridSimulation.management.resources.loadHierarch.LoadHierarch;
+import fr.sylfrey.misTiGriD.framework.ActorContainer;
+import fr.sylfrey.misTiGriD.layout.AtmosphereLayout;
+import fr.sylfrey.misTiGriD.layout.HeaterLayout;
+import fr.sylfrey.misTiGriD.layout.HeaterManagerLayout;
+import fr.sylfrey.misTiGriD.layout.LampLayout;
+import fr.sylfrey.misTiGriD.layout.Layout;
+import fr.sylfrey.misTiGriD.layout.OpeningLayout;
+import fr.sylfrey.misTiGriD.layout.ProsumerLayout;
+import fr.sylfrey.misTiGriD.layout.ThermicObjectLayout;
+import fr.sylfrey.misTiGriD.management.resources.loadHierarch.LoadHierarch;
 
 @Component(name="LayoutRegistry",immediate=true)
 //@Instantiate
@@ -39,7 +39,7 @@ public class LayoutRegistry {
 	@Requires
 	public HttpService httpService;
 
-	@Bind(specification="fr.tpt.s3.microSmartGridSimulation.layout.Layout",aggregate=true, optional=true)
+	@Bind(specification="fr.sylfrey.misTiGriD.layout.Layout",aggregate=true, optional=true)
 	public void bind(Layout layout) {
 
 		if (layout instanceof AtmosphereLayout) {
@@ -69,7 +69,7 @@ public class LayoutRegistry {
 
 	}
 
-	@Unbind(specification="fr.tpt.s3.microSmartGridSimulation.layout.Layout",aggregate=true)
+	@Unbind(specification="fr.sylfrey.misTiGriD.layout.Layout",aggregate=true)
 	public void unbind(Layout layout) {
 		
 		if (layout instanceof AtmosphereLayout) {
