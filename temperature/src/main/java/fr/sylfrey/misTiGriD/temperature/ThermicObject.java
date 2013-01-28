@@ -1,6 +1,6 @@
-package fr.tpt.s3.microSmartGridSimulation.temperature;
+package fr.sylfrey.misTiGriD.temperature;
 
-import fr.tpt.s3.microSmartGridSimulation.environment.Namable;
+import fr.sylfrey.misTiGriD.environment.Namable;
 
 /**
  * A thermic object has a temperature and exchanges heat 

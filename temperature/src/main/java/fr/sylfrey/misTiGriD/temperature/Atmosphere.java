@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.temperature;
+package fr.sylfrey.misTiGriD.temperature;
 
 public interface Atmosphere extends ThermicObject {
 

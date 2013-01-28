@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import fr.tpt.s3.microSmartGridSimulation.temperature.ThermicObject;
-import fr.tpt.s3.microSmartGridSimulation.temperature.impl.ThermicObjectImpl;
-import fr.tpt.s3.microSmartGridSimulation.temperature.impl.WallImpl;
+import fr.sylfrey.misTiGriD.temperature.ThermicObject;
+import fr.sylfrey.misTiGriD.temperature.impl.ThermicObjectImpl;
+import fr.sylfrey.misTiGriD.temperature.impl.WallImpl;
 
 public class ThermicObjectTest {
 	

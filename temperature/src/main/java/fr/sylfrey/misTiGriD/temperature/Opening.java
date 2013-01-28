@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.temperature;
+package fr.sylfrey.misTiGriD.temperature;
 
 /**
  * A controllable opening that can be open or closed.

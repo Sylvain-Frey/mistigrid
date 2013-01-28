@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.temperature.impl;
+package fr.sylfrey.misTiGriD.temperature.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Unbind;
 
-import fr.tpt.s3.microSmartGridSimulation.temperature.Opening;
-import fr.tpt.s3.microSmartGridSimulation.temperature.ThermicObject;
-import fr.tpt.s3.microSmartGridSimulation.temperature.Wall;
+import fr.sylfrey.misTiGriD.temperature.Opening;
+import fr.sylfrey.misTiGriD.temperature.ThermicObject;
+import fr.sylfrey.misTiGriD.temperature.Wall;
 
 /**
  * A physical wall that separates rooms in a house, or a room and the external atmosphere.

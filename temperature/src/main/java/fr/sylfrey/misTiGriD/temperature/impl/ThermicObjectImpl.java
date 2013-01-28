@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.temperature.impl;
+package fr.sylfrey.misTiGriD.temperature.impl;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,9 +9,9 @@ import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Unbind;
 
-import fr.tpt.s3.microSmartGridSimulation.environment.Updatable;
-import fr.tpt.s3.microSmartGridSimulation.temperature.ThermicObject;
-import fr.tpt.s3.microSmartGridSimulation.temperature.Wall;
+import fr.sylfrey.misTiGriD.environment.Updatable;
+import fr.sylfrey.misTiGriD.temperature.ThermicObject;
+import fr.sylfrey.misTiGriD.temperature.Wall;
 
 @Component(name="ThermicObject",immediate=true)
 @Provides(specifications={ThermicObject.class,Updatable.class})

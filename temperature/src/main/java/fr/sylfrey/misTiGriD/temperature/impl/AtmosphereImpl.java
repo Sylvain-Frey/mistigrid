@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.temperature.impl;
+package fr.sylfrey.misTiGriD.temperature.impl;
 
 import java.util.Random;
 
@@ -7,10 +7,10 @@ import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 
-import fr.tpt.s3.microSmartGridSimulation.environment.Time;
-import fr.tpt.s3.microSmartGridSimulation.environment.Updatable;
-import fr.tpt.s3.microSmartGridSimulation.temperature.Atmosphere;
-import fr.tpt.s3.microSmartGridSimulation.temperature.ThermicObject;
+import fr.sylfrey.misTiGriD.environment.Time;
+import fr.sylfrey.misTiGriD.environment.Updatable;
+import fr.sylfrey.misTiGriD.temperature.Atmosphere;
+import fr.sylfrey.misTiGriD.temperature.ThermicObject;
 
 @Component(name="Atmosphere",immediate=true)
 @Provides(specifications={ThermicObject.class,Updatable.class, Atmosphere.class})

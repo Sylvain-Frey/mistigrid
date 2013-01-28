@@ -6,13 +6,13 @@
 	</properties>
 
 	<parent>
-		<artifactId>microSmartGridSimulation</artifactId>
-		<groupId>fr.tpt.s3</groupId>
-		<version>1.0</version>
+      <groupId>fr.sylfrey</groupId>
+      <artifactId>misTiGriD</artifactId>
+      <version>1.1</version>
 		<relativePath>../microSmartGridSimulation</relativePath>
 	</parent>
 	
-	<artifactId>temperature</artifactId>
+	<artifactId>misTiGriD_temperature</artifactId>
     <name>Micro_Smart_Grid_temperature</name>
     <packaging>bundle</packaging>
     
@@ -33,9 +33,9 @@
             <version>1.0.0</version>
         </dependency>
         <dependency>
-            <groupId>fr.tpt.s3</groupId>
-            <version>1.0</version>
-            <artifactId>environment</artifactId>
+            <groupId>fr.sylfrey</groupId>
+            <version>1.1</version>
+            <artifactId>misTiGriD_environment</artifactId>
         </dependency>
      </dependencies>
         
@@ -51,7 +51,7 @@
                         <Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
                         <Export-Package>
-                            fr.tpt.s3.microSmartGridSimulation.temperature.*
+                            fr.sylfrey.misTiGriD.temperature.*
                         </Export-Package>
                     </instructions>
                 </configuration>
