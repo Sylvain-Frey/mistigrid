@@ -6,13 +6,13 @@
 	</properties>
 
 	<parent>
-		<groupId>fr.tpt.s3</groupId>
-		<artifactId>microSmartGridSimulation</artifactId>
-		<version>1.0</version>
+      <groupId>fr.sylfrey</groupId>
+      <artifactId>misTiGriD</artifactId>
+      <version>1.1</version>
 		<relativePath>../microSmartGridSimulation</relativePath>
 	</parent>
 
-	<artifactId>environment</artifactId>
+	<artifactId>misTiGriD_environment</artifactId>
 	<name>Micro_Smart_Grid_environment</name>
 	<packaging>bundle</packaging>
 
@@ -35,7 +35,9 @@
 					<instructions>
 						<Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
-						<Export-Package>fr.tpt.s3.microSmartGridSimulation.environment</Export-Package>
+						<Export-Package>
+						   fr.sylfrey.misTiGriD.environment
+						</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>

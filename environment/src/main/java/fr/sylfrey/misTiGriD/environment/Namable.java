@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.environment;
+package fr.sylfrey.misTiGriD.environment;
 
 /**
  * A service for naming components of the simulation.

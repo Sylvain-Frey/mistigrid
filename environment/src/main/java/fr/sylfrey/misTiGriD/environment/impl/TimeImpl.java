@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.environment.impl;
+package fr.sylfrey.misTiGriD.environment.impl;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,8 +12,8 @@ import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Unbind;
 import org.apache.felix.ipojo.annotations.Validate;
 
-import fr.tpt.s3.microSmartGridSimulation.environment.Time;
-import fr.tpt.s3.microSmartGridSimulation.environment.Updatable;
+import fr.sylfrey.misTiGriD.environment.Time;
+import fr.sylfrey.misTiGriD.environment.Updatable;
 
 /**
  * This component provides a Time service and performs Updatable scheduling :
@@ -30,14 +30,14 @@ public class TimeImpl implements Time {
 	public void start() {		
 	}
 	
-	@Bind(specification="fr.tpt.s3.microSmartGridSimulation.environment.Updatable",id="updatables",aggregate=true)
+	@Bind(specification="fr.sylfrey.misTiGriD.environment.Updatable",id="updatables",aggregate=true)
 	public void bind(Updatable updatable) {
 		UpdatableWrapper task = new UpdatableWrapper(updatable);
 		tasks.put(updatable,task);
 		timer.scheduleAtFixedRate(task, 3000, updatable.getPeriod());
 	}
 	
-	@Unbind(specification="fr.tpt.s3.microSmartGridSimulation.environment.Updatable",id="updatables")
+	@Unbind(specification="fr.sylfrey.misTiGriD.environment.Updatable",id="updatables")
 	public void unbind(Updatable updatable) {
 		tasks.get(updatable).cancel();
 		tasks.remove(updatable);
