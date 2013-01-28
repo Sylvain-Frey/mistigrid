@@ -1,13 +1,13 @@
-package fr.tpt.s3.microSmartGridSimulation.layout.impl;
+package fr.sylfrey.misTiGriD.layout.impl;
 
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 
-import fr.tpt.s3.microSmartGridSimulation.layout.Layout;
-import fr.tpt.s3.microSmartGridSimulation.layout.ThermicObjectLayout;
-import fr.tpt.s3.microSmartGridSimulation.temperature.ThermicObject;
+import fr.sylfrey.misTiGriD.layout.Layout;
+import fr.sylfrey.misTiGriD.layout.ThermicObjectLayout;
+import fr.sylfrey.misTiGriD.temperature.ThermicObject;
 
 @Component(name="ThermicObjectLayout",immediate=true)
 @Provides(specifications={ThermicObjectLayout.class,Layout.class})

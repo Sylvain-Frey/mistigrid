@@ -1,6 +1,6 @@
-package fr.tpt.s3.microSmartGridSimulation.layout;
+package fr.sylfrey.misTiGriD.layout;
 
-import fr.tpt.s3.microSmartGridSimulation.electricalGrid.Storage;
+import fr.sylfrey.misTiGriD.electricalGrid.Storage;
 
 /**
  * Describes a Storage with a given Layout.

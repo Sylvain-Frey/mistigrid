@@ -6,13 +6,13 @@
 	</properties>
 
 	<parent>
-		<artifactId>microSmartGridSimulation</artifactId>
-		<groupId>fr.tpt.s3</groupId>
-		<version>1.0</version>
+      <groupId>fr.sylfrey</groupId>
+      <artifactId>misTiGriD</artifactId>
+      <version>1.1</version>
 		<relativePath>../microSmartGridSimulation</relativePath>
 	</parent>
 
-	<artifactId>layout</artifactId>
+	<artifactId>misTiGriD_layout</artifactId>
 	<name>Micro_Smart_Grid_layout</name>
 	<packaging>bundle</packaging>
 
@@ -28,24 +28,24 @@
 			<version>1.8.0</version>
 		</dependency>
 		<dependency>
-			<groupId>fr.tpt.s3</groupId>
-			<version>1.0</version>
-			<artifactId>temperature</artifactId>
+      <groupId>fr.sylfrey</groupId>
+			<version>1.1</version>
+			<artifactId>misTiGriD_temperature</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>fr.tpt.s3</groupId>
-			<version>1.0</version>
-			<artifactId>appliances</artifactId>
+      <groupId>fr.sylfrey</groupId>
+			<version>1.1</version>
+			<artifactId>misTiGriD_appliances</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>fr.tpt.s3</groupId>
-			<version>1.0</version>
-			<artifactId>electricity</artifactId>
+      <groupId>fr.sylfrey</groupId>
+			<version>1.1</version>
+			<artifactId>misTiGriD_electricity</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>fr.tpt.s3</groupId>
-			<version>1.0</version>
-			<artifactId>managementResources</artifactId>
+      <groupId>fr.sylfrey</groupId>
+			<version>1.1</version>
+			<artifactId>misTiGriD_managementResources</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -61,7 +61,7 @@
 						<Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Export-Package>
-							fr.tpt.s3.microSmartGridSimulation.layout
+							fr.sylfrey.misTiGriD.layout.*
 						</Export-Package>
 					</instructions>
 				</configuration>

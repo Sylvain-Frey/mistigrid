@@ -1,6 +1,6 @@
-package fr.tpt.s3.microSmartGridSimulation.layout;
+package fr.sylfrey.misTiGriD.layout;
 
-import fr.tpt.s3.microSmartGridSimulation.temperature.ThermicObject;
+import fr.sylfrey.misTiGriD.temperature.ThermicObject;
 
 /**
  * A layout with a temperature attribute to be displayed.

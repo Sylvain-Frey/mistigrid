@@ -1,13 +1,13 @@
-package fr.tpt.s3.microSmartGridSimulation.layout.impl;
+package fr.sylfrey.misTiGriD.layout.impl;
 
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 
-import fr.tpt.s3.microSmartGridSimulation.layout.HeaterManagerLayout;
-import fr.tpt.s3.microSmartGridSimulation.layout.Layout;
-import fr.tpt.s3.microSmartGridSimulation.management.resources.monolithicHeaterManager.HeaterManager;
+import fr.sylfrey.misTiGriD.layout.HeaterManagerLayout;
+import fr.sylfrey.misTiGriD.layout.Layout;
+import fr.sylfrey.misTiGriD.management.resources.monolithicHeaterManager.HeaterManager;
 
 @Component(name="HeaterManagerLayout",immediate=true)
 @Provides(specifications={HeaterManagerLayout.class,Layout.class})

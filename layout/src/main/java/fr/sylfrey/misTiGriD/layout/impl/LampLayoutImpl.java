@@ -1,12 +1,12 @@
-package fr.tpt.s3.microSmartGridSimulation.layout.impl;
+package fr.sylfrey.misTiGriD.layout.impl;
 
 import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 
-import fr.tpt.s3.microSmartGridSimulation.electricalGrid.Lamp;
-import fr.tpt.s3.microSmartGridSimulation.layout.LampLayout;
-import fr.tpt.s3.microSmartGridSimulation.layout.Layout;
+import fr.sylfrey.misTiGriD.electricalGrid.Lamp;
+import fr.sylfrey.misTiGriD.layout.LampLayout;
+import fr.sylfrey.misTiGriD.layout.Layout;
 
 @org.apache.felix.ipojo.annotations.Component(name="LampLayout")
 @Provides(specifications={LampLayout.class, Layout.class})

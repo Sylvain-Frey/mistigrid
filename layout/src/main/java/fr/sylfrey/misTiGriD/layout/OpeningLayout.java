@@ -1,6 +1,6 @@
-package fr.tpt.s3.microSmartGridSimulation.layout;
+package fr.sylfrey.misTiGriD.layout;
 
-import fr.tpt.s3.microSmartGridSimulation.temperature.Opening;
+import fr.sylfrey.misTiGriD.temperature.Opening;
 
 /**
  * Describes a Wall with a certain size and position (cf. Layout)

@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.layout;
+package fr.sylfrey.misTiGriD.layout;
 
 /**
  * Describes a two-dimensional rectangular object of size (width,height)

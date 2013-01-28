@@ -1,6 +1,6 @@
-package fr.tpt.s3.microSmartGridSimulation.layout;
+package fr.sylfrey.misTiGriD.layout;
 
-import fr.tpt.s3.microSmartGridSimulation.electricalGrid.Prosumer;
+import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
 
 /**
  * Describes a Prosumer that has a certain size and position (cf. Layout)

@@ -1,6 +1,7 @@
-package fr.tpt.s3.microSmartGridSimulation.layout;
+package fr.sylfrey.misTiGriD.layout;
 
-import fr.tpt.s3.microSmartGridSimulation.appliances.Heater;
+import fr.sylfrey.misTiGriD.appliances.Heater;
+
 
 /**
  * Describes a Heater that has a certain size and position (cf. Layout)

@@ -1,13 +1,13 @@
-package fr.tpt.s3.microSmartGridSimulation.layout.impl;
+package fr.sylfrey.misTiGriD.layout.impl;
 
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 
-import fr.tpt.s3.microSmartGridSimulation.layout.Layout;
-import fr.tpt.s3.microSmartGridSimulation.layout.OpeningLayout;
-import fr.tpt.s3.microSmartGridSimulation.temperature.Opening;
+import fr.sylfrey.misTiGriD.layout.Layout;
+import fr.sylfrey.misTiGriD.layout.OpeningLayout;
+import fr.sylfrey.misTiGriD.temperature.Opening;
 
 @Component(name="WallLayout",immediate=true)
 @Provides(specifications={OpeningLayout.class,Layout.class})

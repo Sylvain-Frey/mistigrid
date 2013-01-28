@@ -1,13 +1,13 @@
-package fr.tpt.s3.microSmartGridSimulation.layout.impl;
+package fr.sylfrey.misTiGriD.layout.impl;
 
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 
-import fr.tpt.s3.microSmartGridSimulation.electricalGrid.Prosumer;
-import fr.tpt.s3.microSmartGridSimulation.layout.Layout;
-import fr.tpt.s3.microSmartGridSimulation.layout.ProsumerLayout;
+import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
+import fr.sylfrey.misTiGriD.layout.Layout;
+import fr.sylfrey.misTiGriD.layout.ProsumerLayout;
 
 @Component(name="ProsumerLayout",immediate=true)
 @Provides(specifications={ProsumerLayout.class,Layout.class})
