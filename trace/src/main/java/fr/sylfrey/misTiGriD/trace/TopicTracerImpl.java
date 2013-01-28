@@ -1,7 +1,7 @@
-package fr.tpt.s3.microSmartGridSimulation.trace;
+package fr.sylfrey.misTiGriD.trace;
 
-import fr.tpt.s3.microSmartGridSimulation.framework.Consumer;
-import fr.tpt.s3.microSmartGridSimulation.framework.data.Message;
+import fr.sylfrey.misTiGriD.framework.Consumer;
+import fr.sylfrey.misTiGriD.framework.data.Message;
 
 public class TopicTracerImpl implements Consumer<Object> {
 

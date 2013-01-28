@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.trace;
+package fr.sylfrey.misTiGriD.trace;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -14,11 +14,11 @@ import org.apache.felix.ipojo.annotations.Unbind;
 
 import akka.event.EventBus;
 import akka.event.EventStream;
-import fr.tpt.s3.microSmartGridSimulation.electricalGrid.Prosumer;
-import fr.tpt.s3.microSmartGridSimulation.environment.Updatable;
-import fr.tpt.s3.microSmartGridSimulation.framework.ActorContainer;
-import fr.tpt.s3.microSmartGridSimulation.management.resources.loadHierarch.LoadHierarch;
-import fr.tpt.s3.microSmartGridSimulation.temperature.ThermicObject;
+import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
+import fr.sylfrey.misTiGriD.environment.Updatable;
+import fr.sylfrey.misTiGriD.framework.ActorContainer;
+import fr.sylfrey.misTiGriD.management.resources.loadHierarch.LoadHierarch;
+import fr.sylfrey.misTiGriD.temperature.ThermicObject;
 
 @Component(name="Archiver", immediate=true)
 @Provides

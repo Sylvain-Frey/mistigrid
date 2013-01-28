@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.trace;
+package fr.sylfrey.misTiGriD.trace;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,11 +13,10 @@ import akka.actor.ActorSystem;
 import akka.actor.TypedActor;
 import akka.actor.TypedProps;
 import akka.japi.Creator;
-import fr.tpt.s3.akka.ActorSystemProvider;
-import fr.tpt.s3.microSmartGridSimulation.framework.ActorContainer;
-import fr.tpt.s3.microSmartGridSimulation.framework.Consumer;
-import fr.tpt.s3.microSmartGridSimulation.framework.topic.Topic;
-import fr.tpt.s3.microSmartGridSimulation.trace.TopicTracerImpl;
+import fr.sylfrey.akka.ActorSystemProvider;
+import fr.sylfrey.misTiGriD.framework.ActorContainer;
+import fr.sylfrey.misTiGriD.framework.Consumer;
+import fr.sylfrey.misTiGriD.framework.topic.Topic;
 
 @Component(name="TopicTracer",immediate=true)
 public class TopicTracerContainerImpl {

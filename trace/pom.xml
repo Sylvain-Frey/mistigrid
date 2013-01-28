@@ -6,13 +6,13 @@
 	</properties>
 
 	<parent>
-		<artifactId>microSmartGridSimulation</artifactId>
-		<groupId>fr.tpt.s3</groupId>
-		<version>1.0</version>
+      <groupId>fr.sylfrey</groupId>
+      <artifactId>misTiGriD</artifactId>
+      <version>1.1</version>
 		<relativePath>../microSmartGridSimulation</relativePath>
 	</parent>
 
-	<artifactId>trace</artifactId>
+	<artifactId>misTiGriD_trace</artifactId>
 	<name>Micro_Smart_Grid_trace</name>
 	<packaging>bundle</packaging>
 	
@@ -23,24 +23,24 @@
             <version>1.8.0</version>
         </dependency>
         <dependency>
-            <groupId>fr.tpt.s3</groupId>
-            <artifactId>temperature</artifactId>
-            <version>1.0</version>
+            <groupId>fr.sylfrey</groupId>
+            <artifactId>misTiGriD_temperature</artifactId>
+            <version>1.1</version>
         </dependency>
         <dependency>
-            <groupId>fr.tpt.s3</groupId>
-            <artifactId>electricity</artifactId>
-            <version>1.0</version>
+            <groupId>fr.sylfrey</groupId>
+            <artifactId>misTiGriD_electricity</artifactId>
+            <version>1.1</version>
         </dependency>
         <dependency>
-        	<groupId>fr.tpt.s3</groupId>
-        	<artifactId>managementResources</artifactId>
-        	<version>1.0</version>
+            <groupId>fr.sylfrey</groupId>
+        	<artifactId>misTiGriD_managementResources</artifactId>
+        	<version>1.1</version>
         </dependency>
         <dependency>
-        	<groupId>fr.tpt.s3</groupId>
-        	<artifactId>framework</artifactId>
-        	<version>1.0</version>
+            <groupId>fr.sylfrey</groupId>
+        	<artifactId>misTiGriD_framework</artifactId>
+        	<version>1.1</version>
         </dependency>
 	</dependencies>
      
@@ -55,7 +55,9 @@
                     <instructions>
                         <Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Export-Package>fr.tpt.s3.microSmartGridSimulation.trace.*</Export-Package>
+                        <Export-Package>
+                           fr.sylfrey.misTiGriD.trace.*
+                        </Export-Package>
                     </instructions>
                 </configuration>
             </plugin>

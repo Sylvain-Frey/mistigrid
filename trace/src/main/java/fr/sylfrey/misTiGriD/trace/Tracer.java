@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.trace;
+package fr.sylfrey.misTiGriD.trace;
 
 /**
  * Simple tracer service definition. Log users should not worry about

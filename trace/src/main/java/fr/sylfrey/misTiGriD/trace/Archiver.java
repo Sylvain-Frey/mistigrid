@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.trace;
+package fr.sylfrey.misTiGriD.trace;
 
 import akka.event.EventBus;
 
