@@ -1,4 +1,4 @@
-package fr.tpt.s3.misTiGriD.conf
+package fr.sylfrey.misTiGriD.conf
 
 import java.util.{ List => JList }
 import java.util.HashMap
