@@ -6,9 +6,9 @@
 	</properties>
 
 	<parent>
-		<artifactId>microSmartGridSimulation</artifactId>
-		<groupId>fr.tpt.s3</groupId>
-		<version>1.0</version>
+      <groupId>fr.sylfrey</groupId>
+      <artifactId>misTiGriD</artifactId>
+		<version>1.1</version>
 		<relativePath>../microSmartGridSimulation</relativePath>
 	</parent>
 
@@ -63,9 +63,9 @@
                <instructions>
                   <Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
                   <Bundle-Version>${project.version}</Bundle-Version>
-                  <Bundle-Activator>fr.tpt.s3.akka.ActorSystemProviderImpl</Bundle-Activator>
+                  <Bundle-Activator>fr.sylfrey.akka.ActorSystemProviderImpl</Bundle-Activator>
                   <Export-Package>
-                     fr.tpt.s3.akka.*,
+                     fr.sylfrey.akka.*,
                      org.uncommons.maths.*
                   </Export-Package>
                   <Embed-Dependency>artifactId=uncommons-maths</Embed-Dependency>

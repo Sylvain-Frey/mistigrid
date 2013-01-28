@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project name="maven-antrun-" default="main"  >
-<target name="main">
-  <copy todir="../microSmartGridSimulation/felix/bundles" flatten="true" verbose="true" overwrite="true" failonerror="true">
-    <fileset dir="target/" includes="*.jar"/>
-  </copy>
-</target>
-</project>

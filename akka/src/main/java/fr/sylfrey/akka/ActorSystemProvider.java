@@ -1,4 +1,4 @@
-package fr.tpt.s3.akka;
+package fr.sylfrey.akka;
 
 import org.osgi.framework.BundleActivator;
 

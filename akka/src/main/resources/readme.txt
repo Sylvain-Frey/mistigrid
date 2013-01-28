@@ -1,1 +1,1 @@
-This an OSGi wrapper for Akka framework 2.0.
+This an OSGi wrapper for Akka framework 2.1.0.
