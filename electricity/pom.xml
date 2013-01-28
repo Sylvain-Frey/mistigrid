@@ -6,13 +6,13 @@
 	</properties>
 
 	<parent>
-		<artifactId>microSmartGridSimulation</artifactId>
-		<groupId>fr.tpt.s3</groupId>
-		<version>1.0</version>
+		<groupId>fr.sylfrey</groupId>
+		<artifactId>misTiGriD</artifactId>
+		<version>1.1</version>
 		<relativePath>../microSmartGridSimulation</relativePath>
 	</parent>
 
-	<artifactId>electricity</artifactId>
+	<artifactId>misTiGriD_electricity</artifactId>
 	<name>Micro_Smart_Grid_electricity</name>
 	<packaging>bundle</packaging>
 
@@ -33,25 +33,25 @@
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>fr.tpt.s3</groupId>
-			<version>1.0</version>
-			<artifactId>environment</artifactId>
+			<groupId>fr.sylfrey</groupId>
+			<version>1.1</version>
+			<artifactId>misTiGriD_environment</artifactId>
 		</dependency>
-      <dependency>
-         <groupId>fr.tpt.s3</groupId>
-         <artifactId>akka</artifactId>
-         <version>1.0</version>
-      </dependency>
 		<dependency>
-			<groupId>fr.tpt.s3</groupId>
-			<artifactId>iris</artifactId>
-			<version>1.0</version>
+			<groupId>fr.sylfrey</groupId>
+			<version>1.1</version>
+			<artifactId>akka</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>2.9.1</version>
-        </dependency>
+		<dependency>
+			<groupId>fr.sylfrey</groupId>
+			<version>1.1</version>
+			<artifactId>iris</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.10.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -66,10 +66,10 @@
 						<Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Export-Package>
-							fr.tpt.s3.microSmartGridSimulation.electricalGrid
+							fr.sylfrey.misTiGriD.electricalGrid
 						</Export-Package>
 						<Test-Suite>
-							fr.tpt.s3.microSmartGrisSimulation.electricalGrid.JUnit4OSGiTestSuite
+							fr.sylfrey.misTiGriD.electricalGrid.JUnit4OSGiTestSuite
 						</Test-Suite>
 					</instructions>
 				</configuration>
