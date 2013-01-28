@@ -1,4 +1,4 @@
-package fr.tpt.s3.cirrus.entity;
+package fr.sylfrey.cirrus.touchpoint;
 
 public interface Filter<Data> {
 
