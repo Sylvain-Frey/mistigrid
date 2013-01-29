@@ -44,12 +44,12 @@ public class LocalView extends JFrame {
 		dispose();
 	}
 
-	@Bind(specification="fr.tpt.s3.microSmartGridSimulation.swingView.SwingView",aggregate=true)
+	@Bind(specification="fr.sylfrey.misTiGriD.swingView.SwingView",aggregate=true)
 	public void bind(SwingView view) {
 		contentPane.add(view.component(), new Integer(view.layer())	);
 	}
 
-	@Unbind(specification="fr.tpt.s3.microSmartGridSimulation.swingView.SwingView",aggregate=true)
+	@Unbind(specification="fr.sylfrey.misTiGriD.swingView.SwingView",aggregate=true)
 	public void unbind(SwingView view) {
 		contentPane.remove(view.component());
 	}
