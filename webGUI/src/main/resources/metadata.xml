@@ -5,7 +5,7 @@
 
 	<instance component="LayoutRegistry" name="layoutRegistry"> 
       <property name="requires.from">
-         <property name="hierarch" value="loadHierarch" />
+         <property name="houseLoadManager" value="houseLoadManager" />
       </property>
     </instance>
  

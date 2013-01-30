@@ -84,11 +84,11 @@ public class TracesImpl implements /*Traces,*/ WebSocketHandler {
 			WebSocketFrame frame) {
 		String frameText = ((TextWebSocketFrame) frame).getText();
 		if (frameText.equals("subscribe")) {
-			System.out.println("# new subscriber");
+//			System.out.println("# new subscriber");
 			subscribers.add(ctx.getChannel());
 			ctx.getChannel().write(new TextWebSocketFrame("# subscription OK"));
 		} else if (frameText.equals("unsubscribe")) {
-			System.out.println("# subscriber leaves");
+//			System.out.println("# subscriber leaves");
 			subscribers.remove(ctx.getChannel());
 			ctx.getChannel().write(new TextWebSocketFrame("# unsubscription OK"));
 			ctx.getChannel().close();

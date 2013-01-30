@@ -39,12 +39,12 @@ public class ArchiveSubscriber extends UntypedActor {
 
 		for (Channel  channel : subscribers) {				
 			if (!channel.isOpen()) {
-				System.out.println("# subscriber gone...");
+//				System.out.println("# subscriber gone...");
 				blackList.add(channel);
 			} else try {
 				channel.write(new TextWebSocketFrame(data.toString()));
 			} catch (Exception e) {
-				System.out.println("# lost subscriber...");
+//				System.out.println("# lost subscriber...");
 				blackList.add(channel);
 				channel.close();
 			}

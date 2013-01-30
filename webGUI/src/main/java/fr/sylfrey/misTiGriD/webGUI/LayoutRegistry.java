@@ -21,6 +21,7 @@ import org.codehaus.jackson.node.ObjectNode;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
+import fr.sylfrey.misTiGriD.alba.basic.roles.HouseLoadManager;
 import fr.sylfrey.misTiGriD.framework.ActorContainer;
 import fr.sylfrey.misTiGriD.layout.AtmosphereLayout;
 import fr.sylfrey.misTiGriD.layout.HeaterLayout;
@@ -30,7 +31,6 @@ import fr.sylfrey.misTiGriD.layout.Layout;
 import fr.sylfrey.misTiGriD.layout.OpeningLayout;
 import fr.sylfrey.misTiGriD.layout.ProsumerLayout;
 import fr.sylfrey.misTiGriD.layout.ThermicObjectLayout;
-import fr.sylfrey.misTiGriD.management.resources.loadHierarch.LoadHierarch;
 
 @Component(name="LayoutRegistry",immediate=true)
 //@Instantiate
@@ -109,15 +109,14 @@ public class LayoutRegistry {
 		}
 	}
 	
-	@Bind(id="hierarch", optional=true)
-	public void bindHierarch(ActorContainer<LoadHierarch> container) {
-		if (!(container.actor() instanceof LoadHierarch)) { return; }
-		loadHierarch = container.actor();
+	@Bind(id="houseLoadManager", optional=true)
+	public void bindHierarch(HouseLoadManager houseLoadManager) {
+		this.houseLoadManager = houseLoadManager;
 	}
 
-	@Unbind(id="hierarch")
-	public void unbindHierarch(ActorContainer<LoadHierarch> container) {
-		loadHierarch = null;
+	@Unbind(id="houseLoadManager")
+	public void unbindHierarch(HouseLoadManager houseLoadManager) {
+		houseLoadManager = null;
 	}
 	
 	
@@ -140,7 +139,7 @@ public class LayoutRegistry {
 	private Map<String, OpeningLayout> openingLayouts = new HashMap<String, OpeningLayout>();
 	private Map<String, LampLayout> lampLayouts = new HashMap<String, LampLayout>();
 	
-	private LoadHierarch loadHierarch;
+	private HouseLoadManager houseLoadManager;
 	
 
 	private static final String INDEX_PATH = "/layoutsIndex";
@@ -387,7 +386,7 @@ public class LayoutRegistry {
 				response = serialiseUpdate(node).toString();
 				
 			} else if (layoutType.equals(LoadHierarch)){
-				if (loadHierarch!= null) response = serialise(loadHierarch, node).toString();
+				if (houseLoadManager!= null) response = serialise(houseLoadManager, node).toString();
 			}
 
 			resp.getWriter().write(response);
@@ -453,8 +452,8 @@ public class LayoutRegistry {
 		return node;
 	}
 
-	private ObjectNode serialise(LoadHierarch hierarch, ObjectNode node) {
-		node.put("maxConsumptionThreshold", hierarch.maxConsumptionThreshold());
+	private ObjectNode serialise(HouseLoadManager houseLoadManager, ObjectNode node) {
+		node.put("maxConsumptionThreshold", houseLoadManager.maxConsumptionThreshold());
 		return node;
 	}
 	
@@ -535,9 +534,9 @@ public class LayoutRegistry {
 			}
 		}
 		
-		if (loadHierarch != null) {
+		if (houseLoadManager != null) {
 			ObjectNode object = mapper.createObjectNode();
-			object.put("maxConsumptionThreshold", loadHierarch.maxConsumptionThreshold());
+			object.put("maxConsumptionThreshold", houseLoadManager.maxConsumptionThreshold());
 			node.put(LoadHierarch, object);
 		}
 		
