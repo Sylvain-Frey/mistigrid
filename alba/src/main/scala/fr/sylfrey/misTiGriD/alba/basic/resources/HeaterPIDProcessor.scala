@@ -1,4 +1,4 @@
-package fr.sylfrey.alba.simple.resources
+package fr.sylfrey.misTiGriD.alba.basic.resources
 
 class HeaterPIDProcessor(
     var requiredTemperature : Float = 20,

@@ -1,4 +1,4 @@
-package fr.sylfrey.alba.simple.actors.messages
+package fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages
 import akka.actor.ActorRef
 import java.util.Date
 

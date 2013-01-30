@@ -1,31 +1,32 @@
-package fr.sylfrey.alba.simple.typed.agents
+package fr.sylfrey.misTiGriD.alba.basic.agents
 
+
+import fr.sylfrey.misTiGriD.temperature.ThermicObject
+import fr.sylfrey.misTiGriD.appliances.Heater
 import akka.actor.TypedActor
 import java.util.Date
-import fr.sylfrey.alba.simple.resources.HeaterPIDProcessor
-import fr.sylfrey.alba.simple.Flexible
-import fr.sylfrey.alba.simple.ReduceLoad
-import fr.sylfrey.alba.simple.LoadBalancingOrder
-import fr.sylfrey.alba.simple.ProsumerStatus
-import fr.sylfrey.misTiGriD.temperature.ThermicObject
-import fr.sylfrey.alba.simple.SemiFlexible
-import fr.sylfrey.misTiGriD.appliances.Heater
-import fr.sylfrey.alba.simple.AnyLoad
-import fr.sylfrey.alba.simple.Prosumption
+import fr.sylfrey.misTiGriD.alba.basic.resources.HeaterPIDProcessor
+import fr.sylfrey.misTiGriD.alba.basic.messages.Flexible
+import fr.sylfrey.misTiGriD.alba.basic.messages.Ack
+import fr.sylfrey.misTiGriD.alba.basic.roles.ProsumerManager
+import fr.sylfrey.misTiGriD.alba.basic.messages.ReduceLoad
+import fr.sylfrey.misTiGriD.alba.basic.messages.LoadBalancingOrder
+import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
+import fr.sylfrey.misTiGriD.alba.basic.messages.SemiFlexible
+import fr.sylfrey.misTiGriD.alba.basic.messages.AnyLoad
+import fr.sylfrey.misTiGriD.alba.basic.messages.Prosumption
+import fr.sylfrey.misTiGriD.alba.basic.roles.HeaterManager
 
-trait HeaterManager {
-  def getRequiredTemperature : Unit
-  def setRequiredTemperature(requiredTemperature : Float) : Unit
-  def isEconomizing : Boolean
-  def update : Unit
-}
+trait Updatable { def update() : Unit }
+
+trait AlbaHeaterManager extends HeaterManager with ProsumerManager with Updatable
 
 class HeaterManagerAgent(
     val heater : Heater, 
     val room : ThermicObject,
     var status : ProsumerStatus,
     var requiredTemperature : Float 
-) extends HeaterManager with ProsumerManager {
+) extends AlbaHeaterManager {
   
   var heaterProsumption = heater.getEmissionPower()
   var roomTemperature = room.getCurrentTemperature
@@ -68,7 +69,9 @@ class HeaterManagerAgent(
   
   def getStatus  = status
   
-  def tell(order : LoadBalancingOrder) = this.currentOrder = order
-
+  def tell(order : LoadBalancingOrder) = {
+    this.currentOrder = order
+    Ack
+  }
   
 }

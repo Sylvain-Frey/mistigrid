@@ -1,22 +1,30 @@
-package fr.sylfrey.alba.simple.typed.agents
+package fr.sylfrey.misTiGriD.alba.basic.agents
 
-import java.util.Random
-import akka.actor.ActorRef
-import akka.actor.TypedActor
-import akka.actor.TypedProps
-import scala.collection.mutable.LinkedHashMap
-import java.util.Date
-import fr.sylfrey.alba.simple.ReduceLoad
-import fr.sylfrey.alba.simple.LoadBalancingOrder
-import fr.sylfrey.alba.simple.ProsumerStatus
 import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
-import fr.sylfrey.alba.simple.AnyLoad
-import fr.sylfrey.alba.simple.Prosumption
+import akka.actor.TypedActor
+import scala.collection.mutable.LinkedHashMap
+import akka.actor.ActorRef
+import akka.actor.TypedProps
+import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
+import java.util.Date
+import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
+import scala.concurrent.Future
+import akka.actor.Actor
+import scala.concurrent.ExecutionContext
+import fr.sylfrey.misTiGriD.alba.basic.messages.Ack
+import fr.sylfrey.misTiGriD.alba.basic.roles.ProsumerManager
+import fr.sylfrey.misTiGriD.alba.basic.messages.LoadBalancingOrder
+import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
+import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
+import fr.sylfrey.misTiGriD.alba.basic.messages.AnyLoad
+import fr.sylfrey.misTiGriD.alba.basic.messages.Prosumption
+import fr.sylfrey.misTiGriD.alba.basic.messages.ReduceLoad
+import fr.sylfrey.misTiGriD.alba.basic.roles.HouseLoadManager
+  
 
-trait HouseLoadManager extends LoadManager with ProsumerManager {
+trait ManageableHouseLoadManager extends HouseLoadManager with ProsumerManager with Updatable {
   def setMaximumProsumption(threshold : Float) : Unit
   def setStatus(status : ProsumerStatus) : Unit
-  def update : Unit
 }
 
 class HouseLoadManagerAgent(
@@ -24,7 +32,9 @@ class HouseLoadManagerAgent(
     var maxConsumption : Float,
     val hysteresisThreshold : Float,
     var status : ProsumerStatus
-) extends HouseLoadManager {
+) extends ManageableHouseLoadManager {
+  
+  implicit val executionContext : ExecutionContext = TypedActor.context.system.dispatcher
   
   val prosumers = new LinkedHashMap[ActorRef,ProsumerManager]()
   val erasedProsumers = new LinkedHashMap[ActorRef,ProsumerManager]()
@@ -37,6 +47,7 @@ class HouseLoadManagerAgent(
         TypedProps[ProsumerManager],
         prosumer)
     prosumers.put(prosumer,proxy)
+    println("# loadManager registered " + prosumer)
   }
   
   def unregister(prosumer : ActorRef) = {
@@ -48,6 +59,8 @@ class HouseLoadManagerAgent(
   
   def getProsumption = Prosumption(TypedActor.context.self, currentAggregatedProsumption, new Date)
   
+  def maxConsumptionThreshold = maxConsumption
+  
   def getStatus = status
   
   def setStatus(status : ProsumerStatus) = this.status = status
@@ -58,20 +71,23 @@ class HouseLoadManagerAgent(
     if (currentAggregatedProsumption < maxConsumption && !prosumers.isEmpty) {
 			
 	  val (ref, erasedProsumer) = prosumers.head
-	  erasedProsumer.tell(ReduceLoad)
+	  Future { erasedProsumer.tell(ReduceLoad) }
 	  prosumers.remove(ref)
 	  erasedProsumers.put(ref, erasedProsumer)
 			
 	} else if (currentAggregatedProsumption > maxConsumption + hysteresisThreshold && !erasedProsumers.isEmpty) {
 			
 	  val (ref, unerasedProsumer) = erasedProsumers.head
-	  unerasedProsumer.tell(AnyLoad)
+	  Future { unerasedProsumer.tell(AnyLoad) }
 	  erasedProsumers.remove(ref)
 	  prosumers.put(ref, unerasedProsumer)
 			
 	}
   }
   
-  def tell(order : LoadBalancingOrder) = this.currentOrder = order
+  def tell(order : LoadBalancingOrder) = {
+    this.currentOrder = order
+    Ack
+  }
   
 } 

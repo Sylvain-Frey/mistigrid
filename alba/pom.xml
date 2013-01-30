@@ -40,11 +40,11 @@
 	</dependencies>
 
 	<repositories>
-      <repository>
-         <id>akka.repository</id>
-         <name>Akka Maven Repository</name>
-         <url>http://akka.io/repository</url>
-      </repository>
+		<repository>
+			<id>akka.repository</id>
+			<name>Akka Maven Repository</name>
+			<url>http://akka.io/repository</url>
+		</repository>
 		<repository>
 			<id>scala-tools.org</id>
 			<name>Scala-tools Maven2 Repository</name>
@@ -73,6 +73,21 @@
 							<goal>testCompile</goal>
 						</goals>
 					</execution>
+					<execution>
+						<id>scala-compile-first</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>add-source</goal>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>scala-test-compile</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -85,7 +100,7 @@
 						<Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Export-Package>
-							fr.sylfrey.alba.*
+							fr.sylfrey.misTiGriD.alba.*
 						</Export-Package>
 					</instructions>
 				</configuration>

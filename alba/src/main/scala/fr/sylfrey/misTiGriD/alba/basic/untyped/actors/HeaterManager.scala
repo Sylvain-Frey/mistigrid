@@ -1,23 +1,22 @@
-package fr.sylfrey.alba.simple.actors.agents
+package fr.sylfrey.misTiGriD.alba.basic.untyped.actors
 
-import java.util.Date
-import akka.actor.Actor
-import fr.sylfrey.alba.simple.actors.messages.GetStatus
-import fr.sylfrey.alba.simple.resources.HeaterPIDProcessor
-import fr.sylfrey.alba.simple.Flexible
-import fr.sylfrey.alba.simple.actors.messages.SetRequiredTemperature
-import fr.sylfrey.alba.simple.actors.messages.GetProsumption
-import fr.sylfrey.alba.simple.ReduceLoad
-import fr.sylfrey.alba.simple.LoadBalancingOrder
-import fr.sylfrey.alba.simple.ProsumerStatus
-import fr.sylfrey.alba.simple.actors.messages.SetStatus
 import fr.sylfrey.misTiGriD.temperature.ThermicObject
-import fr.sylfrey.alba.simple.SemiFlexible
 import fr.sylfrey.misTiGriD.appliances.Heater
-import fr.sylfrey.alba.simple.AnyLoad
-import fr.sylfrey.alba.simple.actors.messages.Tick
-import fr.sylfrey.alba.simple.Prosumption
-import fr.sylfrey.alba.simple.actors.messages.SetRequiredTemperature
+import akka.actor.Actor
+import java.util.Date
+import fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages.GetStatus
+import fr.sylfrey.misTiGriD.alba.basic.resources.HeaterPIDProcessor
+import fr.sylfrey.misTiGriD.alba.basic.messages.Flexible
+import fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages.SetRequiredTemperature
+import fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages.GetProsumption
+import fr.sylfrey.misTiGriD.alba.basic.messages.ReduceLoad
+import fr.sylfrey.misTiGriD.alba.basic.messages.LoadBalancingOrder
+import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
+import fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages.SetStatus
+import fr.sylfrey.misTiGriD.alba.basic.messages.SemiFlexible
+import fr.sylfrey.misTiGriD.alba.basic.messages.AnyLoad
+import fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages.Tick
+import fr.sylfrey.misTiGriD.alba.basic.messages.Prosumption
 
 
 class HeaterManager(

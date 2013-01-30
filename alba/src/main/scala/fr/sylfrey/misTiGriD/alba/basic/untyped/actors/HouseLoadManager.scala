@@ -1,22 +1,20 @@
-package fr.sylfrey.alba.simple.actors.agents
+package fr.sylfrey.misTiGriD.alba.basic.untyped.actors
 
+import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
+import java.util.Random
 import java.util.LinkedList
 import akka.actor.Actor
 import akka.actor.ActorRef
-import java.util.Random
-import fr.sylfrey.alba.simple.actors.messages.GetStatus
-import fr.sylfrey.alba.simple.actors.messages.SetMaximumProsumption
-import fr.sylfrey.alba.simple.ReduceLoad
-import fr.sylfrey.alba.simple.LoadBalancingOrder
-import fr.sylfrey.alba.simple.ProsumerStatus
-import fr.sylfrey.alba.simple.actors.messages.Unregister
-import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
-import fr.sylfrey.alba.simple.actors.messages.SetStatus
-import fr.sylfrey.alba.simple.actors.messages.Register
-import fr.sylfrey.alba.simple.AnyLoad
-import fr.sylfrey.alba.simple.actors.messages.Tick
-import fr.sylfrey.alba.simple.actors.messages.Register
-import fr.sylfrey.alba.simple.actors.messages.Unregister
+import fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages.GetStatus
+import fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages.SetMaximumProsumption
+import fr.sylfrey.misTiGriD.alba.basic.messages.ReduceLoad
+import fr.sylfrey.misTiGriD.alba.basic.messages.LoadBalancingOrder
+import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
+import fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages.Unregister
+import fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages.SetStatus
+import fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages.Register
+import fr.sylfrey.misTiGriD.alba.basic.messages.AnyLoad
+import fr.sylfrey.misTiGriD.alba.basic.untyped.actors.messages.Tick
 
 class HouseLoadManager(
     val aggregator : Aggregator,
