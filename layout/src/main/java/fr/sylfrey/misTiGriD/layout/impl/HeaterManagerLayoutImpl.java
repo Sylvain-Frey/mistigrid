@@ -5,9 +5,9 @@ import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 
+import fr.sylfrey.misTiGriD.alba.basic.roles.HeaterManager;
 import fr.sylfrey.misTiGriD.layout.HeaterManagerLayout;
 import fr.sylfrey.misTiGriD.layout.Layout;
-import fr.sylfrey.misTiGriD.management.resources.monolithicHeaterManager.HeaterManager;
 
 @Component(name="HeaterManagerLayout",immediate=true)
 @Provides(specifications={HeaterManagerLayout.class,Layout.class})
