@@ -8,7 +8,8 @@ object SampleHouse {
   val atmosphereModel = Atmosphere(atmosphere, 20, 12, 22, false)
   
   val aggregator = Aggregator("houseAggregator", "houseAggregator", false, "!!_TO_BE_FIXED_!!akka://grid@127.0.0.1:2563/user/districtAggregator")
-      
+  val loadManagerURI = "akka://grid@127.0.0.1:2563/user/districtAggregator"
+    
   val kitchen = "kitchen"
   val bathroom = "bathroom"
   val room = "room"
@@ -75,12 +76,66 @@ object SampleHouse {
       wc         -> TH(24, 2,  List(bw, wr, we, kw)))
       
   val heaters = Map[String, Tuple2[Heater, HeaterManager]](
-      heaterKitchen  -> (Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", kitchen),	HeaterManager(heaterKitchen  + "_manager", 50, 22, true, "loadTopic", "aggregatorController", "loadHierarch", heaterKitchen,  kitchen)),
-      heaterRoom     -> (Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", room),		HeaterManager(heaterRoom     + "_manager", 50, 22, true, "loadTopic", "aggregatorController", "loadHierarch", heaterRoom,     room)),
-      heaterLR1      -> (Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", livingroom),	HeaterManager(heaterLR1      + "_manager", 50, 22, true, "loadTopic", "aggregatorController", "loadHierarch", heaterLR1,      livingroom)),
-      heaterLR2      -> (Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", livingroom),	HeaterManager(heaterLR2      + "_manager", 50, 22, true, "loadTopic", "aggregatorController", "loadHierarch", heaterLR2,      livingroom)),
-      heaterBathroom -> (Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", bathroom),	HeaterManager(heaterBathroom + "_manager", 50, 22, true, "loadTopic", "aggregatorController", "loadHierarch", heaterBathroom, bathroom)),
-      heaterEntrance -> (Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", entrance),	HeaterManager(heaterEntrance + "_manager", 50, 22, true, "loadTopic", "aggregatorController", "loadHierarch", heaterEntrance, entrance)))
+      heaterKitchen  -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", kitchen),	
+          HeaterManager(
+              actorPath = heaterKitchen  + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterKitchen,
+              room = kitchen)),
+      heaterRoom     -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", room),
+          HeaterManager(
+              actorPath = heaterRoom     + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterRoom, 
+              room = room)),
+      heaterLR1      -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", livingroom),
+          HeaterManager(
+              actorPath = heaterLR1      + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterLR1,
+              room = livingroom)),
+      heaterLR2      -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", livingroom),
+          HeaterManager(
+              actorPath = heaterLR2      + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterLR2,
+              room = livingroom)),
+      heaterBathroom -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", bathroom),
+          HeaterManager(
+              actorPath = heaterBathroom + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterBathroom,
+              room = bathroom)),
+      heaterEntrance -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, "houseAggregator", entrance),
+          HeaterManager(
+              actorPath = heaterEntrance + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterEntrance,
+              room = entrance)))
       
 
   ////////////

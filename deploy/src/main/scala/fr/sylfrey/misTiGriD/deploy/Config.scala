@@ -1,19 +1,21 @@
 package fr.sylfrey.misTiGriD.deploy
 
-import java.util.{List => JList}
-
 import scala.collection.JavaConversions._
-
+import scala.collection.mutable.ListBuffer
 import org.apache.felix.ipojo.annotations.Bind
 import org.apache.felix.ipojo.annotations.Component
 import org.apache.felix.ipojo.annotations.Instantiate
 import org.apache.felix.ipojo.annotations.Validate
+import org.apache.felix.ipojo.annotations.Invalidate
+import org.apache.felix.ipojo.ComponentInstance
+import scala.concurrent.{Future, ExecutionContext}
 
 @Component
 @Instantiate
 class Config {
   
   private var houseFactory : HouseFactory = null
+  implicit val ec = ExecutionContext.Implicits.global
   
   @Bind
   def bindHouseFactory(factory : HouseFactory) : Unit = {
@@ -26,12 +28,17 @@ class Config {
     val atmosphereModel = Atmosphere(name=atmosphere, isManual=true, temperature=20, minTemperature=12, maxTemperature=22)
 
     val aggregator = "mouchezAggregator"
-    val aggregatorModel = Aggregator(aggregator, aggregator, false, 
-    "akka://MisTiGriD@i137.194.22.175:4004/user/districtAggregator")
+    val aggregatorModel = Aggregator(
+        name = aggregator, 
+        actorPath = aggregator, 
+        hasRemoteParent = false, 
+    	remoteParentURL = "akka://MisTiGriD@i137.194.22.175:4004/user/districtAggregator")
              
     val aggregatorController = "mouchezAggregatorController"
     val loadTopic = "mouchezLoadTopic"
-    val loadHierarch = "loadHierarch" // !! don't change this one, cf. Archiver
+    val houseLoadManager = "houseLoadManager"
+    val loadManagerURI = "akka://MisTiGriD/user/" + houseLoadManager
+//    val loadHierarch = "loadHierarch" // !! don't change this one, cf. Archiver
              
     val kitchen = "kitchen"
     val bathroom = "bathroom"
@@ -99,13 +106,66 @@ class Config {
       wc         -> TH(24, 2,  List(bw, wr, we, kw)))
       
     val heaters = Map[String, Tuple2[Heater, HeaterManager]](
-      heaterKitchen  -> (Heater(0, 0.05f, 0.1f, 400f, aggregator, kitchen),	HeaterManager(heaterKitchen  + "_manager", 50, 22, true, loadTopic, aggregatorController, loadHierarch, heaterKitchen,  kitchen)),
-      heaterRoom     -> (Heater(0, 0.05f, 0.1f, 400f, aggregator, room),		HeaterManager(heaterRoom     + "_manager", 50, 22, true, loadTopic, aggregatorController, loadHierarch, heaterRoom,     room)),
-      heaterLR1      -> (Heater(0, 0.05f, 0.1f, 400f, aggregator, livingroom),	HeaterManager(heaterLR1      + "_manager", 50, 22, true, loadTopic, aggregatorController, loadHierarch, heaterLR1,      livingroom)),
-      heaterLR2      -> (Heater(0, 0.05f, 0.1f, 400f, aggregator, livingroom),	HeaterManager(heaterLR2      + "_manager", 50, 22, true, loadTopic, aggregatorController, loadHierarch, heaterLR2,      livingroom)),
-      heaterBathroom -> (Heater(0, 0.05f, 0.1f, 400f, aggregator, bathroom),	HeaterManager(heaterBathroom + "_manager", 50, 22, true, loadTopic, aggregatorController, loadHierarch, heaterBathroom, bathroom)),
-      heaterEntrance -> (Heater(0, 0.05f, 0.1f, 400f, aggregator, entrance),	HeaterManager(heaterEntrance + "_manager", 50, 22, true, loadTopic, aggregatorController, loadHierarch, heaterEntrance, entrance)))
-      
+      heaterKitchen  -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, aggregator, kitchen),	
+          HeaterManager(
+              actorPath = heaterKitchen  + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterKitchen,
+              room = kitchen)),
+      heaterRoom     -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, aggregator, room),
+          HeaterManager(
+              actorPath = heaterRoom     + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterRoom, 
+              room = room)),
+      heaterLR1      -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, aggregator, livingroom),
+          HeaterManager(
+              actorPath = heaterLR1      + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterLR1,
+              room = livingroom)),
+      heaterLR2      -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, aggregator, livingroom),
+          HeaterManager(
+              actorPath = heaterLR2      + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterLR2,
+              room = livingroom)),
+      heaterBathroom -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, aggregator, bathroom),
+          HeaterManager(
+              actorPath = heaterBathroom + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterBathroom,
+              room = bathroom)),
+      heaterEntrance -> Tuple2(
+          Heater(0, 0.05f, 0.1f, 400f, aggregator, entrance),
+          HeaterManager(
+              actorPath = heaterEntrance + "_manager", 
+              period = 50,
+              requiredTemperature = 22,
+              prosumerStatus = "Flexible",
+              houseLoadManagerURI = loadManagerURI,
+              heater = heaterEntrance,
+              room = entrance)))
  
       
       
@@ -133,7 +193,7 @@ class Config {
     val wallLayouts = Map[String, Dim](
       br 	-> Dim(540, 250, 10, 80, 6),
       er 	-> Dim(550, 460, 10, 80, 6),
-      els -> Dim(250, 640, 80, 10, 6),
+      els   -> Dim(250, 640, 80, 10, 6),
       ae 	-> Dim( 50, 550, 10, 80, 6),
       ke 	-> Dim(160, 440, 80, 10, 6),
       we 	-> Dim(360, 440, 80, 10, 6))
@@ -144,29 +204,43 @@ class Config {
       aggregatorModel,
       walls, wallLayouts,
       rooms, roomLayouts,
-      heaters, heaterLayouts)
+      heaters, heaterLayouts).foreach( _.future onSuccess {
+        case componentInstance => instances += componentInstance
+    })
       
 	
-    houseFactory.spawn("ProsumptionController",
-      "instance.name" -> aggregatorController,
-      "actorPath" -> aggregatorController,
+    houseFactory.spawn("HouseLoadManagerDeployer",
+      "instance.name" -> houseLoadManager,
+      "actorPath" -> houseLoadManager,
+      "maxConsumption" -> "-2600",
+      "hysteresisThreshold" -> "300",
+      "prosumerStatus" -> "Flexible",
       "period" -> "500",
-      "maxConsumption" -> "1800",
-      "requires.from" -> houseFactory.&("prosumer" -> aggregator)
-    )
-
-    houseFactory.spawn("Topic",
-      "instance.name" -> loadTopic,
-      "topicPath" -> loadTopic
-    )
-    
-    houseFactory.spawn("LoadHierarch",
-      "instance.name" -> loadHierarch,
-      "actorPath" -> loadHierarch,
-      "period" -> "500",
-      "highThreshold" -> "-2600",
       "requires.from" -> houseFactory.&("aggregator" -> aggregator)
-    )
+    ).future onSuccess {
+        case componentInstance => instances += componentInstance
+    }
+
+//    houseFactory.spawn("Topic",
+//      "instance.name" -> loadTopic,
+//      "topicPath" -> loadTopic
+//    )
+    
+//    houseFactory.spawn("LoadHierarch",
+//      "instance.name" -> loadHierarch,
+//      "actorPath" -> loadHierarch,
+//      "period" -> "500",
+//      "highThreshold" -> "-2600",
+//      "requires.from" -> houseFactory.&("aggregator" -> aggregator)
+//    )
   
   }
+  
+  val instances = ListBuffer[ComponentInstance]()
+  
+  @Invalidate def stop() : Unit = {
+    instances.foreach( instance => { instance.stop; instance.dispose } )
+    instances.clear
+  }
+  
 }
