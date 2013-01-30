@@ -34,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>fr.sylfrey</groupId>
-        	<artifactId>misTiGriD_managementResources</artifactId>
+        	<artifactId>misTiGriD_alba</artifactId>
         	<version>1.1</version>
         </dependency>
         <dependency>

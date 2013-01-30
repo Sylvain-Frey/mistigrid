@@ -14,10 +14,11 @@ import org.apache.felix.ipojo.annotations.Unbind;
 
 import akka.event.EventBus;
 import akka.event.EventStream;
+import fr.sylfrey.misTiGriD.alba.basic.roles.HouseLoadManager;
 import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
 import fr.sylfrey.misTiGriD.environment.Updatable;
-import fr.sylfrey.misTiGriD.framework.ActorContainer;
-import fr.sylfrey.misTiGriD.management.resources.loadHierarch.LoadHierarch;
+//import fr.sylfrey.misTiGriD.framework.ActorContainer;
+//import fr.sylfrey.misTiGriD.management.resources.loadHierarch.LoadHierarch;
 import fr.sylfrey.misTiGriD.temperature.ThermicObject;
 
 @Component(name="Archiver", immediate=true)
@@ -46,18 +47,18 @@ public class ArchiverImpl implements Updatable, Archiver {
 	}
 	private Collection<Prosumer> prosumers = new ConcurrentLinkedQueue<Prosumer>();
 
-	@Bind(id="hierarch", optional=true)
-	public void bindHierarch(ActorContainer<LoadHierarch> container) {
-		loadHierarch = container.actor();
-		tracer.createValueLog("loadHierarch_maxConsumptionThreshold");
+	@Bind(id="loadManager", optional=true)
+	public void bindLoadManager(HouseLoadManager houseLoadManager) {
+		this.houseLoadManager = houseLoadManager;
+		tracer.createValueLog("loadManager_maxConsumptionThreshold");
 	}
 
-	@Unbind(id="hierarch", optional=true)
-	public void unbindHierarch(ActorContainer<LoadHierarch> container) {
-		loadHierarch = null;
+	@Unbind(id="loadManager", optional=true)
+	public void unbindLoadManager(HouseLoadManager houseLoadManager) {
+		houseLoadManager = null;
 	}
 
-	private LoadHierarch loadHierarch;
+	private HouseLoadManager houseLoadManager;
 
 
 	private EventBus bus = new EventStream(false);
@@ -78,9 +79,9 @@ public class ArchiverImpl implements Updatable, Archiver {
 			tracer.logValue("prosumption_" + prosumer.getName(), prosumer.getProsumedPower());
 			bus.publish(new ArchiverEvent<Float>("prosumption_" + prosumer.getName(), prosumer.getProsumedPower()));			
 		}
-		if (loadHierarch != null) {
-			tracer.logValue("loadHierarch_maxConsumptionThreshold", loadHierarch.maxConsumptionThreshold());
-			bus.publish(new ArchiverEvent<Float>("loadHierarch_maxConsumptionThreshold", loadHierarch.maxConsumptionThreshold()));
+		if (houseLoadManager != null) {
+			tracer.logValue("loadManager_maxConsumptionThreshold", houseLoadManager.maxConsumptionThreshold());
+			bus.publish(new ArchiverEvent<Float>("loadManager_maxConsumptionThreshold", houseLoadManager.maxConsumptionThreshold()));
 		}
 	}
 
