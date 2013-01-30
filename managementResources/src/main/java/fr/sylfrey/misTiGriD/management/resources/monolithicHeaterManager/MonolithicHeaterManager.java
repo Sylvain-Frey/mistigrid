@@ -1,5 +1,6 @@
 package fr.sylfrey.misTiGriD.management.resources.monolithicHeaterManager;
 
+import fr.sylfrey.misTiGriD.alba.basic.roles.HeaterManager;
 import fr.sylfrey.misTiGriD.framework.Consumer;
 import fr.sylfrey.misTiGriD.management.data.LoadMessage;
 

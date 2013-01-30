@@ -13,6 +13,7 @@ import akka.actor.TypedActor;
 import akka.actor.TypedProps;
 import akka.japi.Creator;
 import fr.sylfrey.akka.ActorSystemProvider;
+import fr.sylfrey.misTiGriD.alba.basic.roles.HeaterManager;
 import fr.sylfrey.misTiGriD.appliances.Heater;
 import fr.sylfrey.misTiGriD.environment.Updatable;
 import fr.sylfrey.misTiGriD.framework.ActorContainer;
