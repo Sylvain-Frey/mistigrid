@@ -12,7 +12,7 @@ import fr.sylfrey.misTiGriD.electricalGrid.RemoteAggregator;
 
 public class AggregatorImpl implements Aggregator, Prosumer {
 
-	public AggregatorImpl(RemoteAggregator parent, String name) {
+	public AggregatorImpl(Aggregator parent, String name) {
 		this.parent = parent;
 		this.name = name;
 		self = TypedActor.context().self();
@@ -123,7 +123,7 @@ public class AggregatorImpl implements Aggregator, Prosumer {
 	}
 	
 	public String name;
-	public RemoteAggregator parent;
+	public Aggregator parent;
 
 	private Map<Prosumer,Float> prosumptions = new ConcurrentHashMap<Prosumer,Float>();
 	private Map<Prosumer,Float> consumptions = new ConcurrentHashMap<Prosumer,Float>();
