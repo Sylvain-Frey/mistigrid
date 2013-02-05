@@ -1,4 +1,4 @@
-package fr.tpt.s3.microSmartGridSimulation.temperature.test;
+package fr.sylfrey.misTiGriD.temperature.test;
 
 import java.util.ArrayList;
 import java.util.List;
