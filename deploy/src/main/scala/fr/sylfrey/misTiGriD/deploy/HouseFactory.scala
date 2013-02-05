@@ -203,18 +203,6 @@ class HouseFactoryImpl extends HouseFactory {
   }
 
   def makeHeaterManager(name: String, heaterManager: HeaterManager) = {
-    //    spawn("MonolithicHeaterManager",
-    //      "instance.name" -> name,
-    //      "actorPath" -> heaterManager.actorPath,
-    //      "period" -> heaterManager.period.toString(),
-    //      "requiredTemperature" -> heaterManager.requiredTemperature.toString(),
-    //      "isCollaborative" -> heaterManager.isCollaborative.toString(),
-    //      "requires.from" -> &(
-    //        "loadTopic" -> heaterManager.loadTopic,
-    //        "controller" -> heaterManager.controller,
-    //        "hierarch" -> heaterManager.hierarch,
-    //        "heater" -> heaterManager.heater,
-    //        "room" -> heaterManager.room))
     spawn("BasicAlbaHeaterManager",
       "instance.name" -> name,
       "actorPath" -> heaterManager.actorPath,
@@ -222,6 +210,9 @@ class HouseFactoryImpl extends HouseFactory {
       "requiredTemperature" -> heaterManager.requiredTemperature.toString(),
       "prosumerStatus" -> heaterManager.prosumerStatus.toString(),
       "houseLoadManagerURI" -> heaterManager.houseLoadManagerURI,
+      "kp" -> heaterManager.kp.toString(),
+      "ki" -> heaterManager.ki.toString(),
+      "kd" -> heaterManager.kd.toString(),
       "requires.from" -> &(
         "heater" -> heaterManager.heater,
         "room" -> heaterManager.room))

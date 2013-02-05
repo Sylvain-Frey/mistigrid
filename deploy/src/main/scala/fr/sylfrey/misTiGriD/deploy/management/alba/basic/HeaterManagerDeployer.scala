@@ -44,6 +44,9 @@ class AlbaHeaterManagerDeployer {
   @Property(mandatory=true) var prosumerStatus : String = _
   @Property(mandatory=true) var actorPath : String = _
   @Property(mandatory=true) var houseLoadManagerURI : String = _
+  @Property(mandatory=true) var kp : Float = _
+  @Property(mandatory=true) var ki : Float = _
+  @Property(mandatory=true) var kd : Float = _
 	
   @Validate def start() : Unit = {
     
@@ -52,7 +55,14 @@ class AlbaHeaterManagerDeployer {
     manager = TypedActor.get(actorSystem).typedActorOf(
 	  TypedProps(
 		  classOf[AlbaHeaterManager], 
-          new HeaterManagerAgent(heater, room, status, requiredTemperature)),
+          new HeaterManagerAgent(
+              heater = heater, 
+              room = room, 
+              status = status, 
+              requiredTemperature = requiredTemperature,
+              kp = kp,
+              ki = ki,
+              kd = kd)),
         actorPath)
     managerActorRef = TypedActor.get(actorSystem).getActorRefFor(manager)
 

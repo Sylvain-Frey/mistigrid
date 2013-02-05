@@ -41,7 +41,10 @@ case class HeaterManager(
   prosumerStatus: String,
   houseLoadManagerURI: String,
   heater: String,
-  room: String
+  room: String,
+  kp : Float,
+  ki : Float,
+  kd : Float	
   /*loadTopic: String,
   controller: String,
   hierarch: String,

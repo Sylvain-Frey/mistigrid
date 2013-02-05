@@ -71,9 +71,11 @@ class HouseLoadManagerDeployer {
 
   @Invalidate def stop(): Unit = {
     periodicTask.cancel
-    districtLoadManager.unregister(managerActorRef)
+    if (hasParent) {
+      districtLoadManager.unregister(managerActorRef)
+      TypedActor.get(actorSystem).stop(districtLoadManager)
+    }
     TypedActor.get(actorSystem).stop(houseLoadManager)
-    TypedActor.get(actorSystem).stop(districtLoadManager)
   }
 
   private var actorSystem: ActorSystem = _
