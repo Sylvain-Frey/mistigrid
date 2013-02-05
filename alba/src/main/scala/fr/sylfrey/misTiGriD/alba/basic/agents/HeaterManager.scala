@@ -1,6 +1,5 @@
 package fr.sylfrey.misTiGriD.alba.basic.agents
 
-
 import fr.sylfrey.misTiGriD.temperature.ThermicObject
 import fr.sylfrey.misTiGriD.appliances.Heater
 import akka.actor.TypedActor
@@ -17,61 +16,66 @@ import fr.sylfrey.misTiGriD.alba.basic.messages.AnyLoad
 import fr.sylfrey.misTiGriD.alba.basic.messages.Prosumption
 import fr.sylfrey.misTiGriD.alba.basic.roles.HeaterManager
 
-trait Updatable { def update() : Unit }
+trait Updatable { def update(): Unit }
 
 trait AlbaHeaterManager extends HeaterManager with ProsumerManager with Updatable
 
 class HeaterManagerAgent(
-    val heater : Heater, 
-    val room : ThermicObject,
-    var status : ProsumerStatus,
-    var requiredTemperature : Float 
+  val heater: Heater,
+  val room: ThermicObject,
+  var status: ProsumerStatus,
+  var requiredTemperature: Float,
+  var kp : Float,
+  var ki : Float,
+  var kd : Float	
 ) extends AlbaHeaterManager {
-  
+
   var heaterProsumption = heater.getEmissionPower()
   var roomTemperature = room.getCurrentTemperature
-  var currentOrder : LoadBalancingOrder = AnyLoad
+  var currentOrder: LoadBalancingOrder = AnyLoad
   var _isEconomising = false
-  
+
   val pid = new HeaterPIDProcessor(
-      maxPower = heater.getMaxEmissionPower(),
-      requiredTemperature = this.requiredTemperature,
-      currentTemperature = roomTemperature,
-      currentPower = heaterProsumption
-  )
-  
+    maxPower = heater.getMaxEmissionPower(),
+    requiredTemperature = this.requiredTemperature,
+    currentTemperature = roomTemperature,
+    currentPower = heaterProsumption,
+    kp = kp, //heater.getMaxEmissionPower()/10,
+    ki = ki, //1E-13f,
+    kd = kd) //0f)
+
   def getRequiredTemperature = requiredTemperature
-  
-  def setRequiredTemperature(requiredTemperature : Float) : Unit = {
+
+  def setRequiredTemperature(requiredTemperature: Float): Unit = {
     this.requiredTemperature = requiredTemperature
   }
 
-  def isEconomizing : Boolean = _isEconomising
-  
-  def update = {
-      heaterProsumption = heater.getEmissionPower()
-      
-      (status, currentOrder) match {
-        case (Flexible, ReduceLoad) | (SemiFlexible, ReduceLoad) => 
-        	pid.requiredTemperature = requiredTemperature - 2
-        	_isEconomising = true
-        case _ => 
-        	pid.requiredTemperature = requiredTemperature
-        	_isEconomising = false
-      }
-      
-	  val newPower = pid.iterate(room.getCurrentTemperature(), heaterProsumption)
+  def isEconomizing: Boolean = _isEconomising
 
-	  if (newPower!=heaterProsumption) heater.setEmissionPower(newPower)
+  def update = {
+    heaterProsumption = heater.getEmissionPower()
+
+    (status, currentOrder) match {
+      case (Flexible, ReduceLoad) | (SemiFlexible, ReduceLoad) =>
+        pid.requiredTemperature = requiredTemperature - 2
+        _isEconomising = true
+      case _ =>
+        pid.requiredTemperature = requiredTemperature
+        _isEconomising = false
+    }
+
+    val newPower = pid.iterate(room.getCurrentTemperature(), heaterProsumption)
+
+    if (newPower != heaterProsumption) heater.setEmissionPower(newPower)
   }
-  
+
   def getProsumption = Prosumption(TypedActor.context.self, heaterProsumption, new Date)
-  
-  def getStatus  = status
-  
-  def tell(order : LoadBalancingOrder) = {
+
+  def getStatus = status
+
+  def tell(order: LoadBalancingOrder) = {
     this.currentOrder = order
     Ack
   }
-  
+
 }

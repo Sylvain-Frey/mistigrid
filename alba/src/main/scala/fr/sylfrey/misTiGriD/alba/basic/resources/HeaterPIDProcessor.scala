@@ -1,15 +1,15 @@
 package fr.sylfrey.misTiGriD.alba.basic.resources
 
 class HeaterPIDProcessor(
-    var requiredTemperature : Float = 20,
-	var maxPower : Float = 0f,	
-	var currentTemperature : Float = 20,	
-	var currentPower : Float = 0f
+    var requiredTemperature : Float,
+	var maxPower : Float,	
+	var currentTemperature : Float,	
+	var currentPower : Float,
+	var kp : Float,
+	var ki : Float,
+	var kd : Float	
 ) {
   
-  var kp : Float = maxPower/10
-  var ki : Float = 1E-13f
-  var kd : Float = 0	
 
   var lastError : Float = 0f
   var integral : Float = 0f
