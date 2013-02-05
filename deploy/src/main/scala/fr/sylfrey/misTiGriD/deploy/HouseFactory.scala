@@ -3,72 +3,20 @@ package fr.sylfrey.misTiGriD.deploy
 import java.util.{ List => JList }
 import scala.collection.mutable.ListBuffer
 import scala.collection.JavaConversions._
+import scala.concurrent.{ promise, Promise, Future }
 import org.apache.felix.ipojo.annotations.Instantiate
 import org.apache.felix.ipojo.annotations.Component
 import org.apache.felix.ipojo.annotations.Provides
 import org.apache.felix.ipojo.annotations.Unbind
-import org.apache.felix.ipojo.Factory
-import org.apache.felix.ipojo.annotations.Bind
-import org.osgi.framework.ServiceReference
-import java.util.Dictionary
-import java.util.HashMap
+import org.apache.felix.ipojo.annotations.Requires
 import org.apache.felix.ipojo.annotations.Validate
-import scala.concurrent.{promise, Promise, Future}
+import org.apache.felix.ipojo.annotations.Bind
+import org.apache.felix.ipojo.Factory
 import org.apache.felix.ipojo.ComponentInstance
+import org.osgi.framework.ServiceReference
 
-case class Atmosphere(
-  name: String,
-  temperature: Float,
-  minTemperature: Float,
-  maxTemperature: Float,
-  isManual: Boolean)
-  
-case class Aggregator(
-    name: String,
-    actorPath: String,
-    hasRemoteParent: Boolean,
-    remoteParentURL: String)
+trait HouseFactory {
 
-case class Wall(
-  surfacicHeatConductance: Float,
-  isOpen: Boolean,
-  openHeatConductance: Float,
-  size: Float,
-  neighbours: JList[String])
-
-case class TH(temperature: Float,
-  heatCapacity: Float,
-  walls: JList[String])
-
-case class Heater(
-  prosumedPower: Float,
-  heatConductance: Float,
-  efficiency: Float,
-  maxEmissionPower: Float,
-  aggregator: String,
-  room: String)
-
-case class HeaterManager(
-  actorPath: String,
-  period: Int,
-  requiredTemperature: Float,
-  prosumerStatus: String,
-  houseLoadManagerURI: String,
-  heater: String,
-  room: String
-  /*loadTopic: String,
-  controller: String,
-  hierarch: String,
-  isCollaborative: Boolean*/)
-
-case class Pos(x: Int, y: Int, layer: Int)
-
-case class Dim(x: Int, y: Int, width: Int, height: Int, layer: Int)
-
-
-
-trait HouseFactory /*extends MetaFactory*/ {
-  
   def make(
     atmosphere: Atmosphere,
     aggregator: Aggregator,
@@ -77,8 +25,8 @@ trait HouseFactory /*extends MetaFactory*/ {
     rooms: Map[String, TH],
     roomLayouts: Map[String, Dim],
     heaters: Map[String, Tuple2[Heater, HeaterManager]],
-    heaterLayouts: Map[String, Tuple2[String,Pos]]) : List[Promise[ComponentInstance]]
-  
+    heaterLayouts: Map[String, Tuple2[String, Pos]]): List[Promise[ComponentInstance]]
+
   def makeTH(name: String, th: TH): Promise[ComponentInstance]
 
   def makeWall(name: String, wall: Wall): Promise[ComponentInstance]
@@ -102,70 +50,22 @@ trait HouseFactory /*extends MetaFactory*/ {
   def makeHeaterManagerView(name: String, manager: String, room: String): Promise[ComponentInstance]
 
   def makeWallView(name: String, wall: String): Promise[ComponentInstance]
-  
-  def &(items: (String, String)*): JList[Tuple2[String, Any]]
-  
-  def spawn(factoryName: String, items: (String, _)*) : Promise[ComponentInstance]
-  
+
 }
 
 @Component
-@Provides(specifications=Array(classOf[HouseFactory]))
+@Provides(specifications = Array(classOf[HouseFactory]))
 @Instantiate
 class HouseFactoryImpl extends HouseFactory {
 
-  val factories = new HashMap[String, Factory]()
-  var factRefs: Array[ServiceReference] = _
-  val factorables = new HashMap[String, List[Tuple2[Promise[ComponentInstance], Dictionary[String, _]]] ]
+  @Requires var metaFactory: MetaFactory = _
 
-  @Bind(aggregate=true)
-  def bind(factory: Factory) {
-    val factoryName = factory.getName()
-    factories.put(factoryName, factory)
-    // check for pending jobs
-    if (factorables.containsKey(factoryName)) {
-    	factorables.remove(factoryName).foreach( _ match {
-    	  case (promise, config) => promise success factory.createComponentInstance(config)
-    	})
-    }
+  private def spawn(factoryName: String, items: (String, _)*): Promise[ComponentInstance] = {
+    metaFactory.spawn(factoryName, items: _*)
   }
-
-  @Unbind
-  def unbind(factory: Factory) {
-    factories.remove(factory.getName())
+  private def &(items: (String, String)*): JList[Tuple2[String, Any]] = {
+    metaFactory.&(items: _*)
   }
-
-  def spawn(factoryName: String, items: (String, _)*) : Promise[ComponentInstance] = {
-    val p = promise[ComponentInstance]
-    if (factories.containsKey(factoryName)) { // factory available: call it
-      p success factories.get(factoryName).createComponentInstance(parse(items))
-    } else { // store the job for when factory becomes available
-      val job = Tuple2(p, parse(items))
-      if (factorables.containsKey(factoryName)) {
-        factorables.put(factoryName, job +: factorables.get(factoryName))
-      } else {
-        factorables.put(factoryName, List(job) )
-      }
-    }
-    p
-  }
-
-  def parse(items: JList[(String, _)]): Dictionary[String, _] = {
-    val map = new HashMap[String, Any]()
-    items.foreach { case (key, value) => value match {
-        case config: JList[Tuple2[String, Any]] => map.put(key, parse(config))
-        case string: String => map.put(key, string)
-        case erroneous => println("### skipping invalid configuration : " + erroneous)
-      }
-    }
-    DictionaryWrapper(map)
-  }
-
-  def &(items: (String, String)*): JList[Tuple2[String, Any]] = {
-    items.toList
-  }
-  
-
 
   def make(
     atmosphere: Atmosphere,
@@ -175,11 +75,10 @@ class HouseFactoryImpl extends HouseFactory {
     rooms: Map[String, TH],
     roomLayouts: Map[String, Dim],
     heaters: Map[String, Tuple2[Heater, HeaterManager]],
-    heaterLayouts: Map[String, Tuple2[String,Pos]]) : List[Promise[ComponentInstance]] = {
+    heaterLayouts: Map[String, Tuple2[String, Pos]]): List[Promise[ComponentInstance]] = {
 
-    
     val result = ListBuffer[Promise[ComponentInstance]]()
-    
+
     // model
 
     result += spawn("Atmosphere",
@@ -189,12 +88,12 @@ class HouseFactoryImpl extends HouseFactory {
       "maxTemperature" -> atmosphere.maxTemperature.toString(),
       "isManual" -> atmosphere.isManual.toString(),
       "period" -> "50")
-      
+
     result += spawn("Aggregator",
-        "instance.name" -> aggregator.name,
-        "actorPath" -> aggregator.actorPath,
-        "hasRemoteParent" -> aggregator.hasRemoteParent.toString(),
-        "remoteParentURL" -> aggregator.remoteParentURL)
+      "instance.name" -> aggregator.name,
+      "actorPath" -> aggregator.actorPath,
+      "hasRemoteParent" -> aggregator.hasRemoteParent.toString(),
+      "remoteParentURL" -> aggregator.remoteParentURL)
 
     for ((name, wall) <- walls) {
       result += makeWall(name, wall)
@@ -212,15 +111,14 @@ class HouseFactoryImpl extends HouseFactory {
     // layouts
 
     result += spawn("AtmosphereLayout",
-        "instance.name" -> (atmosphere.name + "_layout"),
-        "x" -> "0",
-        "y" -> "0",
-        "width" -> "1000",
-        "height" -> "1000",
-        "layer" -> "1",
-        "requires.from" -> &("atmosphere" -> atmosphere.name))
-            
-      
+      "instance.name" -> (atmosphere.name + "_layout"),
+      "x" -> "0",
+      "y" -> "0",
+      "width" -> "1000",
+      "height" -> "1000",
+      "layer" -> "1",
+      "requires.from" -> &("atmosphere" -> atmosphere.name))
+
     for ((room, dim) <- roomLayouts) {
       result += makeTOLayout(
         name = room + "_layout",
@@ -266,11 +164,10 @@ class HouseFactoryImpl extends HouseFactory {
         name = wall + "_view",
         wall = wall + "_layout")
     }
-    
+
     result.toList
 
   }
-
 
   def makeTH(name: String, th: TH) = {
     spawn("ThermicObject",
@@ -306,18 +203,18 @@ class HouseFactoryImpl extends HouseFactory {
   }
 
   def makeHeaterManager(name: String, heaterManager: HeaterManager) = {
-//    spawn("MonolithicHeaterManager",
-//      "instance.name" -> name,
-//      "actorPath" -> heaterManager.actorPath,
-//      "period" -> heaterManager.period.toString(),
-//      "requiredTemperature" -> heaterManager.requiredTemperature.toString(),
-//      "isCollaborative" -> heaterManager.isCollaborative.toString(),
-//      "requires.from" -> &(
-//        "loadTopic" -> heaterManager.loadTopic,
-//        "controller" -> heaterManager.controller,
-//        "hierarch" -> heaterManager.hierarch,
-//        "heater" -> heaterManager.heater,
-//        "room" -> heaterManager.room))
+    //    spawn("MonolithicHeaterManager",
+    //      "instance.name" -> name,
+    //      "actorPath" -> heaterManager.actorPath,
+    //      "period" -> heaterManager.period.toString(),
+    //      "requiredTemperature" -> heaterManager.requiredTemperature.toString(),
+    //      "isCollaborative" -> heaterManager.isCollaborative.toString(),
+    //      "requires.from" -> &(
+    //        "loadTopic" -> heaterManager.loadTopic,
+    //        "controller" -> heaterManager.controller,
+    //        "hierarch" -> heaterManager.hierarch,
+    //        "heater" -> heaterManager.heater,
+    //        "room" -> heaterManager.room))
     spawn("BasicAlbaHeaterManager",
       "instance.name" -> name,
       "actorPath" -> heaterManager.actorPath,

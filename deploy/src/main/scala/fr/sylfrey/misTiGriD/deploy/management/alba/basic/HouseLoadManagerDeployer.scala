@@ -24,6 +24,7 @@ import fr.sylfrey.misTiGriD.alba.basic.agents.ManageableHouseLoadManager
 import fr.sylfrey.misTiGriD.alba.basic.agents.HouseLoadManagerAgent
 import org.apache.felix.ipojo.annotations.Invalidate
 import fr.sylfrey.misTiGriD.alba.basic.roles.HouseLoadManager
+import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
 
 @Component(name = "HouseLoadManagerDeployer", immediate = true)
 class HouseLoadManagerDeployer {
@@ -37,6 +38,8 @@ class HouseLoadManagerDeployer {
   @Property(mandatory = true) var prosumerStatus: String = _
   @Property(mandatory = true) var period: Int = _
   @Property(mandatory = true) var actorPath: String = _
+  @Property var hasParent: Boolean = _
+  @Property var districtLoadManagerURI: String = _
 
   @Validate def start(): Unit = {
     val status = decode(prosumerStatus)
@@ -48,25 +51,35 @@ class HouseLoadManagerDeployer {
       actorPath)
     managerActorRef = TypedActor.get(actorSystem).getActorRefFor(houseLoadManager)
     println("# houseLoadManager deployed : " + houseLoadManager)
-    
+
     bundleContextProvider.get().registerService(
-      Array( classOf[ManageableHouseLoadManager], classOf[HouseLoadManager]).map( _.getName() ), 
+      Array(classOf[ManageableHouseLoadManager], classOf[HouseLoadManager]).map(_.getName()),
       houseLoadManager,
       Map("instance.name" -> actorPath, "service.pid" -> actorPath))
-      
+
+    if (hasParent) {
+      districtLoadManager = TypedActor.get(actorSystem).typedActorOf(
+        TypedProps[LoadManager](classOf[LoadManager]),
+        actorSystem.actorFor(districtLoadManagerURI))
+      districtLoadManager.register(managerActorRef)
+    }
+
     implicit val executionContext = actorSystem.dispatcher
     periodicTask = actorSystem.scheduler.schedule(period milliseconds, period milliseconds) { houseLoadManager.update }
-      
+
   }
-  
-  @Invalidate def stop() : Unit = {
+
+  @Invalidate def stop(): Unit = {
     periodicTask.cancel
+    districtLoadManager.unregister(managerActorRef)
     TypedActor.get(actorSystem).stop(houseLoadManager)
+    TypedActor.get(actorSystem).stop(districtLoadManager)
   }
 
   private var actorSystem: ActorSystem = _
   private var houseLoadManager: ManageableHouseLoadManager = _
   private var managerActorRef: ActorRef = _
+  private var districtLoadManager: LoadManager = _
   private var periodicTask: Cancellable = _
 
 }

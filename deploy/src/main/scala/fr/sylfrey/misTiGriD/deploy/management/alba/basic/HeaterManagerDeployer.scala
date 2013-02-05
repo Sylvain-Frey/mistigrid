@@ -76,6 +76,7 @@ class AlbaHeaterManagerDeployer {
     periodicTask.cancel
     houseLoadManager.unregister(managerActorRef)
     TypedActor.get(actorSystem).stop(manager)
+    TypedActor.get(actorSystem).stop(houseLoadManager)
   }
 	
   private var actorSystem : ActorSystem = _
