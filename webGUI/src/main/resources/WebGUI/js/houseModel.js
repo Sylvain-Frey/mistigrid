@@ -18,6 +18,7 @@ var layoutObjectHandler = function(type, name, updateCallback){
     },
     complete: function(data) {
       var layoutObject = $.parseJSON(data.responseText);
+      if (layoutObject == null) return;
       //Apply data to visualObjectHandler
       var specs = {
         x: layoutObject.x,
