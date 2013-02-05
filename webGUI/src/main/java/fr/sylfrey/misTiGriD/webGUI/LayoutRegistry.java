@@ -1,8 +1,8 @@
 package fr.sylfrey.misTiGriD.webGUI;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +22,6 @@ import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
 import fr.sylfrey.misTiGriD.alba.basic.roles.HouseLoadManager;
-import fr.sylfrey.misTiGriD.framework.ActorContainer;
 import fr.sylfrey.misTiGriD.layout.AtmosphereLayout;
 import fr.sylfrey.misTiGriD.layout.HeaterLayout;
 import fr.sylfrey.misTiGriD.layout.HeaterManagerLayout;
@@ -132,12 +131,12 @@ public class LayoutRegistry {
 
 
 	private AtmosphereLayout atmosphereLayout;
-	private Map<String, ThermicObjectLayout> thermicLayouts = new HashMap<String, ThermicObjectLayout>();
-	private Map<String, ProsumerLayout> prosumerLayouts = new HashMap<String, ProsumerLayout>();
-	private Map<String, HeaterLayout> heaterLayouts = new HashMap<String, HeaterLayout>();
-	private Map<String, HeaterManagerLayout> heaterManagerLayouts = new HashMap<String, HeaterManagerLayout>();
-	private Map<String, OpeningLayout> openingLayouts = new HashMap<String, OpeningLayout>();
-	private Map<String, LampLayout> lampLayouts = new HashMap<String, LampLayout>();
+	private Map<String, ThermicObjectLayout> thermicLayouts = new ConcurrentHashMap<String, ThermicObjectLayout>();
+	private Map<String, ProsumerLayout> prosumerLayouts = new ConcurrentHashMap<String, ProsumerLayout>();
+	private Map<String, HeaterLayout> heaterLayouts = new ConcurrentHashMap<String, HeaterLayout>();
+	private Map<String, HeaterManagerLayout> heaterManagerLayouts = new ConcurrentHashMap<String, HeaterManagerLayout>();
+	private Map<String, OpeningLayout> openingLayouts = new ConcurrentHashMap<String, OpeningLayout>();
+	private Map<String, LampLayout> lampLayouts = new ConcurrentHashMap<String, LampLayout>();
 	
 	private HouseLoadManager houseLoadManager;
 	
