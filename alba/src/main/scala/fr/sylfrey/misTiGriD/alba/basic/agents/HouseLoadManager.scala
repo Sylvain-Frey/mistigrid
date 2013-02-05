@@ -5,9 +5,7 @@ import akka.actor.TypedActor
 import scala.collection.mutable.LinkedHashMap
 import akka.actor.ActorRef
 import akka.actor.TypedProps
-import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
 import java.util.Date
-import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
 import scala.concurrent.Future
 import akka.actor.Actor
 import scala.concurrent.ExecutionContext
@@ -67,11 +65,15 @@ class HouseLoadManagerAgent(
 
   def update = {
     currentAggregatedProsumption = aggregator.getProsumedPower()
+    
+    if (currentOrder == ReduceLoad) maxConsumption = baseMaxConsumption + 500
+    else maxConsumption = baseMaxConsumption
       
     if (currentAggregatedProsumption < maxConsumption && !prosumers.isEmpty) {
 			
 	  val (ref, erasedProsumer) = prosumers.head
 	  Future { erasedProsumer.tell(ReduceLoad) }
+	  println("# " + aggregator.getName() + "'s manager told " + ReduceLoad + " to " + erasedProsumer)
 	  prosumers.remove(ref)
 	  erasedProsumers.put(ref, erasedProsumer)
 			
@@ -79,6 +81,7 @@ class HouseLoadManagerAgent(
 			
 	  val (ref, unerasedProsumer) = erasedProsumers.head
 	  Future { unerasedProsumer.tell(AnyLoad) }
+	  println("# " + aggregator.getName() + "'s manager told " + AnyLoad + " to " + unerasedProsumer)
 	  erasedProsumers.remove(ref)
 	  prosumers.put(ref, unerasedProsumer)
 			
@@ -87,7 +90,10 @@ class HouseLoadManagerAgent(
   
   def tell(order : LoadBalancingOrder) = {
     this.currentOrder = order
+	println("# " + aggregator.getName() + "'s manager has been told " + order)
     Ack
   }
+  
+  val baseMaxConsumption = maxConsumption
   
 } 

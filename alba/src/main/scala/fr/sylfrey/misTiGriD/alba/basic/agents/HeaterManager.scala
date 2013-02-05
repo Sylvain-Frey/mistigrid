@@ -31,7 +31,7 @@ class HeaterManagerAgent(
   var heaterProsumption = heater.getEmissionPower()
   var roomTemperature = room.getCurrentTemperature
   var currentOrder : LoadBalancingOrder = AnyLoad
-  var isEconomising = false
+  var _isEconomising = false
   
   val pid = new HeaterPIDProcessor(
       maxPower = heater.getMaxEmissionPower(),
@@ -46,7 +46,7 @@ class HeaterManagerAgent(
     this.requiredTemperature = requiredTemperature
   }
 
-  def isEconomizing : Boolean = false
+  def isEconomizing : Boolean = _isEconomising
   
   def update = {
       heaterProsumption = heater.getEmissionPower()
@@ -54,10 +54,10 @@ class HeaterManagerAgent(
       (status, currentOrder) match {
         case (Flexible, ReduceLoad) | (SemiFlexible, ReduceLoad) => 
         	pid.requiredTemperature = requiredTemperature - 2
-        	isEconomising = true
+        	_isEconomising = true
         case _ => 
         	pid.requiredTemperature = requiredTemperature
-        	isEconomising = false
+        	_isEconomising = false
       }
       
 	  val newPower = pid.iterate(room.getCurrentTemperature(), heaterProsumption)
