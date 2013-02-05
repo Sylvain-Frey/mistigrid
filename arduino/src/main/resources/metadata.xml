@@ -7,7 +7,7 @@
    <instance component="Aggregator" name="houseAggregator">
       <property name="instance.name" value="houseAggregator" />
         <property name="actorPath" value="houseAggregator" />
-        <property name="hasRemoteParent" value="true" />
+        <property name="hasRemoteParent" value="false" />
         <property name="remoteParentURL" value="akka://MisTiGriD@137.194.205.134:4004/user/districtAggregator" />
    </instance>
 
@@ -349,120 +349,139 @@
 <!--                          HEATER MANAGERS                                      -->
 <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
+<!--    <instance component="HouseLoadManagerDeployer" name="houseLoadManager"> -->
+<!--       <property name="actorPath" value="houseLoadManager" /> -->
+<!--       <property name="period" value="500" /> -->
+<!--       <property name="maxConsumption" value="-1600" /> -->
+<!--       <property name="hysteresisThreshold" value="300" /> -->
+<!--       <property name="prosumerStatus" value="Flexible" /> -->
+<!--       <property name="hasParent" value="false" /> -->
+<!--       <property name="districtLoadManagerURI" value="someURI" /> -->
+<!--       <property name="requires.from"> -->
+<!--          <property name="aggregator" value="houseAggregator" /> -->
+<!--       </property> -->
+<!--    </instance> -->
 
 
-
-	<instance component="ArduinoHeaterManager" name="heater_kitchen_manager">
-		<property name="actorPath" value="kitchen_heater_manager" />
-		<property name="period" value="500" />
-		<property name="requiredTemperature" value="22" />
-		<property name="isCollaborative" value="true" />
-		<property name="requires.from">
-			<property name="loadTopic" value="loadTopic" />
-			<property name="controller" value="aggregatorController" />
-			<property name="hierarch" value="loadHierarch" />
-			<property name="heater" value="heater_kitchen" />
-			<property name="room" value="kitchen" />
-		</property>
-	</instance>
+<!-- 	<instance component="BasicAlbaHeaterManager" name="heater_kitchen_manager"> -->
+<!-- 		<property name="actorPath" value="heater_kitchen_manager" /> -->
+<!-- 		<property name="period" value="500" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!--       <property name="prosumerStatus" value="Flexible" /> -->
+<!--       <property name="houseLoadManagerURI" value="akka://MisTiGriD/user/houseLoadManager" /> -->
+<!--       <property name="kp" value="10" /> -->
+<!--       <property name="ki" value="0" /> -->
+<!--       <property name="kd" value="0" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="heater" value="heater_kitchen" /> -->
+<!-- 			<property name="room" value="kitchen" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
 	
-	<instance component="ArduinoHeaterManager" name="heater_bedroom1_manager">
-		<property name="actorPath" value="bedroom1_heater_manager" />
-		<property name="period" value="500" />
-		<property name="requiredTemperature" value="22" />
-		<property name="isCollaborative" value="true" />
-		<property name="requires.from">
-			<property name="loadTopic" value="loadTopic" />
-			<property name="controller" value="aggregatorController" />
-			<property name="hierarch" value="loadHierarch" />
-			<property name="heater" value="heater_bedroom1" />
-			<property name="room" value="bedroom1" />
-		</property>
-	</instance>
+<!-- 	<instance component="BasicAlbaHeaterManager" name="heater_bedroom1_manager"> -->
+<!-- 		<property name="actorPath" value="heater_bedroom1_manager" /> -->
+<!-- 		<property name="period" value="500" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!--       <property name="prosumerStatus" value="Flexible" /> -->
+<!--       <property name="houseLoadManagerURI" value="akka://MisTiGriD/user/houseLoadManager" /> -->
+<!--       <property name="kp" value="10" /> -->
+<!--       <property name="ki" value="0" /> -->
+<!--       <property name="kd" value="0" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="heater" value="heater_bedroom1" /> -->
+<!-- 			<property name="room" value="bedroom1" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
 	
-	<instance component="ArduinoHeaterManager" name="heater_bedroom2_manager">
-		<property name="actorPath" value="bedroom2_heater_manager" />
-		<property name="period" value="500" />
-		<property name="requiredTemperature" value="22" />
-		<property name="isCollaborative" value="true" />
-		<property name="requires.from">
-			<property name="loadTopic" value="loadTopic" />
-			<property name="controller" value="aggregatorController" />
-			<property name="hierarch" value="loadHierarch" />
-			<property name="heater" value="heater_bedroom2" />
-			<property name="room" value="bedroom2" />
-		</property>
-	</instance>
+<!-- 	<instance component="BasicAlbaHeaterManager" name="heater_bedroom2_manager"> -->
+<!-- 		<property name="actorPath" value="heater_bedroom2_manager" /> -->
+<!-- 		<property name="period" value="500" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!--       <property name="prosumerStatus" value="Flexible" /> -->
+<!--       <property name="houseLoadManagerURI" value="akka://MisTiGriD/user/houseLoadManager" /> -->
+<!--       <property name="kp" value="10" /> -->
+<!--       <property name="ki" value="0" /> -->
+<!--       <property name="kd" value="0" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="heater" value="heater_bedroom2" /> -->
+<!-- 			<property name="room" value="bedroom2" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
 	
-	<instance component="ArduinoHeaterManager" name="heater_bedroom3_manager">
-		<property name="actorPath" value="bedroom3_heater_manager" />
-		<property name="period" value="500" />
-		<property name="requiredTemperature" value="22" />
-		<property name="isCollaborative" value="true" />
-		<property name="requires.from">
-			<property name="loadTopic" value="loadTopic" />
-			<property name="controller" value="aggregatorController" />
-			<property name="hierarch" value="loadHierarch" />
-			<property name="heater" value="heater_bedroom3" />
-			<property name="room" value="bedroom3" />
-		</property>
-	</instance>
+<!-- 	<instance component="BasicAlbaHeaterManager" name="heater_bedroom3_manager"> -->
+<!-- 		<property name="actorPath" value="heater_bedroom3_manager" /> -->
+<!-- 		<property name="period" value="500" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!--       <property name="prosumerStatus" value="Flexible" /> -->
+<!--       <property name="houseLoadManagerURI" value="akka://MisTiGriD/user/houseLoadManager" /> -->
+<!--       <property name="kp" value="10" /> -->
+<!--       <property name="ki" value="0" /> -->
+<!--       <property name="kd" value="0" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="heater" value="heater_bedroom3" /> -->
+<!-- 			<property name="room" value="bedroom3" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
 	
-	<instance component="ArduinoHeaterManager" name="heater_bathroom_manager">
-		<property name="actorPath" value="bathroom_heater_manager" />
-		<property name="period" value="500" />
-		<property name="requiredTemperature" value="22" />
-		<property name="isCollaborative" value="true" />
-		<property name="requires.from">
-			<property name="loadTopic" value="loadTopic" />
-			<property name="controller" value="aggregatorController" />
-			<property name="hierarch" value="loadHierarch" />
-			<property name="heater" value="heater_bathroom" />
-			<property name="room" value="bathroom" />
-		</property>
-	</instance>
+<!-- 	<instance component="BasicAlbaHeaterManager" name="heater_bathroom_manager"> -->
+<!-- 		<property name="actorPath" value="heater_bathroom_manager" /> -->
+<!-- 		<property name="period" value="500" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!--       <property name="prosumerStatus" value="Flexible" /> -->
+<!--       <property name="houseLoadManagerURI" value="akka://MisTiGriD/user/houseLoadManager" /> -->
+<!--       <property name="kp" value="10" /> -->
+<!--       <property name="ki" value="0" /> -->
+<!--       <property name="kd" value="0" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="heater" value="heater_bathroom" /> -->
+<!-- 			<property name="room" value="bathroom" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
 	
-	<instance component="ArduinoHeaterManager" name="heater_entrance_manager">
-		<property name="actorPath" value="entrance_heater_manager" />
-		<property name="period" value="500" />
-		<property name="requiredTemperature" value="22" />
-		<property name="isCollaborative" value="true" />
-		<property name="requires.from">
-			<property name="loadTopic" value="loadTopic" />
-			<property name="controller" value="aggregatorController" />
-			<property name="hierarch" value="loadHierarch" />
-			<property name="heater" value="heater_entrance" />
-			<property name="room" value="entrance" />
-		</property>
-	</instance>
+<!-- 	<instance component="BasicAlbaHeaterManager" name="heater_entrance_manager"> -->
+<!-- 		<property name="actorPath" value="heater_entrance_manager" /> -->
+<!-- 		<property name="period" value="500" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!--       <property name="prosumerStatus" value="Flexible" /> -->
+<!--       <property name="houseLoadManagerURI" value="akka://MisTiGriD/user/houseLoadManager" /> -->
+<!--       <property name="kp" value="10" /> -->
+<!--       <property name="ki" value="0" /> -->
+<!--       <property name="kd" value="0" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="heater" value="heater_entrance" /> -->
+<!-- 			<property name="room" value="entrance" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
 	
-	<instance component="ArduinoHeaterManager" name="heater_livingRoom1_manager">
-		<property name="actorPath" value="livingRoom1_heater_manager" />
-		<property name="period" value="500" />
-		<property name="requiredTemperature" value="22" />
-		<property name="isCollaborative" value="true" />
-		<property name="requires.from">
-			<property name="loadTopic" value="loadTopic" />
-			<property name="controller" value="aggregatorController" />
-			<property name="hierarch" value="loadHierarch" />
-			<property name="heater" value="heater_livingRoom1" />
-			<property name="room" value="livingRoom1" />
-		</property>
-	</instance>
+<!-- 	<instance component="BasicAlbaHeaterManager" name="heater_livingRoom1_manager"> -->
+<!-- 		<property name="actorPath" value="heater_livingRoom1_manager" /> -->
+<!-- 		<property name="period" value="500" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!--       <property name="prosumerStatus" value="Flexible" /> -->
+<!--       <property name="houseLoadManagerURI" value="akka://MisTiGriD/user/houseLoadManager" /> -->
+<!--       <property name="kp" value="10" /> -->
+<!--       <property name="ki" value="0" /> -->
+<!--       <property name="kd" value="0" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="heater" value="heater_livingRoom1" /> -->
+<!-- 			<property name="room" value="livingRoom1" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
 	
-	<instance component="ArduinoHeaterManager" name="heater_livingRoom2_manager">
-		<property name="actorPath" value="livingRoom2_heater_manager" />
-		<property name="period" value="500" />
-		<property name="requiredTemperature" value="22" />
-		<property name="isCollaborative" value="true" />
-		<property name="requires.from">
-			<property name="loadTopic" value="loadTopic" />
-			<property name="controller" value="aggregatorController" />
-			<property name="hierarch" value="loadHierarch" />
-			<property name="heater" value="heater_livingRoom2" />
-			<property name="room" value="livingRoom2" />
-		</property>
-	</instance>
+<!-- 	<instance component="BasicAlbaHeaterManager" name="heater_livingRoom2_manager"> -->
+<!-- 		<property name="actorPath" value="heater_livingRoom2_manager" /> -->
+<!-- 		<property name="period" value="500" /> -->
+<!-- 		<property name="requiredTemperature" value="22" /> -->
+<!--       <property name="prosumerStatus" value="Flexible" /> -->
+<!--       <property name="houseLoadManagerURI" value="akka://MisTiGriD/user/houseLoadManager" /> -->
+<!--       <property name="kp" value="10" /> -->
+<!--       <property name="ki" value="0" /> -->
+<!--       <property name="kd" value="0" /> -->
+<!-- 		<property name="requires.from"> -->
+<!-- 			<property name="heater" value="heater_livingRoom2" /> -->
+<!-- 			<property name="room" value="livingRoom2" /> -->
+<!-- 		</property> -->
+<!-- 	</instance> -->
 
 
 
@@ -853,17 +872,17 @@
         </property>        
     </instance>
     
-    <instance component="HeaterManagerLayout" name="heater_bedroom1_manager_Layout">
-        <property name="x" value="860" />
-        <property name="y" value="590" />
-        <property name="width" value="100" />
-        <property name="height" value="50" />    
-        <property name="layer" value="10" />      
-        <property name="requires.from">
-            <property name="manager" value="heater_bedroom1_manager" />
-            <property name="room" value="bedroom1" />
-        </property>        
-    </instance>
+<!--     <instance component="HeaterManagerLayout" name="heater_bedroom1_manager_Layout"> -->
+<!--         <property name="x" value="860" /> -->
+<!--         <property name="y" value="590" /> -->
+<!--         <property name="width" value="100" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_bedroom1_manager" /> -->
+<!--             <property name="room" value="bedroom1" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
     
     
         <instance component="HeaterLayout" name="heater_bedroom2_Layout">
@@ -876,17 +895,18 @@
             <property name="heater" value="heater_bedroom2" />
         </property>        
     </instance>
-    <instance component="HeaterManagerLayout" name="heater_bedroom2_manager_Layout">
-        <property name="x" value="660" />
-        <property name="y" value="630" />
-        <property name="width" value="100" />
-        <property name="height" value="50" />    
-        <property name="layer" value="10" />      
-        <property name="requires.from">
-            <property name="manager" value="heater_bedroom2_manager" />
-            <property name="room" value="bedroom2" />
-        </property>        
-    </instance>
+    
+<!--     <instance component="HeaterManagerLayout" name="heater_bedroom2_manager_Layout"> -->
+<!--         <property name="x" value="660" /> -->
+<!--         <property name="y" value="630" /> -->
+<!--         <property name="width" value="100" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_bedroom2_manager" /> -->
+<!--             <property name="room" value="bedroom2" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
     
     
         <instance component="HeaterLayout" name="heater_bedroom3_Layout">
@@ -899,17 +919,18 @@
             <property name="heater" value="heater_bedroom3" />
         </property>        
     </instance>
-    <instance component="HeaterManagerLayout" name="heater_bedroom3_manager_Layout">
-        <property name="x" value="340" />
-        <property name="y" value="630" />
-        <property name="width" value="110" />
-        <property name="height" value="50" />    
-        <property name="layer" value="10" />      
-        <property name="requires.from">
-            <property name="manager" value="heater_bedroom3_manager" />
-            <property name="room" value="bedroom3" />
-        </property>        
-    </instance>
+    
+<!--     <instance component="HeaterManagerLayout" name="heater_bedroom3_manager_Layout"> -->
+<!--         <property name="x" value="340" /> -->
+<!--         <property name="y" value="630" /> -->
+<!--         <property name="width" value="110" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_bedroom3_manager" /> -->
+<!--             <property name="room" value="bedroom3" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
     
     
         <instance component="HeaterLayout" name="heater_bathroom_Layout">
@@ -922,17 +943,18 @@
             <property name="heater" value="heater_bathroom" />
         </property>        
     </instance>
-    <instance component="HeaterManagerLayout" name="heater_bathroom_manager_Layout">
-        <property name="x" value="860" />
-        <property name="y" value="270" />
-        <property name="width" value="110" />
-        <property name="height" value="50" />    
-        <property name="layer" value="10" />      
-        <property name="requires.from">
-            <property name="manager" value="heater_bathroom_manager" />
-            <property name="room" value="bathroom" />
-        </property>        
-    </instance>
+    
+<!--     <instance component="HeaterManagerLayout" name="heater_bathroom_manager_Layout"> -->
+<!--         <property name="x" value="860" /> -->
+<!--         <property name="y" value="270" /> -->
+<!--         <property name="width" value="110" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_bathroom_manager" /> -->
+<!--             <property name="room" value="bathroom" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
     
     
         <instance component="HeaterLayout" name="heater_entrance_Layout">
@@ -945,17 +967,18 @@
             <property name="heater" value="heater_entrance" />
         </property>        
     </instance>
-    <instance component="HeaterManagerLayout" name="heater_entrance_manager_Layout">
-        <property name="x" value="680" />
-        <property name="y" value="170" />
-        <property name="width" value="110" />
-        <property name="height" value="50" />    
-        <property name="layer" value="10" />      
-        <property name="requires.from">
-            <property name="manager" value="heater_entrance_manager" />
-            <property name="room" value="entrance" />
-        </property>        
-    </instance>
+    
+<!--     <instance component="HeaterManagerLayout" name="heater_entrance_manager_Layout"> -->
+<!--         <property name="x" value="680" /> -->
+<!--         <property name="y" value="170" /> -->
+<!--         <property name="width" value="110" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_entrance_manager" /> -->
+<!--             <property name="room" value="entrance" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
     
                 
     <instance component="HeaterLayout" name="heater_livingroom1_Layout">
@@ -970,17 +993,17 @@
     </instance>
 
 
-    <instance component="HeaterManagerLayout" name="heater_livingroom1_manager_Layout">
-        <property name="x" value="60" />
-        <property name="y" value="170" />
-        <property name="width" value="125" />
-        <property name="height" value="50" />    
-        <property name="layer" value="10" />      
-        <property name="requires.from">
-            <property name="manager" value="heater_livingRoom1_manager" />
-            <property name="room" value="livingRoom1" />
-        </property>        
-    </instance>
+<!--     <instance component="HeaterManagerLayout" name="heater_livingroom1_manager_Layout"> -->
+<!--         <property name="x" value="60" /> -->
+<!--         <property name="y" value="170" /> -->
+<!--         <property name="width" value="125" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_livingRoom1_manager" /> -->
+<!--             <property name="room" value="livingRoom1" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
          
                 
 <instance component="HeaterLayout" name="heater_livingroom2_Layout">
@@ -995,17 +1018,17 @@
     </instance>
 
 
-    <instance component="HeaterManagerLayout" name="heater_livingroom2_manager_Layout">
-        <property name="x" value="460" />
-        <property name="y" value="310" />
-        <property name="width" value="125" />
-        <property name="height" value="50" />    
-        <property name="layer" value="10" />      
-        <property name="requires.from">
-            <property name="manager" value="heater_livingRoom2_manager" />
-            <property name="room" value="livingRoom2" />
-        </property>        
-    </instance>
+<!--     <instance component="HeaterManagerLayout" name="heater_livingroom2_manager_Layout"> -->
+<!--         <property name="x" value="460" /> -->
+<!--         <property name="y" value="310" /> -->
+<!--         <property name="width" value="125" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_livingRoom2_manager" /> -->
+<!--             <property name="room" value="livingRoom2" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
     
     <instance component="HeaterLayout" name="heater_kitchen_Layout">
         <property name="x" value="60" />
@@ -1017,17 +1040,17 @@
             <property name="heater" value="heater_kitchen" />
         </property>        
     </instance>
-    <instance component="HeaterManagerLayout" name="heater_kitchen_manager_Layout">
-        <property name="x" value="60" />
-        <property name="y" value="630" />
-        <property name="width" value="110" />
-        <property name="height" value="50" />    
-        <property name="layer" value="10" />      
-        <property name="requires.from">
-            <property name="manager" value="heater_kitchen_manager" />
-            <property name="room" value="kitchen" />
-        </property>        
-    </instance>
+<!--     <instance component="HeaterManagerLayout" name="heater_kitchen_manager_Layout"> -->
+<!--         <property name="x" value="60" /> -->
+<!--         <property name="y" value="630" /> -->
+<!--         <property name="width" value="110" /> -->
+<!--         <property name="height" value="50" />     -->
+<!--         <property name="layer" value="10" />       -->
+<!--         <property name="requires.from"> -->
+<!--             <property name="manager" value="heater_kitchen_manager" /> -->
+<!--             <property name="room" value="kitchen" /> -->
+<!--         </property>         -->
+<!--     </instance> -->
   
 
 </ipojo>
