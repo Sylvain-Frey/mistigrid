@@ -29,7 +29,7 @@ import fr.sylfrey.misTiGriD.alba.basic.messages.NonFlexible
 import fr.sylfrey.misTiGriD.management.BundleContextProvider
 import fr.sylfrey.misTiGriD.alba.basic.roles.HeaterManager
 import fr.sylfrey.misTiGriD.deploy.management.alba.basic.StatusDecoder.decode
-import fr.sylfrey.misTiGriD.alba.basic.roles.HouseLoadManager
+import fr.sylfrey.misTiGriD.alba.basic.agents.HouseLoadManager
 
 @Component(name="BasicAlbaHeaterManager",immediate=true)
 class AlbaHeaterManagerDeployer {

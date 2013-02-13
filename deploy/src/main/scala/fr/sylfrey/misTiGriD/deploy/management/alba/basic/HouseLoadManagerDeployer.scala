@@ -1,30 +1,29 @@
 package fr.sylfrey.misTiGriD.deploy.management.alba.basic
 
-import org.apache.felix.ipojo.annotations.Component
-import scala.concurrent.duration._
-import scala.collection.mutable.Map
+import scala.Array.canBuildFrom
 import scala.collection.JavaConversions.asJavaDictionary
-import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
-import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
-import fr.sylfrey.misTiGriD.deploy.management.alba.basic.StatusDecoder.decode
-import org.apache.felix.ipojo.annotations.Property
-import org.apache.felix.ipojo.annotations.Validate
-import org.apache.felix.ipojo.annotations.Requires
-import fr.sylfrey.misTiGriD.alba.basic.agents.AlbaHeaterManager
-import fr.sylfrey.akka.ActorSystemProvider
-import akka.actor.Cancellable
-import akka.actor.ActorSystem
-import fr.sylfrey.misTiGriD.management.BundleContextProvider
-import akka.actor.TypedActor
-import fr.sylfrey.misTiGriD.alba.basic.roles.HouseLoadManager
-import akka.actor.ActorRef
-import akka.actor.TypedProps
+import scala.collection.mutable.Map
+import scala.concurrent.duration.DurationInt
+
 import org.apache.felix.ipojo.annotations.Bind
-import fr.sylfrey.misTiGriD.alba.basic.agents.ManageableHouseLoadManager
-import fr.sylfrey.misTiGriD.alba.basic.agents.HouseLoadManagerAgent
+import org.apache.felix.ipojo.annotations.Component
 import org.apache.felix.ipojo.annotations.Invalidate
-import fr.sylfrey.misTiGriD.alba.basic.roles.HouseLoadManager
+import org.apache.felix.ipojo.annotations.Property
+import org.apache.felix.ipojo.annotations.Requires
+import org.apache.felix.ipojo.annotations.Validate
+
+import akka.actor.ActorRef
+import akka.actor.ActorSystem
+import akka.actor.Cancellable
+import akka.actor.TypedActor
+import akka.actor.TypedProps
+import fr.sylfrey.akka.ActorSystemProvider
+import fr.sylfrey.misTiGriD.alba.basic.agents.HouseLoadManager
+import fr.sylfrey.misTiGriD.alba.basic.agents.HouseLoadManagerAgent
 import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
+import fr.sylfrey.misTiGriD.deploy.management.alba.basic.StatusDecoder.decode
+import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
+import fr.sylfrey.misTiGriD.management.BundleContextProvider
 
 @Component(name = "HouseLoadManagerDeployer", immediate = true)
 class HouseLoadManagerDeployer {
@@ -46,14 +45,14 @@ class HouseLoadManagerDeployer {
 
     houseLoadManager = TypedActor.get(actorSystem).typedActorOf(
       TypedProps(
-        classOf[ManageableHouseLoadManager],
+        classOf[HouseLoadManager],
         new HouseLoadManagerAgent(aggregator, maxConsumption, hysteresisThreshold, status)),
       actorPath)
     managerActorRef = TypedActor.get(actorSystem).getActorRefFor(houseLoadManager)
     println("# houseLoadManager deployed : " + houseLoadManager)
 
     bundleContextProvider.get().registerService(
-      Array(classOf[ManageableHouseLoadManager], classOf[HouseLoadManager]).map(_.getName()),
+      Array(classOf[HouseLoadManager]).map(_.getName()),
       houseLoadManager,
       Map("instance.name" -> actorPath, "service.pid" -> actorPath))
 
@@ -79,7 +78,7 @@ class HouseLoadManagerDeployer {
   }
 
   private var actorSystem: ActorSystem = _
-  private var houseLoadManager: ManageableHouseLoadManager = _
+  private var houseLoadManager: HouseLoadManager = _
   private var managerActorRef: ActorRef = _
   private var districtLoadManager: LoadManager = _
   private var periodicTask: Cancellable = _

@@ -45,7 +45,9 @@ class MetaFactoryImpl extends MetaFactory {
     // check for pending jobs
     if (factorables.containsKey(factoryName)) {
     	factorables.remove(factoryName).foreach( _ match {
-    	  case (promise, config) => promise success factory.createComponentInstance(config)
+    	  case (promise, config) => 
+//    	    println("# spawning " + config)
+    	    promise success factory.createComponentInstance(config)
     	})
     }
   }
@@ -60,6 +62,7 @@ class MetaFactoryImpl extends MetaFactory {
   def spawn(factoryName: String, items: (String, _)*) : Promise[ComponentInstance] = {
     val p = promise[ComponentInstance]
     if (_factories.containsKey(factoryName)) { // factory available: call it
+//      println("# spawning " + parse(items))
       p success _factories.get(factoryName).createComponentInstance(parse(items))
     } else { // store the job for when factory becomes available
       val job = Tuple2(p, parse(items))
