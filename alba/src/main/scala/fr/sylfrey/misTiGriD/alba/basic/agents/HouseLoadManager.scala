@@ -1,36 +1,32 @@
 package fr.sylfrey.misTiGriD.alba.basic.agents
 
-import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
-import akka.actor.TypedActor
-import scala.collection.mutable.LinkedHashMap
-import akka.actor.ActorRef
-import akka.actor.TypedProps
 import java.util.Date
-import scala.concurrent.Future
-import akka.actor.Actor
+
+import scala.collection.mutable.LinkedHashMap
 import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
+
+import akka.actor.ActorRef
+import akka.actor.TypedActor
+import akka.actor.TypedProps
 import fr.sylfrey.misTiGriD.alba.basic.messages.Ack
-import fr.sylfrey.misTiGriD.alba.basic.roles.ProsumerManager
+import fr.sylfrey.misTiGriD.alba.basic.messages.AnyLoad
 import fr.sylfrey.misTiGriD.alba.basic.messages.LoadBalancingOrder
 import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
-import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
-import fr.sylfrey.misTiGriD.alba.basic.messages.AnyLoad
 import fr.sylfrey.misTiGriD.alba.basic.messages.Prosumption
 import fr.sylfrey.misTiGriD.alba.basic.messages.ReduceLoad
-import fr.sylfrey.misTiGriD.alba.basic.roles.HouseLoadManager
+import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
+import fr.sylfrey.misTiGriD.alba.basic.roles.ProsumerManager
+import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
   
-
-trait ManageableHouseLoadManager extends HouseLoadManager with ProsumerManager with Updatable {
-  def setMaximumProsumption(threshold : Float) : Unit
-  def setStatus(status : ProsumerStatus) : Unit
-}
+trait HouseLoadManager extends LoadManager with ProsumerManager with Updatable
 
 class HouseLoadManagerAgent(
     val aggregator : Aggregator,
     var maxConsumption : Float,
     val hysteresisThreshold : Float,
     var status : ProsumerStatus
-) extends ManageableHouseLoadManager {
+) extends HouseLoadManager {
   
   implicit val executionContext : ExecutionContext = TypedActor.context.system.dispatcher
   
