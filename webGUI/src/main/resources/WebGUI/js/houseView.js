@@ -48,12 +48,12 @@ function updateLabels(layoutObject){
   var aux = "";
 
   switch(layoutObject.type){
-    case "ThermicObjectLayout": aux = (Math.round(layoutObject.currentTemperature*100)/100) +"ºC"; break;
-    case "AtmosphereLayout": aux = (Math.round(layoutObject.currentTemperature*100)/100) +"ºC"; break;
-    case "ProsumerLayout": aux = (Math.round(layoutObject.prosumedPower*100)/100) + "W"; break;
-    case "LampLayout": aux = (Math.round(layoutObject.prosumedPower*100)/100) + "W"; break;
-    case "HeaterManagerLayout": aux = "req:"+ (Math.round(layoutObject.requiredTemperature*100)/100)+"ºC"; break;
-    case "HeaterLayout": aux = (Math.round(layoutObject.emissionPower*100)/100)+"W"; break;
+    case "ThermicObjectLayout": aux = layoutObject.currentTemperature.toFixed(2) + "&ordmC"; break;
+    case "AtmosphereLayout": aux = layoutObject.currentTemperature.toFixed(2) + "&ordmC"; break;
+    case "ProsumerLayout": aux = layoutObject.prosumedPower.toFixed(2) + "W"; break;
+    case "LampLayout": aux = layoutObject.prosumedPower.toFixed(2) + "W"; break;
+    case "HeaterManagerLayout": aux = "req:"+ layoutObject.requiredTemperature.toFixed(2) + "&ordmC"; break;
+    case "HeaterLayout": aux = layoutObject.emissionPower.toFixed(2) + "W"; break;
   };
 
   $('#'+layoutObject.iden+"label > p").replaceWith("<p>"+aux+"</p>");
@@ -158,6 +158,13 @@ function updateObjectView(layoutObject){
     updateLabels(layoutObject);
   } else if (layoutObject.type==="HeaterManagerLayout") {
     if (layoutObject.isEconomizing === true) {
+        $('#'+layoutObject.iden).css({"background-color": "green"});
+    } else {
+        $('#'+layoutObject.iden).css({"background-color": "grey"});
+    }
+    updateLabels(layoutObject);
+  } else if (layoutObject.type==="LampManagerLayout") {
+    if (layoutObject.isEconomising === true) {
         $('#'+layoutObject.iden).css({"background-color": "green"});
     } else {
         $('#'+layoutObject.iden).css({"background-color": "grey"});

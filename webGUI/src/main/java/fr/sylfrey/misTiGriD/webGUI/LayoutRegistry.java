@@ -21,7 +21,7 @@ import org.codehaus.jackson.node.ObjectNode;
 import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 
-import fr.sylfrey.misTiGriD.alba.basic.roles.HouseLoadManager;
+import fr.sylfrey.misTiGriD.alba.basic.agents.HouseLoadManager;
 import fr.sylfrey.misTiGriD.layout.AtmosphereLayout;
 import fr.sylfrey.misTiGriD.layout.HeaterLayout;
 import fr.sylfrey.misTiGriD.layout.HeaterManagerLayout;
@@ -31,7 +31,7 @@ import fr.sylfrey.misTiGriD.layout.OpeningLayout;
 import fr.sylfrey.misTiGriD.layout.ProsumerLayout;
 import fr.sylfrey.misTiGriD.layout.ThermicObjectLayout;
 
-@Component(name="LayoutRegistry",immediate=true)
+@Component(name="DeprecatedLayoutRegistry",immediate=true)
 //@Instantiate
 public class LayoutRegistry {
 
@@ -129,7 +129,7 @@ public class LayoutRegistry {
 	private static final String LampLayout = "LampLayout";
 	private static final String AllLayouts = "AllLayouts";
 
-
+	
 	private AtmosphereLayout atmosphereLayout;
 	private Map<String, ThermicObjectLayout> thermicLayouts = new ConcurrentHashMap<String, ThermicObjectLayout>();
 	private Map<String, ProsumerLayout> prosumerLayouts = new ConcurrentHashMap<String, ProsumerLayout>();

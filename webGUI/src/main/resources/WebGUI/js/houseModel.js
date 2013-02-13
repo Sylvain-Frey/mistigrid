@@ -3,6 +3,14 @@
 *   author: Irvin Herrera Garza 
 */
 
+var sylfreySafeParse = function(json) {
+  var safeJson = json.replace(/NaN/g,"0");
+  try {
+    return $.parseJSON(safeJson)
+  } catch (e) { 
+    alert("# parsing error " + safeJson)
+  }
+}
 
 //Creates empty block of objects that will be later filled by generalUpdate()
 var layoutObjectHandler = function(type, name, updateCallback){ 
@@ -17,20 +25,20 @@ var layoutObjectHandler = function(type, name, updateCallback){
       alert("Failed to retrieve contents from: "+address);
     },
     complete: function(data) {
-      var layoutObject = $.parseJSON(data.responseText);
+      var layoutObject = sylfreySafeParse(data.responseText.replace("NaN","null"));
       if (layoutObject == null) return;
       //Apply data to visualObjectHandler
       var specs = {
-        x: layoutObject.x,
-        y: layoutObject.y,
-        w: layoutObject.width,
-        h: layoutObject.height,
-        l: layoutObject.layer,
-        iden: name,
-        className: type,
-        color: "#F42016"
+          x: layoutObject.x,
+          y: layoutObject.y,
+          w: layoutObject.width,
+          h: layoutObject.height,
+          l: layoutObject.layer,
+          iden: name,
+          className: type,
+          color: "#F42016"
       };
-  
+    
       // here are created the visual objects
       visualObjectHandler = visualObjectHandlerConstructor(specs);
       visualObjectHandler.drawObject();
@@ -62,7 +70,7 @@ var layoutObjectHandler = function(type, name, updateCallback){
 var atmosphereLayoutHandler = function(type,name){
   return layoutObjectHandler(type,name,
     function(data) {
-      layoutObject = $.parseJSON(data.responseText);
+      layoutObject = sylfreySafeParse(data.responseText);
       updateObjectView({iden: name, type: type, currentTemperature: layoutObject.currentTemperature});
     }
   );
@@ -74,7 +82,7 @@ var atmosphereLayoutHandler = function(type,name){
 var thermicObjectLayoutHandler = function(type,name){
   return layoutObjectHandler(type,name,
     function(data) {
-      layoutObject = $.parseJSON(data.responseText);
+      layoutObject = sylfreySafeParse(data.responseText);
       updateObjectView({iden: name, type: type, currentTemperature: layoutObject.currentTemperature});
     }
   );
@@ -85,10 +93,24 @@ var thermicObjectLayoutHandler = function(type,name){
 var heaterLayoutObjectHandler = function(type,name){
   return layoutObjectHandler(type,name,
     function(data) {
-      layoutObject = $.parseJSON(data.responseText);
+      layoutObject = sylfreySafeParse(data.responseText);
       updateObjectView({type: type, iden: name, emissionPower: layoutObject.emissionPower});
     }
   );
+};
+
+
+
+
+
+//lampManagerLayoutObjectHandler inherits form layoutObjectHandler
+var lampManagerLayoutObjectHandler = function(type,name){
+  return layoutObjectHandler(type,name,
+    function(data) {
+      layoutObject = sylfreySafeParse(data.responseText);  
+      updateObjectView({type: type, iden: name, isEconomising: layoutObject.isEconomising});
+    }
+  );  
 };
 
 
@@ -99,7 +121,7 @@ var heaterLayoutObjectHandler = function(type,name){
 var heaterManagerLayoutObjectHandler = function(type,name){
   return layoutObjectHandler(type,name,
     function(data) {
-      layoutObject = $.parseJSON(data.responseText);  
+      layoutObject = sylfreySafeParse(data.responseText);  
       updateObjectView({type: type, iden: name, requiredTemperature: layoutObject.requiredTemperature, isEconomizing: layoutObject.isEconomizing});
     }
   );  
@@ -113,7 +135,7 @@ var heaterManagerLayoutObjectHandler = function(type,name){
 var openingLayoutObjectHandler = function(type,name){
   return layoutObjectHandler(type,name,
     function(data) {
-      layoutObject = $.parseJSON(data.responseText);         
+      layoutObject = sylfreySafeParse(data.responseText);         
       updateObjectView({type: type, iden: name, isClosed: layoutObject.isClosed, width: layoutObject.width, height: layoutObject.height});
     }
   );
@@ -125,7 +147,7 @@ var openingLayoutObjectHandler = function(type,name){
 var prosumerLayoutHandler = function(type,name){
   return layoutObjectHandler(type,name,
     function(data) {
-      layoutObject = $.parseJSON(data.responseText);         
+      layoutObject = sylfreySafeParse(data.responseText);         
       updateObjectView({type: type, iden: name, prosumedPower: layoutObject.prosumedPower});
     }
   );
@@ -136,7 +158,7 @@ var prosumerLayoutHandler = function(type,name){
 var lampLayoutHandler = function(type,name){
   return layoutObjectHandler(type,name,
     function(data) {
-      layoutObject = $.parseJSON(data.responseText);         
+      layoutObject = sylfreySafeParse(data.responseText);         
       updateObjectView({type: type, iden: name, prosumedPower: layoutObject.prosumedPower, emissionPower: layoutObject.emissionPower});
     }
   );
@@ -148,6 +170,7 @@ function loadIndexLayout(url){
   var thermicObjectHandlersIndex = [];
   var prosumerLayoutHandlersIndex = [];
   var lampLayoutHandlersIndex = [];
+  var lampManagerLayoutHandlersIndex = [];
   var heaterLayoutHandlersIndex = [];
   var heaterManagerLayoutHandlersIndex = [];
   var openingLayoutHandlersIndex = [];
@@ -156,13 +179,17 @@ function loadIndexLayout(url){
     type:'GET',
     success: function() {},
     complete: function(jqxhr){
-      var indexInfo = $.parseJSON(jqxhr.responseText);
+      var indexInfo = sylfreySafeParse(jqxhr.responseText);
       $.each(indexInfo, function(key,value){
          for(i = 0; i<value.length; i++){
           switch(key){
             case "LampLayout":
               var temp = lampLayoutHandler(key,value[i]);
               lampLayoutHandlersIndex.push(temp);
+              break;              
+            case "LampManagerLayout":
+              var temp = lampManagerLayoutObjectHandler(key,value[i]);
+              lampManagerLayoutHandlersIndex.push(temp);
               break;
             case "ProsumerLayout":
               var temp = prosumerLayoutHandler(key,value[i]);
@@ -255,8 +282,8 @@ function generalUpdate(){
     fail: function(){
       alert("Failed to retrieve contents from: "+address);
     },
-    complete: function(data) { // TODO
-      var layoutObjects = $.parseJSON(data.responseText);
+    complete: function(data) {
+      var layoutObjects = sylfreySafeParse(data.responseText);
       $.each(layoutObjects, function(key,value){
         value.iden = key;
         updateObjectView(value);
