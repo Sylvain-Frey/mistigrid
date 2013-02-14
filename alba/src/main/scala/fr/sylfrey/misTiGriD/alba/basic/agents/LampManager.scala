@@ -28,7 +28,9 @@ class LampManagerAgent(
   def getProsumption(): Prosumption =
     Prosumption(TypedActor.context.self, lamp.getProsumedPower(), new Date)
 
-  def getStatus(): ProsumerStatus = status
+  def getStatus: ProsumerStatus = status
+  
+  def setStatus(status: ProsumerStatus) = this.status = status
 
   def tell(order: LoadBalancingOrder): LoadBalancingOrderResponse = {
     currentOrder = order

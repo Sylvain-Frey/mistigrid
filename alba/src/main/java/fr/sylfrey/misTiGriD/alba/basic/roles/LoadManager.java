@@ -1,7 +1,7 @@
 package fr.sylfrey.misTiGriD.alba.basic.roles;
 
 import akka.actor.ActorRef;
-import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus;
+//import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus;
 
 public interface LoadManager {
 
@@ -10,6 +10,6 @@ public interface LoadManager {
 
 	public float maxConsumptionThreshold();
 	public void setMaximumProsumption(float threshold);
-	public void setStatus(ProsumerStatus status);
+//	public void setStatus(ProsumerStatus status);
 
 }

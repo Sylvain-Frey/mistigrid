@@ -49,7 +49,7 @@ class HouseLoadManagerAgent(
     erasedProsumers.remove(prosumer)
   }  
   
-  def setMaximumProsumption(threshold : Float) = this.maxConsumption = threshold
+  def setMaximumProsumption(threshold : Float) = baseMaxConsumption = threshold
   
   def getProsumption = Prosumption(TypedActor.context.self, currentAggregatedProsumption, new Date)
   
@@ -90,6 +90,6 @@ class HouseLoadManagerAgent(
     Ack
   }
   
-  val baseMaxConsumption = maxConsumption
+  var baseMaxConsumption = maxConsumption
   
 } 

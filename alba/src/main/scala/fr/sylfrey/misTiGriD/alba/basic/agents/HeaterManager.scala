@@ -40,9 +40,9 @@ class HeaterManagerAgent(
     requiredTemperature = this.requiredTemperature,
     currentTemperature = roomTemperature,
     currentPower = heaterProsumption,
-    kp = kp, //heater.getMaxEmissionPower()/10,
-    ki = ki, //1E-13f,
-    kd = kd) //0f)
+    kp = kp, 
+    ki = ki, 
+    kd = kd)
 
   def getRequiredTemperature = requiredTemperature
 
@@ -72,6 +72,8 @@ class HeaterManagerAgent(
   def getProsumption = Prosumption(TypedActor.context.self, heaterProsumption, new Date)
 
   def getStatus = status
+  
+  def setStatus(status: ProsumerStatus) = this.status = status
 
   def tell(order: LoadBalancingOrder) = {
     this.currentOrder = order

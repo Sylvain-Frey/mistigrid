@@ -9,6 +9,7 @@ public interface ProsumerManager {
 
 	public Prosumption getProsumption(); 
 	public ProsumerStatus getStatus(); 
+	public void setStatus(ProsumerStatus status);
 	public LoadBalancingOrderResponse tell(LoadBalancingOrder order); 
 	  
 }
