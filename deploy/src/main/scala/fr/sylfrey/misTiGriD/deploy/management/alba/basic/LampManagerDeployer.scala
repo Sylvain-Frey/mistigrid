@@ -21,9 +21,9 @@ import fr.sylfrey.misTiGriD.alba.basic.agents.LampManager
 import fr.sylfrey.misTiGriD.alba.basic.agents.LampManagerAgent
 import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
 import fr.sylfrey.misTiGriD.alba.basic.roles.ProsumerManager
-import fr.sylfrey.misTiGriD.deploy.management.alba.basic.StatusDecoder.decode
 import fr.sylfrey.misTiGriD.electricalGrid.Lamp
 import fr.sylfrey.misTiGriD.management.BundleContextProvider
+import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
 
 @Component(name="LampManager", immediate=true)
 class LampManagerDeployer {
@@ -40,7 +40,7 @@ class LampManagerDeployer {
   
   @Validate def start() : Unit = {
     
-    val status = decode(prosumerStatus)
+    val status = ProsumerStatus.fromString(prosumerStatus)
     
     manager = TypedActor.get(actorSystem).typedActorOf(
 	  TypedProps(

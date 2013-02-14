@@ -4,14 +4,12 @@ import scala.Array.canBuildFrom
 import scala.collection.JavaConversions.asJavaDictionary
 import scala.collection.mutable.Map
 import scala.concurrent.duration.DurationInt
-
 import org.apache.felix.ipojo.annotations.Bind
 import org.apache.felix.ipojo.annotations.Component
 import org.apache.felix.ipojo.annotations.Invalidate
 import org.apache.felix.ipojo.annotations.Property
 import org.apache.felix.ipojo.annotations.Requires
 import org.apache.felix.ipojo.annotations.Validate
-
 import akka.actor.ActorRef
 import akka.actor.ActorSystem
 import akka.actor.Cancellable
@@ -21,9 +19,9 @@ import fr.sylfrey.akka.ActorSystemProvider
 import fr.sylfrey.misTiGriD.alba.basic.agents.HouseLoadManager
 import fr.sylfrey.misTiGriD.alba.basic.agents.HouseLoadManagerAgent
 import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
-import fr.sylfrey.misTiGriD.deploy.management.alba.basic.StatusDecoder.decode
 import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
 import fr.sylfrey.misTiGriD.management.BundleContextProvider
+import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
 
 @Component(name = "HouseLoadManagerDeployer", immediate = true)
 class HouseLoadManagerDeployer {
@@ -41,7 +39,7 @@ class HouseLoadManagerDeployer {
   @Property var districtLoadManagerURI: String = _
 
   @Validate def start(): Unit = {
-    val status = decode(prosumerStatus)
+    val status = ProsumerStatus.fromString(prosumerStatus)
 
     houseLoadManager = TypedActor.get(actorSystem).typedActorOf(
       TypedProps(
