@@ -14,6 +14,11 @@ import fr.sylfrey.misTiGriD.layout.OpeningLayout
 import fr.sylfrey.misTiGriD.layout.ProsumerLayout
 import fr.sylfrey.misTiGriD.layout.ThermicObjectLayout
 import fr.sylfrey.misTiGriD.layout.LampManagerLayout
+import fr.sylfrey.misTiGriD.layout.LoadManagerLayout
+import fr.sylfrey.misTiGriD.alba.basic.messages.Flexible
+import fr.sylfrey.misTiGriD.alba.basic.messages.SemiFlexible
+import fr.sylfrey.misTiGriD.alba.basic.messages.NonFlexible
+import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
 
 object Serialiser {
 
@@ -28,6 +33,7 @@ object Serialiser {
   val OpeningLayout = "OpeningLayout"
   val LampLayout = "LampLayout"
   val LampManagerLayout = "LampManagerLayout"
+  val LoadManagerLayout = "LoadManagerLayout"
   val AllLayouts = "AllLayouts"
 
   def serialise(layout: Layout, node: ObjectNode): ObjectNode = {
@@ -47,10 +53,11 @@ object Serialiser {
     node.put("isClosed", layout.isClosed())
     node
   }
-
+  
   def serialise(layout: LampManagerLayout, node: ObjectNode): ObjectNode = {
     serialise(layout.asInstanceOf[Layout], node)
     node.put("isEconomising", layout.isEconomising)
+    node.put("status", ProsumerStatus.toString(layout.getStatus))
     node
   }
   
@@ -58,6 +65,7 @@ object Serialiser {
     serialise(layout.asInstanceOf[Layout], node)
     node.put("requiredTemperature", layout.getRequiredTemperature())
     node.put("isEconomizing", layout.isEconomizing())
+    node.put("status", ProsumerStatus.toString(layout.getStatus))
     node
   }
 
@@ -97,8 +105,11 @@ object Serialiser {
     node
   }
 
-  def serialise(houseLoadManager: HouseLoadManager, node: ObjectNode): ObjectNode = {
-    node.put("maxConsumptionThreshold", houseLoadManager.maxConsumptionThreshold())
+  def serialise(layout: LoadManagerLayout, node: ObjectNode): ObjectNode = {
+    serialise(layout.asInstanceOf[Layout], node)
+    node.put("prosumption", layout.getProsumption().prosumption)
+    node.put("maxConsumptionThreshold", layout.maxConsumptionThreshold())
+    node.put("status", ProsumerStatus.toString(layout.getStatus))
     node
   }
 
@@ -113,6 +124,7 @@ object Serialiser {
       case layout: AtmosphereLayout => serialise(layout, obj);		obj.put("type", AtmosphereLayout)
       case layout: ProsumerLayout => serialise(layout, obj);		obj.put("type", ProsumerLayout)
       case layout: ThermicObjectLayout => serialise(layout, obj);	obj.put("type", ThermicObjectLayout)
+      case layout: LoadManagerLayout => serialise(layout, obj);		obj.put("type", LoadManagerLayout)
     }    
     node.put(name, obj)
   }
@@ -135,6 +147,8 @@ object Serialiser {
     val ols = mapper.createArrayNode()
     val lls = mapper.createArrayNode()
     val lmls = mapper.createArrayNode()
+    val ldmls = mapper.createArrayNode()
+
 
     for (entry <- layouts.entrySet) {
       val name = entry.getKey()._2
@@ -142,6 +156,7 @@ object Serialiser {
         case layout: HeaterLayout => hls.add(name)
         case layout: LampLayout => lls.add(name)
         case layout: LampManagerLayout => lmls.add(name)
+        case layout: LoadManagerLayout => ldmls.add(name)
         case layout: HeaterManagerLayout => hmls.add(name)
         case layout: OpeningLayout => ols.add(name)
         case layout: AtmosphereLayout => atmAN.add(name)
@@ -155,6 +170,7 @@ object Serialiser {
     index.put(ProsumerLayout, pls)
     index.put(LampLayout, lls)
     index.put(LampManagerLayout, lmls)
+    index.put(LoadManagerLayout, ldmls)
     index.put(HeaterLayout, hls)
     index.put(HeaterManagerLayout, hmls)
     index.put(OpeningLayout, ols)

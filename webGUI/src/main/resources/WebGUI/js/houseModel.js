@@ -20,12 +20,12 @@ var layoutObjectHandler = function(type, name, updateCallback){
   $.ajax({
     type: 'GET',
     url: address,
-    success: function(){} ,
+    success: function(){},
     fail: function(){
       alert("Failed to retrieve contents from: "+address);
     },
     complete: function(data) {
-      var layoutObject = sylfreySafeParse(data.responseText.replace("NaN","null"));
+      var layoutObject = sylfreySafeParse(data.responseText);
       if (layoutObject == null) return;
       //Apply data to visualObjectHandler
       var specs = {
@@ -108,11 +108,26 @@ var lampManagerLayoutObjectHandler = function(type,name){
   return layoutObjectHandler(type,name,
     function(data) {
       layoutObject = sylfreySafeParse(data.responseText);  
-      updateObjectView({type: type, iden: name, isEconomising: layoutObject.isEconomising});
+      updateObjectView({type: type, iden: name, 
+                isEconomising: layoutObject.isEconomising,
+                status: layoutObject.status});
     }
   );  
 };
 
+
+
+//loadManagerLayoutObjectHandler inherits form layoutObjectHandler
+var loadManagerLayoutObjectHandler = function(type,name){
+  return layoutObjectHandler(type,name,
+    function(data) {
+      layoutObject = sylfreySafeParse(data.responseText);  
+      updateObjectView({type: type, iden: name, 
+                maxConsumptionThreshold: layoutObject.maxConsumptionThreshold,
+                prosumption: layoutObject.prosumption});
+    }
+  );  
+};
 
 
 
@@ -122,7 +137,10 @@ var heaterManagerLayoutObjectHandler = function(type,name){
   return layoutObjectHandler(type,name,
     function(data) {
       layoutObject = sylfreySafeParse(data.responseText);  
-      updateObjectView({type: type, iden: name, requiredTemperature: layoutObject.requiredTemperature, isEconomizing: layoutObject.isEconomizing});
+      updateObjectView({type: type, iden: name,
+                requiredTemperature: layoutObject.requiredTemperature, 
+                isEconomizing: layoutObject.isEconomizing,
+                status: layoutObject.status});
     }
   );  
 };
@@ -166,14 +184,7 @@ var lampLayoutHandler = function(type,name){
 
 //Function to get Index info
 function loadIndexLayout(url){
-  var atmosphereLayoutHandlersIndex = [];
-  var thermicObjectHandlersIndex = [];
-  var prosumerLayoutHandlersIndex = [];
-  var lampLayoutHandlersIndex = [];
-  var lampManagerLayoutHandlersIndex = [];
-  var heaterLayoutHandlersIndex = [];
-  var heaterManagerLayoutHandlersIndex = [];
-  var openingLayoutHandlersIndex = [];
+  var layouts = [];
   $.ajax({
     url: url,
     type:'GET',
@@ -184,36 +195,31 @@ function loadIndexLayout(url){
          for(i = 0; i<value.length; i++){
           switch(key){
             case "LampLayout":
-              var temp = lampLayoutHandler(key,value[i]);
-              lampLayoutHandlersIndex.push(temp);
+              layouts.push(lampLayoutHandler(key,value[i]));
               break;              
             case "LampManagerLayout":
-              var temp = lampManagerLayoutObjectHandler(key,value[i]);
-              lampManagerLayoutHandlersIndex.push(temp);
+              layouts.push(lampManagerLayoutObjectHandler(key,value[i]));
+              break;
+            case "LoadManagerLayout":
+              layouts.push(loadManagerLayoutObjectHandler(key,value[i]));
               break;
             case "ProsumerLayout":
-              var temp = prosumerLayoutHandler(key,value[i]);
-              prosumerLayoutHandlersIndex.push(temp);
+              layouts.push(prosumerLayoutHandler(key,value[i]));
               break;
             case "AtmosphereLayout":
-              var temp = atmosphereLayoutHandler(key,value[i]);
-              atmosphereLayoutHandlersIndex.push(temp);
+              layouts.push(atmosphereLayoutHandler(key,value[i]));
               break;
             case "ThermicObjectLayout":
-              var temp = thermicObjectLayoutHandler(key,value[i]);
-              thermicObjectHandlersIndex.push(temp);
+              layouts.push(thermicObjectLayoutHandler(key,value[i]));
               break;
             case "HeaterLayout": 
-              var temp = heaterLayoutObjectHandler(key,value[i]);
-              heaterLayoutHandlersIndex.push(temp);
+              layouts.push(heaterLayoutObjectHandler(key,value[i]));
               break;
             case "HeaterManagerLayout": 
-              var temp = heaterManagerLayoutObjectHandler(key,value[i]);
-              heaterManagerLayoutHandlersIndex.push(temp);
+              layouts.push(heaterManagerLayoutObjectHandler(key,value[i]));
               break;
             case "OpeningLayout":
-              var temp = openingLayoutObjectHandler(key,value[i]);
-              openingLayoutHandlersIndex.push(temp);
+              layouts.push(openingLayoutObjectHandler(key,value[i]));
               break;
           }; 
         }
@@ -224,31 +230,20 @@ function loadIndexLayout(url){
       alert("# error in loadIndexLayout: failed to load initial information, check your connection.");
     } //End Fail callback
   }); //End Ajax Call
-  return {
-    getThermicObjectHandlers: function(){ 
-      return thermicObjectHandlersIndex;
-    },
-    getHeaterLayoutHandlers: function(){
-      return heaterLayoutHandlersIndex;
-    },
-    getHeaterManagerLayoutHandlers: function(){
-      return heaterManagerLayoutHandlersIndex;
-    }
-  };
 }; //End of Index Handler
 
  
 
 //Post data to server
-function postData(address, data){
+function postData(address, data, metadata){
   $.ajax({
     type: 'POST',
     url: address,
-    data: {info: data},
+    data: {data: data, metadata: metadata},
     dataType: "html",
     success:function() {} ,
     fail: function(){
-      alert("Failed to retrieve contents from: "+address);
+      alert("Failed to retrieve contents from: " + address);
     },
     complete: function() { /* nothing should happen here */ }
   }); //Close AJAX call
@@ -306,7 +301,7 @@ $(document).ready(function(){
   //Activate console messages.
   systemMessage = false;
 
-  var indexes = loadIndexLayout('/layoutsIndex');
+  var layouts = loadIndexLayout('/layoutsIndex');
 
   //Wait until all ajax requests are done
   $("body").ajaxStop( function(){

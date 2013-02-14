@@ -45,18 +45,19 @@ function createLabel(iden,className){
 //Updates labels on drawn objects
 function updateLabels(layoutObject){
 
-  var aux = "";
+  var text = "";
 
   switch(layoutObject.type){
-    case "ThermicObjectLayout": aux = layoutObject.currentTemperature.toFixed(2) + "&ordmC"; break;
-    case "AtmosphereLayout": aux = layoutObject.currentTemperature.toFixed(2) + "&ordmC"; break;
-    case "ProsumerLayout": aux = layoutObject.prosumedPower.toFixed(2) + "W"; break;
-    case "LampLayout": aux = layoutObject.prosumedPower.toFixed(2) + "W"; break;
-    case "HeaterManagerLayout": aux = "req:"+ layoutObject.requiredTemperature.toFixed(2) + "&ordmC"; break;
-    case "HeaterLayout": aux = layoutObject.emissionPower.toFixed(2) + "W"; break;
+    case "ThermicObjectLayout": text = layoutObject.currentTemperature.toFixed(2) + "&ordmC"; break;
+    case "AtmosphereLayout": text = layoutObject.currentTemperature.toFixed(2) + "&ordmC"; break;
+    case "ProsumerLayout": text = layoutObject.prosumedPower.toFixed(2) + "W"; break;
+    case "LampLayout": text = layoutObject.prosumedPower.toFixed(2) + "W"; break;
+    case "LoadManagerLayout": text = layoutObject.prosumption.toFixed(0) + "/" + layoutObject.maxConsumptionThreshold + "W"; break;
+    case "HeaterManagerLayout": text = "req:"+ layoutObject.requiredTemperature.toFixed(2) + "&ordmC"; break;
+    case "HeaterLayout": text = layoutObject.emissionPower.toFixed(2) + "W"; break;
   };
 
-  $('#'+layoutObject.iden+"label > p").replaceWith("<p>"+aux+"</p>");
+  $('#'+layoutObject.iden+"label > p").replaceWith("<p>"+text+"</p>");
   
 };
 
@@ -157,14 +158,20 @@ function updateObjectView(layoutObject){
   } else if (layoutObject.type==="ProsumerLayout") {
     updateLabels(layoutObject);
   } else if (layoutObject.type==="HeaterManagerLayout") {
-    if (layoutObject.isEconomizing === true) {
+    alert(layoutObject.status)
+    if (layoutObject.status === "nonFlexible") {
+        $('#'+layoutObject.iden).css({"background-color": "red"});
+    } else if (layoutObject.isEconomizing === true) {
         $('#'+layoutObject.iden).css({"background-color": "green"});
     } else {
         $('#'+layoutObject.iden).css({"background-color": "grey"});
     }
     updateLabels(layoutObject);
   } else if (layoutObject.type==="LampManagerLayout") {
-    if (layoutObject.isEconomising === true) {
+    alert(layoutObject.status)
+    if (layoutObject.status === "nonFlexible") {
+        $('#'+layoutObject.iden).css({"background-color": "red"});
+    } else if (layoutObject.isEconomising === true) {
         $('#'+layoutObject.iden).css({"background-color": "green"});
     } else {
         $('#'+layoutObject.iden).css({"background-color": "grey"});
@@ -181,8 +188,6 @@ function updateObjectView(layoutObject){
 
 //Return string with correct size ratio
 function getSizeRatio(layoutObjectSize,documentSize,viewSize){
-  /*var aux = (layoutObjectSize * documentSize)/viewSize;
-  return aux+"px";*/
   return (layoutObjectSize * documentSize)/viewSize;
 };
 
@@ -195,7 +200,7 @@ function formGen(name,text){
 };
 
 //Create Dialogboxes:
-function createDialogBox(objectType,id,text,title){
+function createDialogBox(objectType,id,text,title,metadata){
 
   var address = "/layouts/"+objectType+"/"+id;
 
@@ -208,7 +213,7 @@ function createDialogBox(objectType,id,text,title){
   function validate(event) {
     event.preventDefault();
     var value = $('#'+id+'form > input').val();
-    postData(address,value); //Post data to server.
+    postData(address,value,metadata); //Post data to server.
     $dialogBox.dialog("close");
     $dialogBox.empty().remove();
   }
@@ -303,13 +308,28 @@ var visualObjectHandlerConstructor = function(specs){
     
     block.click(function(){
     
-      var dialogHeaterManager = createDialogBox(className,iden,"Introduce new value(C):",iden);
-      dialogHeaterManager.dialog('open');
+      if (event.which == 1) {
+        var dialogHeaterManager = createDialogBox(className,iden,"Introduce new value(C):",iden,"temperature");
+        dialogHeaterManager.dialog('open');
+      } else {
+        var address = "/layouts/"+className+"/"+iden;
+        postData(address, "toggle", "status");
+      }
+      
       return false;
     });
     
   } 
   
+  
+
+  if (className==="LampManagerLayout"){
+    block.click(function(){
+      var address = "/layouts/"+className+"/"+iden;
+      postData(address, "toggle", "status");      
+      return false;
+    });    
+  } 
   
   if(className === "HeaterLayout"){
     //Adds highlight
@@ -320,7 +340,7 @@ var visualObjectHandlerConstructor = function(specs){
     });
 
     block.click(function(){
-      var dialogHeater = createDialogBox(className,iden,"Introduce new value(W):",iden);
+      var dialogHeater = createDialogBox(className,iden,"Introduce new value(W):",iden,"");
       dialogHeater.dialog('open');
       return false;
     });
@@ -354,6 +374,15 @@ var visualObjectHandlerConstructor = function(specs){
     });
   };
   
+  
+  if(className === "LoadManagerLayout"){
+    block.mousedown(function(event){
+      var address = "/layouts/"+className+"/"+iden;
+      var delta = (event.which == 1);
+      postData(address, delta);
+      return false;
+    });
+  };
   
   return{
     drawObject: function(){ //Add element to '#houseContainer' object

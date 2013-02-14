@@ -21,6 +21,7 @@ import org.apache.felix.ipojo.annotations.Validate
 import org.apache.felix.ipojo.annotations.Invalidate
 import org.apache.felix.ipojo.annotations.Component
 import fr.sylfrey.misTiGriD.layout.LampManagerLayout
+import fr.sylfrey.misTiGriD.layout.LoadManagerLayout
 
 @Component(name="LayoutRegistry",immediate=true)
 class GenericLayoutRegistry {
@@ -35,17 +36,13 @@ class GenericLayoutRegistry {
 
   var hmlCounter = 0
   var olCounter = 0
-  var lmCounter = 0
 
   @Bind(specification = "fr.sylfrey.misTiGriD.layout.Layout", aggregate = true, optional = true)
   def bind(layout: Layout): Unit = layout match {
     case l: AtmosphereLayout => store[AtmosphereLayout](classOf[AtmosphereLayout], l.getName, l)
     case l: HeaterLayout => store[HeaterLayout](classOf[HeaterLayout], l.getName, l)
     case l: LampLayout => store[LampLayout](classOf[LampLayout], l.getName, l)
-    case l: LampManagerLayout => {
-      lmCounter += 1
-      store[LampManagerLayout](classOf[LampManagerLayout], Serialiser.LampManagerLayout + lmCounter, l)
-    }
+    case l: LampManagerLayout => store[LampManagerLayout](classOf[LampManagerLayout], l.name, l)
     case l: ThermicObjectLayout => store[ThermicObjectLayout](classOf[ThermicObjectLayout], l.getName, l)
     case l: ProsumerLayout => store[ProsumerLayout](classOf[ProsumerLayout], l.getName, l)
     case l: HeaterManagerLayout => {
@@ -56,6 +53,7 @@ class GenericLayoutRegistry {
       olCounter += 1
       store[OpeningLayout](classOf[OpeningLayout], Serialiser.OpeningLayout + olCounter, l)      
     }
+    case l: LoadManagerLayout => store[LoadManagerLayout](classOf[LoadManagerLayout], l.name, l)
     case l => println("### warning: bad Layout " + l.getClass() + " not bound to GenericLayoutRegistry")
   }
   

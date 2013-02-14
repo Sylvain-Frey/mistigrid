@@ -16,6 +16,9 @@ import fr.sylfrey.misTiGriD.layout.ThermicObjectLayout
 import org.codehaus.jackson.map.ObjectMapper
 import fr.sylfrey.misTiGriD.management.resources.loadHierarch.LoadHierarch
 import fr.sylfrey.misTiGriD.layout.LampManagerLayout
+import fr.sylfrey.misTiGriD.layout.LoadManagerLayout
+import fr.sylfrey.misTiGriD.alba.basic.messages.NonFlexible
+import fr.sylfrey.misTiGriD.alba.basic.messages.Flexible
 
 class TouchpointServlet(registry : GenericLayoutRegistry) extends HttpServlet {
   
@@ -73,6 +76,10 @@ class TouchpointServlet(registry : GenericLayoutRegistry) extends HttpServlet {
       val layout = registry.get[LampLayout](classOf[LampLayout], layoutName)
       if (layout!= null) response = Serialiser.serialise(layout, node).toString() 
 
+    } else if (layoutType.equals(Serialiser.LoadManagerLayout)) {
+      val layout = registry.get[LoadManagerLayout](classOf[LoadManagerLayout], layoutName)
+      if (layout!= null) response = Serialiser.serialise(layout, node).toString() 
+
     } else if (layoutType.equals(Serialiser.AllLayouts)){
       response = Serialiser.serialiseUpdate(node, registry.layouts).toString()
 				
@@ -96,21 +103,37 @@ class TouchpointServlet(registry : GenericLayoutRegistry) extends HttpServlet {
 
     val layoutType = path(1)
     val layoutName = path(2)
-    val data = req.getParameter("info")
+    val data = req.getParameter("data")
+    val metadata = req.getParameter("metadata")
 
     if (data != null) {
 
       if (layoutType.equals(Serialiser.HeaterManagerLayout)) {
+        
+        val heaterMgr = registry.get[HeaterManagerLayout](classOf[HeaterManagerLayout], layoutName)
+    	if (metadata == "temperature") {
+          val temperature = Float.parseFloat(data)
+          heaterMgr.setRequiredTemperature(temperature)    	  
+    	} else if (metadata == "status") {
+    	  heaterMgr.getStatus() match {
+    	    case Flexible => heaterMgr.setStatus(NonFlexible)
+    	    case _ => heaterMgr.setStatus(Flexible)
+    	  }
+    	}        
 
-        val heaterMan = registry.get[HeaterManagerLayout](classOf[HeaterManagerLayout], layoutName)
-        val temperature = Float.parseFloat(data)
-        heaterMan.setRequiredTemperature(temperature)
-
+      } else if (layoutType.equals(Serialiser.LampManagerLayout)) {
+        
+        val lampMgr = registry.get[LampManagerLayout](classOf[LampManagerLayout], layoutName)
+        lampMgr.getStatus() match {
+    	  case Flexible => lampMgr.setStatus(NonFlexible)
+    	  case _ => lampMgr.setStatus(Flexible)
+    	}
+        
       } else if (layoutType.equals(Serialiser.HeaterLayout)) {
 
-        val heaterMan = registry.get[HeaterLayout](classOf[HeaterLayout], layoutName)
+        val heater = registry.get[HeaterLayout](classOf[HeaterLayout], layoutName)
         val power = Float.parseFloat(data)
-        heaterMan.setEmissionPower(power)
+        heater.setEmissionPower(power)
 
       } else if (layoutType.equals(Serialiser.OpeningLayout)) {
 
@@ -144,6 +167,13 @@ class TouchpointServlet(registry : GenericLayoutRegistry) extends HttpServlet {
           atmosphereLayout.setBaseTemperature(atmosphereLayout.getBaseTemperature() - 0.5f)
         }
 
+      } else if (layoutType.equals(Serialiser.LoadManagerLayout)) {
+        
+        val delta = Boolean.parseBoolean(data)
+        val loadManager = registry.get[LoadManagerLayout](classOf[LoadManagerLayout], layoutName)
+        val newThreshold = loadManager.maxConsumptionThreshold() + (if (delta) 100 else -100)
+        loadManager.setMaximumProsumption(newThreshold)        
+        
       }
 
     }
