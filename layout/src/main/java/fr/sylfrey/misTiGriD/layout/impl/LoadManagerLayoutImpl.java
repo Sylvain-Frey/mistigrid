@@ -18,6 +18,11 @@ import fr.sylfrey.misTiGriD.layout.LoadManagerLayout;
 @Provides(specifications={LoadManagerLayout.class,Layout.class})
 public class LoadManagerLayoutImpl implements LoadManagerLayout {
 
+	@Override 
+	public String name() {
+		return name;
+	}
+
 	@Override
 	public int x() {
 		return x;
@@ -89,6 +94,9 @@ public class LoadManagerLayoutImpl implements LoadManagerLayout {
 		return manager.maxConsumptionThreshold();
 	}
 
+
+	@Property(name="layout.name")
+	public String name;
 	
 	@Property
 	public int x;

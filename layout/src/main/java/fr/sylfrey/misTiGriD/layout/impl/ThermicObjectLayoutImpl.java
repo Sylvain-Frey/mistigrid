@@ -13,6 +13,11 @@ import fr.sylfrey.misTiGriD.temperature.ThermicObject;
 @Provides(specifications={ThermicObjectLayout.class,Layout.class})
 public class ThermicObjectLayoutImpl implements ThermicObjectLayout {
 
+	@Override 
+	public String name() {
+		return name;
+	}
+
 	@Override
 	public int x() {
 		return x;
@@ -48,6 +53,9 @@ public class ThermicObjectLayoutImpl implements ThermicObjectLayout {
 		return thermicObject.getName();
 	}
 	
+
+	@Property(name="layout.name")
+	public String name;
 	
 	@Property
 	public int x;

@@ -13,6 +13,11 @@ import fr.sylfrey.misTiGriD.temperature.Opening;
 @Provides(specifications={OpeningLayout.class,Layout.class})
 public class WallLayoutImpl implements OpeningLayout {
 
+	@Override 
+	public String name() {
+		return name;
+	}
+
 	@Override
 	public int x() {
 		return x;
@@ -59,6 +64,9 @@ public class WallLayoutImpl implements OpeningLayout {
 	}
 	
 
+	@Property(name="layout.name")
+	public String name;
+	
 	@Property
 	public int x;
 

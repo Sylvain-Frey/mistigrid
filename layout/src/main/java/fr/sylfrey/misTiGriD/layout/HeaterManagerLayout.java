@@ -1,7 +1,7 @@
 package fr.sylfrey.misTiGriD.layout;
 
-import fr.sylfrey.misTiGriD.alba.basic.roles.HeaterManager;
+import fr.sylfrey.misTiGriD.alba.basic.agents.AlbaHeaterManager;
 
-public interface HeaterManagerLayout extends Layout, HeaterManager {
+public interface HeaterManagerLayout extends Layout, AlbaHeaterManager {
 
 }

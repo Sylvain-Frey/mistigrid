@@ -33,6 +33,10 @@ public class AtmosphereLayoutImpl implements AtmosphereLayout {
 		return atmosphere.getName();
 	}
 
+	@Override 
+	public String name() {
+		return name;
+	}
 
 	@Override
 	public int x() {
@@ -59,6 +63,8 @@ public class AtmosphereLayoutImpl implements AtmosphereLayout {
 		return layer;
 	}
 		
+	@Property(name="layout.name")
+	public String name;
 	
 	@Property
 	public int x;

@@ -16,6 +16,11 @@ import fr.sylfrey.misTiGriD.temperature.ThermicObject;
 @Provides(specifications={HeaterLayout.class,Layout.class})
 public class HeaterLayoutImpl implements HeaterLayout {
 
+	@Override 
+	public String name() {
+		return name;
+	}
+
 	@Override
 	public int x() {
 		return x;
@@ -91,6 +96,9 @@ public class HeaterLayoutImpl implements HeaterLayout {
 		heater.blackout();
 	}
 	
+
+	@Property(name="layout.name")
+	public String name;
 	
 	@Property
 	public int x;

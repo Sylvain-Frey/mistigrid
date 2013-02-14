@@ -11,7 +11,12 @@ import fr.sylfrey.misTiGriD.layout.Layout;
 @org.apache.felix.ipojo.annotations.Component(name="LampLayout")
 @Provides(specifications={LampLayout.class, Layout.class})
 public class LampLayoutImpl implements LampLayout {
-	
+
+	@Override 
+	public String name() {
+		return name;
+	}
+
 	@Override
 	public int x() {
 		return x;
@@ -85,6 +90,9 @@ public class LampLayoutImpl implements LampLayout {
 	@Requires(id="lamp")
 	public Lamp lamp; 
 
+	@Property(name="layout.name")
+	public String name;
+	
 	@Property
 	public int x;
 	

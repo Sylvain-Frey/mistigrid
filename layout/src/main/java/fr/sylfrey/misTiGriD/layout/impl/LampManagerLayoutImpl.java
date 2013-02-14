@@ -17,6 +17,11 @@ import fr.sylfrey.misTiGriD.layout.Layout;
 @Provides(specifications={LampManagerLayout.class,Layout.class})
 public class LampManagerLayoutImpl implements LampManagerLayout {
 
+	@Override 
+	public String name() {
+		return name;
+	}
+
 	@Override
 	public int x() {
 		return x;
@@ -56,17 +61,24 @@ public class LampManagerLayoutImpl implements LampManagerLayout {
 	public ProsumerStatus getStatus() {
 		return manager.getStatus();
 	}
+	
+	@Override
+	public void setStatus(ProsumerStatus status) {
+		manager.setStatus(status);
+	}
 
 	@Override
 	public LoadBalancingOrderResponse tell(LoadBalancingOrder order) {
-		return null;
+		return manager.tell(order);
 	}
 
 	@Override
 	public void update() {		
 	} 
-	
-	
+
+	@Property(name="layout.name")
+	public String name;
+		
 	@Property
 	public int x;
 

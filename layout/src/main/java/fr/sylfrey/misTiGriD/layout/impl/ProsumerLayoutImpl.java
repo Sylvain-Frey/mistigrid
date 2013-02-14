@@ -13,6 +13,11 @@ import fr.sylfrey.misTiGriD.layout.ProsumerLayout;
 @Provides(specifications={ProsumerLayout.class,Layout.class})
 public class ProsumerLayoutImpl implements ProsumerLayout {
 
+	@Override 
+	public String name() {
+		return name;
+	}
+
 	@Override
 	public int x() {
 		return x;
@@ -53,6 +58,9 @@ public class ProsumerLayoutImpl implements ProsumerLayout {
 		return prosumer.getName();
 	}
 
+	@Property(name="layout.name")
+	public String name;
+	
 	@Property
 	public int x;
 

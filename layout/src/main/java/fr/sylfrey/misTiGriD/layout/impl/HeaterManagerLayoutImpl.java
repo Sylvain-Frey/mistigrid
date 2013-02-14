@@ -5,13 +5,22 @@ import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 
-import fr.sylfrey.misTiGriD.alba.basic.roles.HeaterManager;
+import fr.sylfrey.misTiGriD.alba.basic.agents.AlbaHeaterManager;
+import fr.sylfrey.misTiGriD.alba.basic.messages.LoadBalancingOrder;
+import fr.sylfrey.misTiGriD.alba.basic.messages.LoadBalancingOrderResponse;
+import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus;
+import fr.sylfrey.misTiGriD.alba.basic.messages.Prosumption;
 import fr.sylfrey.misTiGriD.layout.HeaterManagerLayout;
 import fr.sylfrey.misTiGriD.layout.Layout;
 
 @Component(name="HeaterManagerLayout",immediate=true)
 @Provides(specifications={HeaterManagerLayout.class,Layout.class})
 public class HeaterManagerLayoutImpl implements HeaterManagerLayout {
+
+	@Override 
+	public String name() {
+		return name;
+	}
 
 	@Override
 	public int x() {
@@ -53,6 +62,35 @@ public class HeaterManagerLayoutImpl implements HeaterManagerLayout {
 		return manager.isEconomizing();
 	}
 	
+
+	@Override
+	public void update() {
+		manager.update();
+	}
+
+	@Override
+	public Prosumption getProsumption() {
+		return manager.getProsumption();
+	}
+
+	@Override
+	public ProsumerStatus getStatus() {
+		return manager.getStatus();
+	}
+
+	@Override
+	public void setStatus(ProsumerStatus status) {
+		manager.setStatus(status);
+	}
+
+	@Override
+	public LoadBalancingOrderResponse tell(LoadBalancingOrder order) {
+		return manager.tell(order);
+	} 
+
+	@Property(name="layout.name")
+	public String name;
+	
 	@Property
 	public int x;
 
@@ -69,6 +107,6 @@ public class HeaterManagerLayoutImpl implements HeaterManagerLayout {
 	public int layer;
 
 	@Requires(id="manager")
-	public HeaterManager manager; 
+	public AlbaHeaterManager manager;
 	
 }

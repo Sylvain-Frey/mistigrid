@@ -11,6 +11,11 @@ package fr.sylfrey.misTiGriD.layout;
  *
  */
 public interface Layout {
+	
+	/**
+	 * @return unique identifier of this Layout
+	 */
+	public String name();
 
 	/**
 	 * @return abscissa, from left to right, 
