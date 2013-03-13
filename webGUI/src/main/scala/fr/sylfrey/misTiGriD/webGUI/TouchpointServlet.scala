@@ -25,7 +25,7 @@ class TouchpointServlet(registry : GenericLayoutRegistry) extends HttpServlet {
   val mapper = new ObjectMapper()
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
-    
+        
     val path = req.getPathInfo().split("/")
     var layoutType : String = ""
     var layoutName : String = ""
@@ -93,6 +93,9 @@ class TouchpointServlet(registry : GenericLayoutRegistry) extends HttpServlet {
   }	
 
   override def doPost(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
+    
+    println("# " + req.getRemoteAddr() + " POST : " + req.getPathInfo())
+    
     val path = req.getPathInfo().split("/")
     if (path.length < 3) {
 

@@ -47,6 +47,7 @@ object Serialiser {
 
   def serialise(layout: OpeningLayout, node: ObjectNode): ObjectNode = {
     serialise(layout.asInstanceOf[Layout], node)
+    node.put("type", OpeningLayout)
     node.put("height", layout.height())
     node.put("width", layout.width())
     node.put("isOpen", layout.isOpen())
@@ -56,6 +57,7 @@ object Serialiser {
   
   def serialise(layout: LampManagerLayout, node: ObjectNode): ObjectNode = {
     serialise(layout.asInstanceOf[Layout], node)
+    node.put("type", LampManagerLayout)
     node.put("isEconomising", layout.isEconomising)
     node.put("status", ProsumerStatus.toString(layout.getStatus))
     node
@@ -63,6 +65,8 @@ object Serialiser {
   
   def serialise(layout: HeaterManagerLayout, node: ObjectNode): ObjectNode = {
     serialise(layout.asInstanceOf[Layout], node)
+    node.put("type", HeaterManagerLayout)
+    node.put("name", layout.name())
     node.put("requiredTemperature", layout.getRequiredTemperature())
     node.put("isEconomizing", layout.isEconomizing())
     node.put("status", ProsumerStatus.toString(layout.getStatus))
@@ -71,6 +75,7 @@ object Serialiser {
 
   def serialise(layout: AtmosphereLayout, node: ObjectNode): ObjectNode = {
     serialise(layout.asInstanceOf[ThermicObjectLayout], node)
+    node.put("type", AtmosphereLayout)
     node.put("name", layout.getName())
     node.put("currentTemperature", layout.getCurrentTemperature())
     node
@@ -78,6 +83,7 @@ object Serialiser {
 
   def serialise(layout: ThermicObjectLayout, node: ObjectNode): ObjectNode = {
     serialise(layout.asInstanceOf[Layout], node)
+    node.put("type", ThermicObjectLayout)
     node.put("name", layout.getName())
     node.put("currentTemperature", layout.getCurrentTemperature())
     node
@@ -85,6 +91,7 @@ object Serialiser {
 
   def serialise(layout: ProsumerLayout, node: ObjectNode): ObjectNode = {
     serialise(layout.asInstanceOf[Layout], node)
+    node.put("type", ProsumerLayout)
     node.put("name", layout.getName())
     node.put("prosumedPower", layout.getProsumedPower())
     node
@@ -92,6 +99,7 @@ object Serialiser {
 
   def serialise(layout: HeaterLayout, node: ObjectNode): ObjectNode = {
     serialise(layout.asInstanceOf[Layout], node)
+    node.put("type", HeaterLayout)
     node.put("emissionPower", layout.getEmissionPower())
     node.put("maxEmissionPower", layout.getMaxEmissionPower())
     node
@@ -99,6 +107,8 @@ object Serialiser {
 
   def serialise(layout: LampLayout, node: ObjectNode): ObjectNode = {
     serialise(layout.asInstanceOf[Layout], node)
+    node.put("type", LampLayout)
+    node.put("name", layout.getName())
     node.put("prosumedPower", layout.getProsumedPower())
     node.put("emissionPower", layout.getEmissionPower())
     node.put("maxEmissionPower", layout.getMaxEmissionPower())
@@ -107,6 +117,7 @@ object Serialiser {
 
   def serialise(layout: LoadManagerLayout, node: ObjectNode): ObjectNode = {
     serialise(layout.asInstanceOf[Layout], node)
+    node.put("type", LoadManagerLayout)
     node.put("prosumption", layout.getProsumption().prosumption)
     node.put("maxConsumptionThreshold", layout.maxConsumptionThreshold())
     node.put("status", ProsumerStatus.toString(layout.getStatus))
@@ -116,15 +127,15 @@ object Serialiser {
   def store(node: ObjectNode, name: String, layout: Layout) {
     val obj = mapper.createObjectNode()
     layout match {
-      case layout: HeaterLayout => serialise(layout, obj);			obj.put("type", HeaterLayout)
-      case layout: LampLayout => serialise(layout, obj);			obj.put("type", LampLayout)
-      case layout: LampManagerLayout => serialise(layout, obj);		obj.put("type", LampManagerLayout)
-      case layout: HeaterManagerLayout => serialise(layout, obj);	obj.put("type", HeaterManagerLayout)
-      case layout: OpeningLayout => serialise(layout, obj);			obj.put("type", OpeningLayout)
-      case layout: AtmosphereLayout => serialise(layout, obj);		obj.put("type", AtmosphereLayout)
-      case layout: ProsumerLayout => serialise(layout, obj);		obj.put("type", ProsumerLayout)
-      case layout: ThermicObjectLayout => serialise(layout, obj);	obj.put("type", ThermicObjectLayout)
-      case layout: LoadManagerLayout => serialise(layout, obj);		obj.put("type", LoadManagerLayout)
+      case layout: HeaterLayout => serialise(layout, obj);			
+      case layout: LampLayout => serialise(layout, obj);			
+      case layout: LampManagerLayout => serialise(layout, obj);		
+      case layout: HeaterManagerLayout => serialise(layout, obj);	
+      case layout: OpeningLayout => serialise(layout, obj);			
+      case layout: AtmosphereLayout => serialise(layout, obj);		
+      case layout: ProsumerLayout => serialise(layout, obj);		
+      case layout: ThermicObjectLayout => serialise(layout, obj);	
+      case layout: LoadManagerLayout => serialise(layout, obj);		
     }    
     node.put(name, obj)
   }
