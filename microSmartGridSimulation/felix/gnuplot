@@ -1,0 +1,16 @@
+set datafile separator ","
+set xlabel "time"
+set ylabel "temperature"
+plot "temperature_kitchen.log" using 1:2 with lines
+set multiplot layout 2,4
+plot "temperature_livingRoom1.log" using 1:2 with lines
+plot "temperature_bathroom.log" using 1:2 with lines
+plot "temperature_bedroom1.log" using 1:2 with lines
+plot "temperature_bedroom2.log" using 1:2 with lines
+plot "temperature_bedroom3.log" using 1:2 with lines
+plot "temperature_kitchen.log" using 1:2 with lines
+plot "temperature_wc.log" using 1:2 with lines
+plot "temperature_entrance.log" using 1:2 with lines
+
+unset multiplot
+
