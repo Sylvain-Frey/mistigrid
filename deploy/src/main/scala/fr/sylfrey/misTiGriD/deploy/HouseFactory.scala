@@ -129,11 +129,11 @@ class HouseFactoryImpl extends HouseFactory {
     for ((heater, (room, pos)) <- heaterLayouts) {
       result += makeHeaterLayout(
         name = heater + "_layout",
-        dim = Dim(pos.x, pos.y, 90, 50, pos.layer),
+        dim = Dim(pos.x, pos.y, 150, 100, pos.layer),
         heater = heater)
       result += makeHeaterManagerLayout(
         name = heater + "_manager_layout",
-        dim = Dim(pos.x, pos.y - 50, 90, 50, pos.layer),
+        dim = Dim(pos.x + 20, pos.y - 90, 130, 100, pos.layer),
         manager = heater + "_manager")
     }
 

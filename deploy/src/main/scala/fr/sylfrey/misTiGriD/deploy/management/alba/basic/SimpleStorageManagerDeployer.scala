@@ -4,54 +4,48 @@ import scala.Array.canBuildFrom
 import scala.collection.JavaConversions.asJavaDictionary
 import scala.collection.mutable.Map
 import scala.concurrent.duration.DurationInt
-
 import org.apache.felix.ipojo.annotations.Bind
 import org.apache.felix.ipojo.annotations.Component
 import org.apache.felix.ipojo.annotations.Property
 import org.apache.felix.ipojo.annotations.Requires
 import org.apache.felix.ipojo.annotations.Validate
 import org.apache.felix.ipojo.annotations.Invalidate
-
 import akka.actor.ActorRef
 import akka.actor.ActorSystem
 import akka.actor.Cancellable
 import akka.actor.TypedActor
 import akka.actor.TypedProps
-
 import fr.sylfrey.akka.ActorSystemProvider
-import fr.sylfrey.misTiGriD.alba.basic.agents.LampManager
-import fr.sylfrey.misTiGriD.alba.basic.agents.LampManagerAgent
-import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
-import fr.sylfrey.misTiGriD.alba.basic.roles.ProsumerManager
 import fr.sylfrey.misTiGriD.electricalGrid.Lamp
 import fr.sylfrey.misTiGriD.management.BundleContextProvider
-import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
+import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
+import fr.sylfrey.misTiGriD.alba.basic.agents.LampManager
+import fr.sylfrey.misTiGriD.electricalGrid.impl.SimpleStorage
+import fr.sylfrey.misTiGriD.alba.basic.roles.ProsumerManager
+import fr.sylfrey.misTiGriD.alba.basic.agents.LampManagerAgent
+import fr.sylfrey.misTiGriD.alba.basic.agents.SimpleStorageManager
+import fr.sylfrey.misTiGriD.alba.basic.agents.SimpleStorageManagerAgent
+import fr.sylfrey.misTiGriD.electricalGrid.Storage
 
-@Component(name="LampManager", immediate=true)
-class LampManagerDeployer {
 
-  @Requires(id="lamp") var lamp : Lamp = _
+@Component(name="SimpleStorageManager", immediate=true)
+class SimpleStorageManagerDeployer {
+  
+  @Requires(id="storage") var storage : Storage = _
   @Bind def bindActorSystem(asp : ActorSystemProvider)  { actorSystem = asp.getSystem() }
   @Requires var bundleContextProvider :BundleContextProvider = _
-  
-  @Property(mandatory=true) var ecoMaxPower : Float = _
-  @Property(mandatory=true) var prosumerStatus : String = _	
+  	
   @Property(mandatory=true) var period : Int = _
   @Property(mandatory=true) var actorPath : String = _
   @Property(mandatory=true) var houseLoadManagerURI : String = _
   
   @Validate def start() : Unit = {
-    
-    val status = ProsumerStatus.fromString(prosumerStatus)
-    
+        
     manager = TypedActor.get(actorSystem).typedActorOf(
 	  TypedProps(
-		  classOf[LampManager], 
-          new LampManagerAgent(
-              lamp = lamp, 
-              status = status, 
-              ecoMaxPower = ecoMaxPower)),
-        actorPath)
+		classOf[SimpleStorageManager], 
+        new SimpleStorageManagerAgent(storage)),
+      actorPath)
     managerActorRef = TypedActor.get(actorSystem).getActorRefFor(manager)
 
     println("# getting houseLoadManager @ " + houseLoadManagerURI)
@@ -61,7 +55,7 @@ class LampManagerDeployer {
     houseLoadManager.register(managerActorRef)
 		
     bundleContextProvider.get().registerService(
-      Array( classOf[LampManager], classOf[ProsumerManager]).map( _.getName() ), 
+      Array( classOf[SimpleStorageManager], classOf[ProsumerManager]).map( _.getName() ), 
       manager,
       Map("instance.name" -> actorPath, "service.pid" -> actorPath))
       
@@ -70,6 +64,7 @@ class LampManagerDeployer {
     
   }
   
+  
   @Invalidate def stop() : Unit = {
     periodicTask.cancel
     houseLoadManager.unregister(managerActorRef)
@@ -77,7 +72,7 @@ class LampManagerDeployer {
     TypedActor.get(actorSystem).stop(houseLoadManager)
   }
   
-  private var manager : LampManager = _
+  private var manager : SimpleStorageManager = _
   private var managerActorRef : ActorRef = _
   private var actorSystem : ActorSystem = _
   private var periodicTask : Cancellable = _
