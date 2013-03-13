@@ -750,7 +750,7 @@
     
     
      
-    <instance component="ProsumerLayout" name="lamp_wc_Layout">
+    <instance component="LampLayout" name="lamp_wc_Layout">
         <property name="x" value="570" />
         <property name="y" value="480" />
         <property name="width" value="60" />
@@ -761,7 +761,7 @@
         </property>        
     </instance>
     
-    <instance component="ProsumerLayout" name="lamp_bathroom_Layout">
+    <instance component="LampLayout" name="lamp_bathroom_Layout">
       <property name="x" value="1080" />
         <property name="y" value="300" />
         <property name="width" value="60" />
@@ -783,7 +783,7 @@
         </property>        
     </instance>
     
-    <instance component="ProsumerLayout" name="lamp_bedroom1_Layout">
+    <instance component="LampLayout" name="lamp_bedroom1_Layout">
       <property name="x" value="1080" />
         <property name="y" value="600" />
         <property name="width" value="60" />
@@ -794,7 +794,7 @@
         </property>        
     </instance>
     
-    <instance component="ProsumerLayout" name="lamp_bedroom2_Layout">
+    <instance component="LampLayout" name="lamp_bedroom2_Layout">
       <property name="x" value="750" />
         <property name="y" value="530" />
         <property name="width" value="60" />
@@ -805,7 +805,7 @@
         </property>        
     </instance>
 
-    <instance component="ProsumerLayout" name="lamp_bedroom3_Layout">
+    <instance component="LampLayout" name="lamp_bedroom3_Layout">
       <property name="x" value="465" />
         <property name="y" value="670" />
         <property name="width" value="60" />
@@ -816,7 +816,7 @@
         </property>        
     </instance>
 
-    <instance component="ProsumerLayout" name="lamp_livingRoom1_Layout">
+    <instance component="LampLayout" name="lamp_livingRoom1_Layout">
       <property name="x" value="60" />
         <property name="y" value="370" />
         <property name="width" value="60" />
@@ -827,7 +827,7 @@
         </property>        
     </instance>
         
-    <instance component="ProsumerLayout" name="lamp_livingRoom2_Layout">
+    <instance component="LampLayout" name="lamp_livingRoom2_Layout">
       <property name="x" value="170" />
         <property name="y" value="470" />
         <property name="width" value="60" />
@@ -838,7 +838,7 @@
         </property>        
     </instance>    
     
-    <instance component="ProsumerLayout" name="lamp_entrance_Layout">
+    <instance component="LampLayout" name="lamp_entrance_Layout">
       <property name="x" value="650" />
         <property name="y" value="300" />
         <property name="width" value="60" />
