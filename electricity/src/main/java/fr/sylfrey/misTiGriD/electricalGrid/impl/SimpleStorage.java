@@ -57,6 +57,7 @@ public class SimpleStorage implements Storage, Updatable {
 	@Validate
 	public void start() {
 		running = true;
+		lastUpdate = time.dayTime();
 	}
 
 	@Invalidate

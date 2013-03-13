@@ -4,8 +4,6 @@ import static fr.sylfrey.misTiGriD.electricalGrid.Storage.State.LOADING;
 import static fr.sylfrey.misTiGriD.electricalGrid.Storage.State.UNLOADING;
 
 import org.apache.felix.ipojo.junit4osgi.OSGiTestCase;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
 import org.junit.Test;
 
 import fr.sylfrey.misTiGriD.electricalGrid.impl.SimpleStorage;
@@ -14,25 +12,26 @@ import fr.sylfrey.misTiGriD.environment.Time;
 public class StorageTest extends OSGiTestCase {
 
 	private SimpleStorage storage = new SimpleStorage();
-	private Mockery context = new Mockery();
-	private final Time time = context.mock(Time.class);
+	private final Time time = new MockTime();
 	
 	@Test
 	public void test() {
 		
 		storage.time = time;
 		storage.name = "testStorage";
-		storage.start();
+		storage.MAX_LOAD = -1000; //you'll want rather -10000 or so
+		storage.MAX_POWER_IN = -500;
+		storage.MAX_POWER_OUT = 500;
+		
+		
+    	storage.start();
+		System.out.println("# maxLoad=" + storage.MAX_LOAD + " maxIn=" + storage.MAX_POWER_IN + " maxOut=" + storage.MAX_POWER_OUT);
 		
 		assertEquals(storage.name,"testStorage");
     	assertEquals(storage.getProsumedPower(),0f,Double.MIN_VALUE);
     	assertEquals(storage.getLoad(),0f,Double.MIN_VALUE);
     	
 
-    	context.checking(new Expectations() {{
-		    allowing (time).dayTime(); will(returnValue(System.currentTimeMillis()));
-		}});
-		
     	
     	storage.setState(LOADING);
     	waitForStabilisation();
@@ -65,16 +64,31 @@ public class StorageTest extends OSGiTestCase {
 				e.printStackTrace();
 			}
 
+			storage.update();
 			float load = storage.getLoad();
-
-			assertTrue(storage.MAX_LOAD < load);
-			assertTrue(load < 0);
-
-			System.out.println("# storage state = " + storage.getState() + " : "
+			System.out.println("# storage state=" + storage.getState() 
+					+ " : prosumption=" + storage.getProsumedPower() + " : "
 					+ storage.MAX_LOAD + " < " + load + " < " + 0);
+
+			assertTrue(storage.MAX_LOAD <= load);
+			assertTrue(load <= 0);
 
 		}
 		
 	}
 
+	private class MockTime implements Time {
+
+		@Override
+		public long dayTime() {
+			return System.currentTimeMillis();
+		}
+
+		@Override
+		public long dayLength() {
+			return 240;
+		}
+		
+	}
+	
 }
