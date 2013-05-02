@@ -1,6 +1,6 @@
 package fr.sylfrey.misTiGriD.alba.basic.messages
 
-trait ProsumerStatus
+trait ProsumerStatus extends Serializable
 
 object ProsumerStatus {
   def toString(status: ProsumerStatus): String = status match {
@@ -16,6 +16,12 @@ object ProsumerStatus {
   }
 }
 
-object Flexible extends ProsumerStatus
-object SemiFlexible extends ProsumerStatus
-object NonFlexible extends ProsumerStatus
+object Flexible extends ProsumerStatus {
+  override def toString = "flexible"
+}
+object SemiFlexible extends ProsumerStatus {
+  override def toString = "semiFlexible"
+}
+object NonFlexible extends ProsumerStatus {
+  override def toString = "nonFlexible"
+}

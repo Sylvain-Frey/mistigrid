@@ -10,6 +10,7 @@ public interface LoadManager {
 
 	public float maxConsumptionThreshold();
 	public void setMaximumProsumption(float threshold);
+	public float minConsumptionThreshold();
 //	public void setStatus(ProsumerStatus status);
 
 }
