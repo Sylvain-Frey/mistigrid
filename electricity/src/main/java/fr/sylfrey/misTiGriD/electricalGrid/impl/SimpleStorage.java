@@ -8,8 +8,6 @@ import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.apache.felix.ipojo.annotations.Unbind;
 import org.apache.felix.ipojo.annotations.Validate;
-//import org.apache.felix.ipojo.handlers.jmx.Config;
-//import org.apache.felix.ipojo.handlers.jmx.Method;
 
 import fr.sylfrey.misTiGriD.electricalGrid.Aggregator;
 import fr.sylfrey.misTiGriD.electricalGrid.BlackOut;
@@ -20,7 +18,6 @@ import fr.sylfrey.misTiGriD.environment.Updatable;
 
 @Component(name="SimpleStorage")
 @Provides(specifications={Storage.class,Prosumer.class,Updatable.class})
-//@Config@SuppressWarnings("deprecation")
 public class SimpleStorage implements Storage, Updatable {
 
 	@Override
@@ -29,7 +26,6 @@ public class SimpleStorage implements Storage, Updatable {
 	}
 
 	@Override
-//	@Method
 	public float getLoad() {
 		return load;
 	}
@@ -82,41 +78,41 @@ public class SimpleStorage implements Storage, Updatable {
 
 		if (running) {
 
-			if (state==State.LOADING && load < 0.95*MAX_LOAD ||
-					state==State.UNLOADING && load > 0.05*MAX_LOAD) {
-				// stop before bypassing the storage limits
-				goStandBy();			
-			} else {
-				
-				long now = time.dayTime();
-				load += prosumedPower*(now-lastUpdate)/1000;
-				lastUpdate = now;
+			// update load without check
+			long now = time.dayTime();
+			load += prosumedPower*(now-lastUpdate)/1000;
+			lastUpdate = now;
 
+			// check load consistency
+			if (load < MAX_LOAD) { // battery fully loaded
+				load = MAX_LOAD;
+				goStandBy();
+			} else if (load > 0) { // battery fully discharged
+				load = 0;
+				goStandBy();
 			}
 
 		}
 
 	}
 
-//	@Method
 	private void goStandBy() {
 		state = State.STANDBY;
 		setProsumedPower(0);
-		update();
 	}
 
-//	@Method
 	private void goLoading() {
-		state = State.LOADING;
-		setProsumedPower(MAX_POWER_IN);
-		update();
+		if (load > MAX_LOAD) { // not fully loaded yet
+			state = State.LOADING;
+			setProsumedPower(MAX_POWER_IN);
+		}
 	}
 
-//	@Method
 	private void goUnloading() {
-		state = State.UNLOADING;
-		setProsumedPower(MAX_POWER_OUT);
-		update();
+		if (load < 0) { // not fully unloaded yet
+			state = State.UNLOADING;
+			setProsumedPower(MAX_POWER_OUT);
+		}
 	}
 
 	/**

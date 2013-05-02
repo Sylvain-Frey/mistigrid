@@ -2,13 +2,13 @@ package fr.sylfrey.misTiGriD.electricalGrid.test;
 
 import org.apache.felix.ipojo.junit4osgi.OSGiTestCase;
 
+import fr.sylfrey.misTiGriD.electricalGrid.BlackOut;
 //import akka.actor.ActorSystem;
 //import akka.actor.TypedActor;
 //import akka.actor.TypedProps;
 //import akka.japi.Creator;
 //
 //import fr.tpt.s3.microSmartGridSimulation.electricalGrid.Aggregator;
-import fr.sylfrey.misTiGriD.electricalGrid.BlackOut;
 
 public class AggregatorTest extends OSGiTestCase {
 

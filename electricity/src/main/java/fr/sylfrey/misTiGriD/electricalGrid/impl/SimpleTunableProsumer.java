@@ -8,12 +8,12 @@ import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 import org.apache.felix.ipojo.annotations.Unbind;
 import org.apache.felix.ipojo.annotations.Validate;
-//import org.apache.felix.ipojo.handlers.jmx.Config;
 
 import fr.sylfrey.misTiGriD.electricalGrid.Aggregator;
 import fr.sylfrey.misTiGriD.electricalGrid.BlackOut;
 import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
 import fr.sylfrey.misTiGriD.electricalGrid.TunableProsumer;
+//import org.apache.felix.ipojo.handlers.jmx.Config;
 
 
 /**

@@ -15,12 +15,14 @@ import akka.actor.TypedProps;
 import akka.japi.Creator;
 import fr.sylfrey.akka.ActorSystemProvider;
 import fr.sylfrey.iris.akka.AkkaProvider;
+import fr.sylfrey.misTiGriD.electricalGrid.Aggregator;
+import fr.sylfrey.misTiGriD.electricalGrid.BlackOut;
 import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
 import fr.sylfrey.misTiGriD.electricalGrid.RemoteAggregator;
 
 @Component(name="RemoteAggregator")
 @Provides()
-public class RemoteAggregatorContainer implements Prosumer {
+public class RemoteAggregatorContainer implements Prosumer, Aggregator {
 	
 	@Validate
 	public void start() { 
@@ -85,6 +87,29 @@ public class RemoteAggregatorContainer implements Prosumer {
 	
 	private RemoteAggregator delegate;
 	
+	public void connect(Prosumer prosumer) {
+	}
+
+	public void disconnect(Prosumer prosumer) {
+	}
+
+	public void updateProsumption(Prosumer prosumer, float prosumption)
+			throws BlackOut {
+	}
+
+	public float getAggregatedPowerConsumption() {
+		return delegate.getAggregatedPowerConsumption();
+	}
+
+	public float getAggregatedPowerProduction() {
+		return delegate.getAggregatedPowerProduction();
+	}
+
+	public float getBill() {
+		return delegate.getBill();
+	}
+
+
 	private RemoteAggregator parent;
 
 	@Override
