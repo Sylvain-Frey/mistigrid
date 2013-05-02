@@ -1,24 +1,24 @@
 package fr.sylfrey.misTiGriD.webGUI
 
-import javax.servlet.http.HttpServlet
-import javax.servlet.http.HttpServletResponse
-import javax.servlet.http.HttpServletRequest
-import java.lang.Float
 import java.lang.Boolean
-import fr.sylfrey.misTiGriD.layout.HeaterManagerLayout
-import fr.sylfrey.misTiGriD.layout.HeaterLayout
-import fr.sylfrey.misTiGriD.layout.OpeningLayout
-import fr.sylfrey.misTiGriD.layout.LampLayout
-import fr.sylfrey.misTiGriD.layout.Layout
-import fr.sylfrey.misTiGriD.layout.AtmosphereLayout
-import fr.sylfrey.misTiGriD.layout.ProsumerLayout
-import fr.sylfrey.misTiGriD.layout.ThermicObjectLayout
+import java.lang.Float
+import org.apache.felix.ipojo.annotations.Component
 import org.codehaus.jackson.map.ObjectMapper
-import fr.sylfrey.misTiGriD.management.resources.loadHierarch.LoadHierarch
+import fr.sylfrey.misTiGriD.alba.basic.messages.Flexible
+import fr.sylfrey.misTiGriD.alba.basic.messages.NonFlexible
+import fr.sylfrey.misTiGriD.layout.AtmosphereLayout
+import fr.sylfrey.misTiGriD.layout.HeaterLayout
+import fr.sylfrey.misTiGriD.layout.HeaterManagerLayout
+import fr.sylfrey.misTiGriD.layout.LampLayout
 import fr.sylfrey.misTiGriD.layout.LampManagerLayout
 import fr.sylfrey.misTiGriD.layout.LoadManagerLayout
-import fr.sylfrey.misTiGriD.alba.basic.messages.NonFlexible
-import fr.sylfrey.misTiGriD.alba.basic.messages.Flexible
+import fr.sylfrey.misTiGriD.layout.OpeningLayout
+import fr.sylfrey.misTiGriD.layout.ProsumerLayout
+import fr.sylfrey.misTiGriD.layout.ThermicObjectLayout
+import javax.servlet.http.HttpServlet
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
+import fr.sylfrey.misTiGriD.layout.StorageLayout
 
 class TouchpointServlet(registry : GenericLayoutRegistry) extends HttpServlet {
   
@@ -50,6 +50,10 @@ class TouchpointServlet(registry : GenericLayoutRegistry) extends HttpServlet {
 				
     } else if (layoutType.equals(Serialiser.ThermicObjectLayout)) {
       val layout = registry.get[ThermicObjectLayout](classOf[ThermicObjectLayout], layoutName)
+      if (layout!= null) response = Serialiser.serialise(layout, node).toString() 
+
+    } else if (layoutType.equals(Serialiser.StorageLayout)) {
+      val layout = registry.get[StorageLayout](classOf[StorageLayout], layoutName)
       if (layout!= null) response = Serialiser.serialise(layout, node).toString() 
 
     } else if (layoutType.equals(Serialiser.HeaterLayout)) {

@@ -3,7 +3,8 @@ if (sylfrey == undefined) var sylfrey = {};
 sylfrey.graph = (function() { // package definition
         
 	//package imports
-	var log = sylfrey.controls.log;
+	var get = sylfrey.network.get,
+	    log = sylfrey.controls.log;
 	
     function Graph(graphContainer, controlContainer) {
 
@@ -44,70 +45,51 @@ sylfrey.graph = (function() { // package definition
         return chart;
         
     }
-    
-    function GraphWebSocket(webSocketURL, chart) {
-                
-        var socket = new WebSocket(webSocketURL);
-            
-        socket.onopen = function() {
-            socket.send("subscribe");    
-        }
-                   
-        socket.onmessage = function(msg) {
-            
-            if (msg.data.substring(0,1) == "#") { // non-data message: ignore
-                return;
-            }
-            var data = $.parseJSON(msg.data);
-            if (!chart.get(data.type)) {
-                chart.addSeries({
-                    id: data.type,
-                    name: data.type,
-                    data: [[0,0]],
-                    visible: false,
-                    full: false
-                });                    
-            }              
-            var series = chart.get(data.type);
-                       
-            var point = data.content;
-            // reverse prosumption sign convention...
-            if (data.type.indexOf("sumption") != -1) point = -point; 
-            series.addPoint(point, false, series.data.length >= chart.MAX_SIZE);
-                     
-        }
-                    
-        socket.onclose = function(){
-            socket.send("unsubscribe")
-        }   
         
-        return socket;
+    function restRefresher(URL, chart) {
+    
+        get(URL, function(states) {
+    	
+		    $.each(states, function(index, data) {
+    
+                var visibility = 
+                    data.type.indexOf("Goal") != -1 ||
+                    data.type.indexOf("Aggregator") != -1 ;
+                if (!chart.get(data.type)) {
+                    chart.addSeries({
+                        id: data.type,
+                        name: data.type,
+                        data: [[0,0]],
+                        visible: visibility,
+                        full: false
+                    });                    
+                }              
+                var series = chart.get(data.type);
+                           
+                var point = data.content;
+                
+                // reverse prosumption sign convention...
+                if (data.type.indexOf("sumption") != -1) point = -point; 
+                series.addPoint(point, false, series.data.length >= chart.MAX_SIZE);
+                
+    		});
+
+	    });
     }
     
     function displayGraph() {
     
         var host = window.document.location.hostname;
-        var port = parseInt(window.document.location.port) + 1; //!! convention here !!
-        var webSocketURL = "ws://" + host + ":" + port + "/traces";
+        var port = parseInt(window.document.location.port);// + 1; //!! convention here !!
+        var URL = "/traces";
     
-        if(!("WebSocket" in window)){
-            alert("WebSockets are not supported by your browser: you cannot visualise the graphs =(.");
-            return;     
-        }
-            
         var chart = Graph("graphContainer");
-            
-        try{
-            GraphWebSocket(webSocketURL, chart);                        
-        } catch (e) {
-            log(e);
-            return;
-        }
-        
+                    
         var worker = function() {
+            restRefresher(URL, chart);
             chart.checkSeries();
             chart.redraw();
-            setTimeout(worker,1000);
+            setTimeout(worker,500);
         };
         
         worker();

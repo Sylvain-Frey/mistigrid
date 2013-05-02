@@ -1,0 +1,15 @@
+.districtChart {
+  width: 1200px; 
+  height: 600px; 
+  margin-left: auto ;
+  margin-right: auto ;
+}
+
+.houseDiv {
+  float: left;
+}
+
+.housechart {  
+  width: 600px; 
+  height: 480px; 
+}

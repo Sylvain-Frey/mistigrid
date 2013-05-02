@@ -9,7 +9,7 @@ import org.jboss.netty.channel.Channel;
 import org.jboss.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 import akka.actor.UntypedActor;
-import fr.sylfrey.misTiGriD.trace.ArchiverImpl.ArchiverEvent;
+import fr.sylfrey.misTiGriD.trace.ArchiverEvent;
 
 public class ArchiveSubscriber extends UntypedActor {
 

@@ -89,13 +89,56 @@ sylfrey.model.electric = (function() { // package definition
 		};
 		
 		return prosumer;
-	};
+        };
+        
+        function Storage(prosumer, load, loadCapacity, state) {
+          
+          prosumer.type = "Storage";
+          prosumer.load = load;
+          prosumer.loadCapacity = loadCapacity;
+          prosumer.state = state;
+          
+          var superCreate = prosumer.create;
+          prosumer.create = function() {
+            superCreate();
+            prosumer.view.addClass("Storage");
+            prosumer.view.loadDiv = $("<div class='loadDiv'></div>");
+            prosumer.view.loadDiv.appendTo(prosumer.view);
+            prosumer.view.stateDiv = $("<div class='stateDiv'></div>");
+            prosumer.view.stateDiv.appendTo(prosumer.view);
+            
+          };
+          
+          prosumer.update = function(state) {
+            prosumer.prosumption = state.prosumedPower;
+            prosumer.state = state.state;
+            prosumer.load = state.load;
+            prosumer.loadCapacity = state.loadCapacity;
+            prosumer.view.proDiv.text("P: " + -prosumer.prosumption.toFixed(0) + " W");
+            prosumer.view.loadDiv.text("load: " + -prosumer.load.toFixed(0) + "/" + -prosumer.loadCapacity.toFixed(0) + " W");           
+            prosumer.view.stateDiv.text("State: " + state.state);
+            
+            
+            prosumer.view.removeClass("load0 load1 load2 load3 load4 load5");
+            var loadRatio = prosumer.load / prosumer.loadCapacity;
+            if (loadRatio<0.05) prosumer.view.addClass("load0");
+            else if (loadRatio<0.25) prosumer.view.addClass("load1");
+            else if (loadRatio<0.45) prosumer.view.addClass("load2");
+            else if (loadRatio<0.65) prosumer.view.addClass("load3");
+            else if (loadRatio<0.85) prosumer.view.addClass("load4");
+            else prosumer.view.addClass("load5");
+            
+          };
+          
+          return prosumer;
+        };
 
 	// package contents
 	return {
 		Prosumer : Prosumer,
 		Lamp : Lamp,
-		Heater : Heater
+		Heater : Heater,
+                Storage : Storage
 	};
 	
 })();

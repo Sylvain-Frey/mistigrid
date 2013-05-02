@@ -54,6 +54,12 @@ button {
     background-size: 100% 100%;
 }
 
+.Storage {
+  background-image: url("../images/battery-level-5.png");
+  background-size: 100% 100%;
+}
+
+
 .Manager {
     background-image: url("../images/boucle_grise.gif");
     background-size: 100% 100%;      

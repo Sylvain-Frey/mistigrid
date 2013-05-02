@@ -26,11 +26,11 @@ import fr.sylfrey.akka.ActorSystemProvider;
 import fr.sylfrey.iris.webSockets.WebSocketHandler;
 import fr.sylfrey.iris.webSockets.WebSocketProvider;
 import fr.sylfrey.misTiGriD.trace.Archiver;
-import fr.sylfrey.misTiGriD.trace.ArchiverImpl.ArchiverEvent;
+import fr.sylfrey.misTiGriD.trace.ArchiverEvent;
 
 @Component(name="Traces",immediate=true)
 @Provides(specifications= {WebSocketHandler.class})
-@Instantiate
+//@Instantiate
 public class TracesImpl implements /*Traces,*/ WebSocketHandler {
 
 	@Requires
