@@ -37,7 +37,7 @@ import fr.sylfrey.iris.NotFoundException;
 
 @Component
 @Provides
-@Instantiate
+//@Instantiate
 public class WebSocketProviderImpl implements WebSocketProvider {
 
 	public WebSocketProviderImpl(BundleContext context) {
