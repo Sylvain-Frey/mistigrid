@@ -15,20 +15,30 @@ import org.apache.felix.ipojo.annotations.Unbind;
 import akka.event.EventBus;
 import akka.event.EventStream;
 import fr.sylfrey.misTiGriD.alba.basic.agents.HouseLoadManager;
+import fr.sylfrey.misTiGriD.appliances.Heater;
 import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
+import fr.sylfrey.misTiGriD.environment.Time;
 import fr.sylfrey.misTiGriD.environment.Updatable;
 import fr.sylfrey.misTiGriD.temperature.ThermicObject;
 
+/**
+ * Collects simulation data from simulation objects,
+ * and forwards it to a Tracer for logging and persistence.
+ * @author syl
+ *
+ */
 @Component(name="Archiver", immediate=true)
 @Provides
 public class ArchiverImpl implements Updatable, Archiver {
 
 	@Property
-	public int period = 1000;
+	public int period = 100;
 
 	@Requires
 	public Tracer tracer;
-
+	
+	@Requires
+	public Time time;
 
 	@Bind(aggregate=true, optional=true)
 	public void bindThermicObject(ThermicObject to) {
@@ -48,7 +58,8 @@ public class ArchiverImpl implements Updatable, Archiver {
 	@Bind(id="loadManager", optional=true)
 	public void bindLoadManager(HouseLoadManager houseLoadManager) {
 		this.houseLoadManager = houseLoadManager;
-		tracer.createValueLog("loadManager_maxConsumptionThreshold");
+		tracer.createValueLog("loadManager_maxConsumptionGoal");
+		tracer.createValueLog("loadManager_minConsumptionGoal");
 	}
 
 	@Unbind(id="loadManager", optional=true)
@@ -69,35 +80,37 @@ public class ArchiverImpl implements Updatable, Archiver {
 
 	@Override
 	public void update() {
+		
 		for (ThermicObject to : thermicObjects) {
 			tracer.logValue("temperature_" + to.getName(), to.getCurrentTemperature());
 			bus.publish(new ArchiverEvent<Float>("temperature_" + to.getName(), to.getCurrentTemperature()));
 		}
+		
 		for (Prosumer prosumer : prosumers) {
 			tracer.logValue("prosumption_" + prosumer.getName(), prosumer.getProsumedPower());
-			bus.publish(new ArchiverEvent<Float>("prosumption_" + prosumer.getName(), prosumer.getProsumedPower()));			
+			bus.publish(new ArchiverEvent<Float>("prosumption_" + prosumer.getName(), prosumer.getProsumedPower()));
+			if (prosumer instanceof Heater) {
+				bus.publish(new ArchiverEvent<Float>(
+						"temperature_" + prosumer.getName(), 
+						((Heater) prosumer).getCurrentTemperature()));
+			}
 		}
+		
 		if (houseLoadManager != null) {
-			tracer.logValue("loadManager_maxConsumptionThreshold", houseLoadManager.maxConsumptionThreshold());
-			bus.publish(new ArchiverEvent<Float>("loadManager_maxConsumptionThreshold", houseLoadManager.maxConsumptionThreshold()));
+			tracer.logValue("loadManager_maxConsumptionGoal", houseLoadManager.maxConsumptionThreshold());
+			bus.publish(new ArchiverEvent<Float>("loadManager_maxConsumptionGoal", houseLoadManager.maxConsumptionThreshold()));
+			tracer.logValue("loadManager_minConsumptionGoal", houseLoadManager.minConsumptionThreshold());
+			bus.publish(new ArchiverEvent<Float>("loadManager_minConsumptionGoal", houseLoadManager.minConsumptionThreshold()));
 		}
+		
+		bus.publish(new ArchiverEvent<Long>("time", time.dayTime()));
+		bus.publish(new ArchiverEvent<Long>("dayLength", time.dayLength()));
+		
 	}
 
 	@Override
 	public EventBus bus() {
 		return bus;
-	}
-
-	public class ArchiverEvent<Content> {
-		public final String type;
-		public final Content content;
-		public ArchiverEvent(String type, Content content) {
-			this.type = type;
-			this.content = content;
-		}
-		@Override public String toString() {
-			return "{type : " + type + ", content : " + content + "}";
-		}
 	}
 
 }

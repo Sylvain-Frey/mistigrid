@@ -18,15 +18,15 @@ import fr.sylfrey.misTiGriD.framework.ActorContainer;
 import fr.sylfrey.misTiGriD.framework.Consumer;
 import fr.sylfrey.misTiGriD.framework.topic.Topic;
 
-@Component(name="TopicTracer",immediate=true)
+//@Component(name="TopicTracer",immediate=true)
 public class TopicTracerContainerImpl {
 
-	@Bind
+//	@Bind
 	public void bindActorSystem(ActorSystemProvider provider) {
 		actorSystem = provider.getSystem();		
 	}
 	
-	@Bind(aggregate=true)
+//	@Bind(aggregate=true)
 	public void bindTopic(ActorContainer<Topic<Object>> container) {
 		if (!(container.actor() instanceof Topic)) { return; }
 		topics.add(container.actor());
@@ -35,7 +35,7 @@ public class TopicTracerContainerImpl {
 		}
 	}
 	
-	@Validate
+//	@Validate
 	public void start() {
 		tracer = TypedActor.get(actorSystem).typedActorOf(
 				new TypedProps<TopicTracerImpl>(
@@ -50,12 +50,12 @@ public class TopicTracerContainerImpl {
 		}
 	}
 
-	@Invalidate
+//	@Invalidate
 	public void stop() {
 		TypedActor.get(actorSystem).stop(tracer);
 	}
 	
-	@Requires
+//	@Requires
 	public Tracer logger;
 	
 		
