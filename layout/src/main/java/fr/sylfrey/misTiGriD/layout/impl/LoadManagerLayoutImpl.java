@@ -93,6 +93,11 @@ public class LoadManagerLayoutImpl implements LoadManagerLayout {
 	public float maxConsumptionThreshold() {
 		return manager.maxConsumptionThreshold();
 	}
+	
+	@Override
+	public float minConsumptionThreshold() {
+		return manager.minConsumptionThreshold();
+	}
 
 
 	@Property(name="layout.name")
