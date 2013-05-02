@@ -30,7 +30,7 @@ public class TimeImpl implements Time {
 	public void start() {		
 	}
 	
-	@Bind(specification="fr.sylfrey.misTiGriD.environment.Updatable",id="updatables",aggregate=true)
+	@Bind(specification="fr.sylfrey.misTiGriD.environment.Updatable",id="updatables",aggregate=true,optional=true)
 	public void bind(Updatable updatable) {
 		UpdatableWrapper task = new UpdatableWrapper(updatable);
 		tasks.put(updatable,task);
