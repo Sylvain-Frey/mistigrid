@@ -1,0 +1,11 @@
+body {
+    font-family:Verdana;
+}
+
+#graphContainer {
+    height: 800px;
+    width: 100%;
+    position: relative;
+    float: left;
+    clear: left;
+}

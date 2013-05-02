@@ -1,0 +1,95 @@
+body {
+    background-color: beige;
+    font-family:Verdana;
+}
+
+h1 {
+    color:#7A6A53;
+    text-align:center;
+    position:relative;
+}
+
+#fontSizeControl div {
+    display : inline-block
+}
+
+button {  
+    cursor: hand; 
+    cursor: pointer;
+}
+
+#houseContainer {
+    position: relative;
+    font-size: 12px;
+}
+
+#houseContainer * {
+    font-size: 100%;    
+}
+
+#houseContainer div {
+    position: absolute;
+}
+
+#houseContainer div div {
+    position: relative;
+}
+
+.ThermicObject {
+    border: 2px solid black;    
+    background-color: rgb(218, 207, 179);
+    float: right;
+    clear: right;
+    text-align: right;
+}
+
+.Atmosphere {
+    background-color: rgb(213, 220, 255);    
+    border: 1px dotted gray;    
+    border-radius: 5px;
+}
+
+.Heater {
+    background-image: url("../images/radiateur-electrique.png");
+    background-size: 100% 100%;
+}
+
+.Storage {
+  background-image: url("../images/battery-level-5.png");
+  background-size: 100% 100%;
+}
+
+
+.Manager {
+    background-image: url("../images/boucle_grise.gif");
+    background-size: 100% 100%;      
+    cursor: hand; 
+    cursor: pointer;
+}
+
+.Manager.nonFlexible {
+    background-image: url("../images/boucle_rouge.gif");
+}
+
+.Manager.flexible.economising {
+    background-image: url("../images/boucle_verte.gif");
+}
+
+.Manager.flexible.notEconomising {
+    background-image: url("../images/boucle_jaune.gif");
+}
+
+.Lamp {
+    background-image: url("../images/ampoule.gif");
+    background-size: 100% 100%;    
+    cursor: hand; 
+    cursor: pointer;
+}
+
+.Lamp.on {
+    border: 1px solid yellow; 
+}
+
+.Lamp.off {
+    border: 1px solid gray; 
+}
