@@ -22,6 +22,7 @@ import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
 import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
 import fr.sylfrey.misTiGriD.management.BundleContextProvider
 import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
+import fr.sylfrey.misTiGriD.alba.basic.model.Schedule
 
 @Component(name = "HouseLoadManagerDeployer", immediate = true)
 class HouseLoadManagerDeployer {
@@ -29,6 +30,7 @@ class HouseLoadManagerDeployer {
   @Requires(id = "aggregator") var aggregator: Aggregator = _
   @Bind def bindActorSystem(asp: ActorSystemProvider) { actorSystem = asp.getSystem() }
   @Requires var bundleContextProvider: BundleContextProvider = _
+  @Requires var schedule: Schedule = _
 
   @Property(mandatory = true) var maxConsumption: Float = _
   @Property(mandatory = true) var hysteresisThreshold: Float = _
@@ -40,11 +42,32 @@ class HouseLoadManagerDeployer {
 
   @Validate def start(): Unit = {
     val status = ProsumerStatus.fromString(prosumerStatus)
+    val fatherSchedule = hasParent match {
+      case false => None
+      case true =>
+        // remoteScheduleURI = districtLoadManagerURI/../schedule. Yuck.
+        println("# districtLoadManagerURI = " + districtLoadManagerURI)
+        val prefixLength = districtLoadManagerURI.lastIndexOf("/")
+        val prefix = districtLoadManagerURI.substring(0, prefixLength)
+        val remoteScheduleURI = prefix + "/schedule"
+        println("# trying to connect to remote schedule @ " + remoteScheduleURI)
+        val schedule = TypedActor.get(actorSystem).typedActorOf(
+          TypedProps[Schedule](classOf[Schedule]),
+          actorSystem.actorFor(remoteScheduleURI))
+        println("# connected to " + remoteScheduleURI +" of size " + schedule.size)
+        Some(schedule)
+    }
 
     houseLoadManager = TypedActor.get(actorSystem).typedActorOf(
       TypedProps(
         classOf[HouseLoadManager],
-        new HouseLoadManagerAgent(aggregator, maxConsumption, hysteresisThreshold, status)),
+        new HouseLoadManagerAgent(
+          aggregator,
+          maxConsumption,
+          hysteresisThreshold,
+          status,
+          schedule,
+          fatherSchedule)),
       actorPath)
     managerActorRef = TypedActor.get(actorSystem).getActorRefFor(houseLoadManager)
     println("# houseLoadManager deployed : " + houseLoadManager)

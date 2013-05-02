@@ -4,14 +4,12 @@ import scala.Array.canBuildFrom
 import scala.collection.JavaConversions.asJavaDictionary
 import scala.collection.mutable.Map
 import scala.concurrent.duration.DurationInt
-
 import org.apache.felix.ipojo.annotations.Bind
 import org.apache.felix.ipojo.annotations.Component
 import org.apache.felix.ipojo.annotations.Invalidate
 import org.apache.felix.ipojo.annotations.Property
 import org.apache.felix.ipojo.annotations.Requires
 import org.apache.felix.ipojo.annotations.Validate
-
 import akka.actor.ActorRef
 import akka.actor.ActorSystem
 import akka.actor.Cancellable
@@ -26,12 +24,14 @@ import fr.sylfrey.misTiGriD.alba.basic.roles.ProsumerManager
 import fr.sylfrey.misTiGriD.appliances.Heater
 import fr.sylfrey.misTiGriD.management.BundleContextProvider
 import fr.sylfrey.misTiGriD.temperature.ThermicObject
+import fr.sylfrey.misTiGriD.alba.basic.model.Schedule
 
 @Component(name="BasicAlbaHeaterManager",immediate=true)
 class AlbaHeaterManagerDeployer {
     
   @Requires(id="room") var room : ThermicObject = _
   @Requires(id="heater") var heater : Heater = _ 
+  @Requires var schedule: Schedule = _
   @Bind def bindActorSystem(asp : ActorSystemProvider)  { actorSystem = asp.getSystem() }
   @Requires var bundleContextProvider :BundleContextProvider = _
 	
@@ -56,9 +56,8 @@ class AlbaHeaterManagerDeployer {
               room = room, 
               status = status, 
               requiredTemperature = requiredTemperature,
-              kp = kp,
-              ki = ki,
-              kd = kd)),
+              kp = kp, ki = ki, kd = kd,
+              schedule = schedule)),
         actorPath)
     managerActorRef = TypedActor.get(actorSystem).getActorRefFor(manager)
 
