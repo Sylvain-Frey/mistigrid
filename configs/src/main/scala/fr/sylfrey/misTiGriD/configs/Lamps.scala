@@ -1,16 +1,19 @@
 package fr.sylfrey.misTiGriD.configs.lamps
 
 import java.util.{ List => JList, Map => JMap }
+
 import org.apache.felix.ipojo.annotations.Component
 import org.apache.felix.ipojo.annotations.Instantiate
 import org.apache.felix.ipojo.annotations.Requires
 import org.apache.felix.ipojo.annotations.Validate
-import scala.concurrent.ExecutionContext
-import fr.sylfrey.misTiGriD.deploy.HouseFactory
-import fr.sylfrey.misTiGriD.deploy.MetaFactory
-import scala.collection.mutable.ListBuffer
 import org.apache.felix.ipojo.annotations.Invalidate
 import org.apache.felix.ipojo.ComponentInstance
+
+import scala.concurrent.ExecutionContext
+import scala.collection.mutable.ListBuffer
+
+import fr.sylfrey.misTiGriD.deploy.HouseFactory
+import fr.sylfrey.misTiGriD.deploy.MetaFactory
 
 //@Component
 //@Instantiate
@@ -35,7 +38,7 @@ class Lamps {
 //        "instance.name" -> name,
 //        "prosumedPower" -> "0",
 //        "maxEmissionPower" -> "100",
-//        "requires.from" -> &("aggregator" -> "mouchezAggregator"))
+//        "requires.from" -> &("aggregator" -> "houseAggregator"))
 //
 //      spawn("LampLayout",
 //        "instance.name" -> (name + "_layout"),
@@ -59,9 +62,9 @@ class Lamps {
 //      spawn("LampManagerLayout",
 //        "instance.name" -> (name + "_manager_layout"),
 //        "layout.name" -> (name + "_mgr"),
-//        "x" -> x.toString,
+//        "x" -> (x-5).toString,
 //        "y" -> (y-60).toString,
-//        "width" -> "100",
+//        "width" -> "115",
 //        "height" -> "80",
 //        "layer" -> "10",          
 //        "requires.from" -> &("manager" -> (name + "_manager")))

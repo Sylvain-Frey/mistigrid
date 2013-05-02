@@ -104,10 +104,10 @@ class Config {
       
     val heaters = Map[String, Tuple2[Heater, HeaterManager]](
       heaterKitchen  -> Tuple2(
-          Heater(0, 0.05f, 0.1f, 400f, aggregator, kitchen),	
+          Heater(0, 0.02f, 0.1f, 200f, aggregator, kitchen),	
           HeaterManager(
               actorPath = heaterKitchen  + "_manager", 
-              period = 50,
+              period = 200,
               requiredTemperature = 22,
               prosumerStatus = "Flexible",
               houseLoadManagerURI = loadManagerURI,
@@ -115,10 +115,10 @@ class Config {
               room = kitchen,
               kp = 40, ki = 0, kd = 0)),
       heaterRoom     -> Tuple2(
-          Heater(0, 0.05f, 0.1f, 400f, aggregator, room),
+          Heater(0, 0.02f, 0.1f, 200f, aggregator, room),
           HeaterManager(
               actorPath = heaterRoom     + "_manager", 
-              period = 50,
+              period = 200,
               requiredTemperature = 22,
               prosumerStatus = "Flexible",
               houseLoadManagerURI = loadManagerURI,
@@ -126,10 +126,10 @@ class Config {
               room = room,
               kp = 40, ki = 0, kd = 0)),
       heaterLR1      -> Tuple2(
-          Heater(0, 0.05f, 0.1f, 400f, aggregator, livingroom),
+          Heater(0, 0.02f, 0.1f, 200f, aggregator, livingroom),
           HeaterManager(
               actorPath = heaterLR1      + "_manager", 
-              period = 50,
+              period = 200,
               requiredTemperature = 22,
               prosumerStatus = "Flexible",
               houseLoadManagerURI = loadManagerURI,
@@ -137,10 +137,10 @@ class Config {
               room = livingroom,
               kp = 40, ki = 0f, kd = 0)),
       heaterLR2      -> Tuple2(
-          Heater(0, 0.05f, 0.1f, 400f, aggregator, livingroom),
+          Heater(0, 0.02f, 0.1f, 200f, aggregator, livingroom),
           HeaterManager(
               actorPath = heaterLR2      + "_manager", 
-              period = 50,
+              period = 200,
               requiredTemperature = 22,
               prosumerStatus = "Flexible",
               houseLoadManagerURI = loadManagerURI,
@@ -148,10 +148,10 @@ class Config {
               room = livingroom,
               kp = 40, ki = 0, kd = 0)),
       heaterBathroom -> Tuple2(
-          Heater(0, 0.05f, 0.1f, 400f, aggregator, bathroom),
+          Heater(0, 0.02f, 0.1f, 200f, aggregator, bathroom),
           HeaterManager(
               actorPath = heaterBathroom + "_manager", 
-              period = 50,
+              period = 200,
               requiredTemperature = 22,
               prosumerStatus = "Flexible",
               houseLoadManagerURI = loadManagerURI,
@@ -159,10 +159,10 @@ class Config {
               room = bathroom,
               kp = 40, ki = 0, kd = 0)),
       heaterEntrance -> Tuple2(
-          Heater(0, 0.05f, 0.1f, 400f, aggregator, entrance),
+          Heater(0, 0.02f, 0.1f, 200f, aggregator, entrance),
           HeaterManager(
               actorPath = heaterEntrance + "_manager", 
-              period = 50,
+              period = 200,
               requiredTemperature = 22,
               prosumerStatus = "Flexible",
               houseLoadManagerURI = loadManagerURI,
@@ -218,7 +218,7 @@ class Config {
       "maxConsumption" -> "-1600",
       "hysteresisThreshold" -> "300",
       "prosumerStatus" -> "Flexible",
-      "period" -> "500",
+      "period" -> "10",
       "hasParent" -> "false",
       "districtLoadManagerURI" -> districtLoadManagerURI,
       "requires.from" -> metaFactory.&("aggregator" -> aggregator))

@@ -1,4 +1,4 @@
-package fr.sylfrey.misTiGriD.configs
+package fr.sylfrey.misTiGriD.configs.district
 
 import scala.collection.JavaConversions._
 import scala.collection.mutable.ListBuffer
@@ -13,9 +13,9 @@ import scala.concurrent.{ Future, ExecutionContext }
 import fr.sylfrey.misTiGriD.deploy._
 
 //@Component
-////@Instantiate
-//class DistrictAggregator {
-//
+//@Instantiate
+class DistrictAggregator {
+
 //  @Requires var houseFactory: HouseFactory = null
 //  @Requires var metaFactory: MetaFactory = null
 //  implicit val ec = ExecutionContext.Implicits.global
@@ -40,6 +40,17 @@ import fr.sylfrey.misTiGriD.deploy._
 //      "period" -> "500",
 //      "requires.from" -> metaFactory.&("aggregator" -> aggregator))
 //      
+//      
+//    spawn("LoadManagerLayout",
+//      "instance.name" -> (districtLoadManager + "Layout"),
+//      "layout.name" -> districtLoadManager,
+//      "x" -> "0",
+//      "y" -> "0",
+//      "width" -> "160",
+//      "height" -> "120",
+//      "layer" -> "10",
+//      "requires.from" -> metaFactory.&("manager" -> districtLoadManager))
+//      
 //  }
 //
 //  val instances = ListBuffer[ComponentInstance]()
@@ -54,5 +65,5 @@ import fr.sylfrey.misTiGriD.deploy._
 //      case componentInstance => instances += componentInstance
 //    }
 //  }
-//
-//}
+
+}

@@ -25,22 +25,22 @@ class SimpleStorage {
 //    val storageName = "simpleStorage"
 //
 //    spawn("SimpleStorage",
-//        "MAX_LOAD" -> "-5000",
+//        "MAX_LOAD" -> "-50000",
 //        "MAX_POWER_IN" -> "-500",
 //        "MAX_POWER_OUT" -> "500",
 //        "instance.name" -> storageName,
 //        "prosumedPower" -> "0",
 //        "period" -> "500")
 //        
-//    spawn("LampLayout",
+//    spawn("StorageLayout",
 //        "instance.name" -> (storageName + "_layout"),
 //        "layout.name" -> (storageName + "_layout"),
-//        "x" -> 100.toString,
-//        "y" -> 600.toString,
-//        "width" -> "50",
-//        "height" -> "60",
+//        "x" -> "200",
+//        "y" -> "30",
+//        "width" -> "100",
+//        "height" -> "80",
 //        "layer" -> "10",
-//        "requires.from" -> &("lamp" -> storageName))
+//        "requires.from" -> &("storage" -> storageName))
 //
 //    spawn("SimpleStorageManager",
 //        "instance.name" -> "simpleStorageManager",
