@@ -1,14 +1,12 @@
 package fr.sylfrey.misTiGriD.alba.basic.agents
 
 import java.util.Date
-
 import scala.Array.canBuildFrom
 import scala.collection.mutable.LinkedHashMap
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.util.Random
-
 import akka.actor.ActorRef
 import akka.actor.TypedActor
 import akka.actor.TypedActor.Receiver
@@ -29,6 +27,8 @@ import fr.sylfrey.misTiGriD.alba.basic.model.Types.P
 import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
 import fr.sylfrey.misTiGriD.alba.basic.roles.ProsumerManager
 import fr.sylfrey.misTiGriD.electricalGrid.Aggregator
+import scala.collection.mutable.Queue
+import scala.util.Sorting
 
 trait HouseLoadManager extends LoadManager with ProsumerManager with Updatable with Receiver
 
@@ -119,11 +119,11 @@ class HouseLoadManagerAgent(
         }
         Random.shuffle(candidates).headOption match {
           case None =>
-            println("# load manager feels high load but no one can help him")
+//            println("# load manager feels high load but no one can help him")
           case Some(packet) =>
           	packet.device ! ReduceLoad
           	erasedProsumers += packet.device
-          	println("# load manager told " + ReduceLoad + " to " + packet.device)
+//          	println("# load manager told " + ReduceLoad + " to " + packet.device)
         }
         
         
@@ -134,7 +134,7 @@ class HouseLoadManagerAgent(
           case Some(device) =>
             device ! AnyLoad
             erasedProsumers -= device
-          	println("# load manager told " + AnyLoad + " to " + device)
+//          	println("# load manager told " + AnyLoad + " to " + device)
         }
       }
 
@@ -153,53 +153,40 @@ class HouseLoadManagerAgent(
         newPackets copyToArray packets
       case None =>
     }
-
-    //    /*
-    //     * There are 5 possible prosumption domains: 
-    //     * 		p < maxConsumption
-    //     * 		maxConsumption <= p <= maxConsumption + hysteresisThreshold
-    //     * 		maxConsumption + hysteresisThreshold < p < minConsumption - hysteresisThreshold
-    //     * 		minConsumption - hysteresisThreshold <= p <= minConsumption
-    //     * 		minConsumption < p
-    //     */
-    //    
-    //    if (currentAggregatedProsumption < maxConsumption) { // load too high, reduce it
-    //
-    //      if (!prosumers.isEmpty) {
-    //        tell_ToOne_AndMoveItTo_(ReduceLoad, prosumers, reduceLoadPrs)
-    //      } else { // can't do anything more
-    //        println("# " + aggregator.getName() + "'s manager has no available prosumers left for reducing load")
-    //      }
-    //
-    //    } 
-    //    
-    //    if (currentAggregatedProsumption > maxConsumption + hysteresisThreshold) { // load not so high
-    //
-    //      if (!reduceLoadPrs.isEmpty) {
-    //        tell_ToOne_AndMoveItTo_(AnyLoad, reduceLoadPrs, prosumers)
-    //      } 
-    //      
-    //    }
-    //    
-    //    if (currentAggregatedProsumption < minConsumption - hysteresisThreshold) { // load not so low
-    //
-    //      if (!riseLoadPrs.isEmpty) {
-    //        tell_ToOne_AndMoveItTo_(AnyLoad, riseLoadPrs, prosumers)
-    //      } 
-    //      
-    //    } 
-    //    
-    //    if (currentAggregatedProsumption > minConsumption) { // load too low, rise it
-    //      
-    //      if (!prosumers.isEmpty) {
-    //        tell_ToOne_AndMoveItTo_(RiseLoad, prosumers, riseLoadPrs)
-    //      } else { // can't do anything more
-    //        println("# " + aggregator.getName() + "'s manager has no available prosumers left for rising load")
-    //      }
-    //      
-    //    }
-
+    
+    /////
+    // let's stat
+    /*history.enqueue((currentAggregatedProsumption, maxConsumption))
+    if (history.size>historyLength) history.dequeue
+    
+    val oldMu = mu
+    
+    history.foldLeft((0:P, 0:P, 0:P, new Array[P](maxesSize))) { 
+      case ((mu, muError, sigma, maxes), (prosumption, objective)) =>
+      	val error = objective - prosumption
+      	val delta = prosumption - oldMu
+      	if (prosumption < maxes(maxesSize-1)) maxes(maxesSize-1) = prosumption
+      	Sorting.quickSort(maxes)
+      	// (mean consumption, mean overshoot, standard deviation, max 10 values)
+      	(mu + prosumption, muError + Math.max(error,0), sigma + delta*delta, maxes)  
+    } match { case (newMu, newMuError, newSigma, maxes) =>
+      mu = newMu / historyLength
+      muError = newMuError / historyLength
+      sigma = (Math.sqrt(newSigma) / historyLength).toFloat
+      	println("# " + maxes.foldLeft("") { (string, p) => string + " " + p})
+      maxDecile = maxes(maxesSize-1)
+      muMax = maxes.reduce { (sum, p) => sum + p } / maxesSize
+    }
+    
+    println("# mu=" + mu + " muError=" + muError + " sigma=" + sigma + " maxDecile=" + maxDecile + " muMax=" + muMax)
+*/
+    
   }
+  
+    val historyLength = 20*10 // 20*X seconds history with period 50ms
+    val history = new Queue[Tuple2[P,P]]()
+    val maxesSize = 10
+    var (mu, muError, sigma, maxDecile, muMax) = (0:P, 0:P, 0:P,0:P, 0:P)
 
   def tell(order: LoadBalancingOrder) = {
     this.currentOrder = order
@@ -215,19 +202,6 @@ class HouseLoadManagerAgent(
   val acceptableLoadRange = 1000
   def minConsumption = maxConsumption + acceptableLoadRange
   
-  private def tell_ToOne_AndMoveItTo_(
-    order: LoadBalancingOrder,
-    src: LinkedHashMap[ActorRef, ProsumerManager],
-    dest: LinkedHashMap[ActorRef, ProsumerManager]) = {
-
-    val (ref, targetProsumer) = src.head
-    Future { targetProsumer.tell(order) }
-    println("# " + aggregator.getName() + "'s manager told " + order + " to " + targetProsumer)
-    src.remove(ref)
-    dest.put(ref, targetProsumer)
-
-  }
-
   private def maxPacketise(sliceSize: Int) = {
 
     val hull = localSchedule.schedule.indices.map { t =>

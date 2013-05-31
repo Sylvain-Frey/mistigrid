@@ -44,7 +44,8 @@ class LampManagerAgent(
   schedule.put(packet, schedule.now)
   
   def update = {
-    isEconomising = status == Flexible && currentOrder == ReduceLoad
+    isEconomising = status == Flexible && 
+    		(currentOrder == ReduceLoad || schedule.getLoadAt(schedule.now) == ReduceLoad)
 	if ( isEconomising ) {
 	  if (lamp.getProsumedPower() == 0.0f) {
 	    preEcoPower = 0.0f

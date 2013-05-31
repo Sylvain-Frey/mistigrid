@@ -69,22 +69,6 @@ class HeaterManagerAgent(
   def update = {
     heaterProsumption = heater.getEmissionPower()
 
-    // start of unrealistic version
-    /*(status, currentOrder) match {
-      case (Flexible, ReduceLoad) | (SemiFlexible, ReduceLoad) =>
-        pid.requiredTemperature = requiredTemperature - 2
-        _isEconomising = true
-      case _ =>
-        pid.requiredTemperature = requiredTemperature
-        _isEconomising = false
-    }
-
-    val newPower = pid.iterate(room.getCurrentTemperature(), heaterProsumption)
-    
-    if (newPower != heaterProsumption) heater.setEmissionPower(newPower)*/
-
-    // start of realistic version
-
     val now = schedule.now
     if (room.getCurrentTemperature() < TMinus) { // should heat up
 
@@ -106,7 +90,7 @@ class HeaterManagerAgent(
         } else { // interrupt heating in case of load surge
           if (// == ReduceLoad ||
               schedule.getLoadAt(now) == ReduceLoad) {
-            println("# " + heater.getName() + "'s manager shutting down")
+//            println("# " + heater.getName() + "'s manager shutting down")
             heater.setEmissionPower(0)
             isHeating = false
           } else {
@@ -126,7 +110,7 @@ class HeaterManagerAgent(
             heater.setEmissionPower(heater.getMaxEmissionPower())
             isHeating = true
           } else {
-            println("# " + heater.getName() + "'s manager not heating")
+//            println("# " + heater.getName() + "'s manager not heating")
             heater.setEmissionPower(0)
             isHeating = false
           }

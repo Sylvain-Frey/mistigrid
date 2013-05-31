@@ -11,13 +11,16 @@ import fr.sylfrey.misTiGriD.alba.basic.messages.LoadBalancingOrderResponse
 import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
 import fr.sylfrey.misTiGriD.alba.basic.messages.Prosumption
 import fr.sylfrey.misTiGriD.alba.basic.messages.ReduceLoad
-import fr.sylfrey.misTiGriD.alba.basic.messages.RiseLoad
+import fr.sylfrey.misTiGriD.alba.basic.model.EPacket
+import fr.sylfrey.misTiGriD.alba.basic.model.Schedule
 import fr.sylfrey.misTiGriD.alba.basic.roles.ProsumerManager
 import fr.sylfrey.misTiGriD.electricalGrid.Storage
 
 trait SimpleStorageManager extends ProsumerManager with Updatable
 
-class SimpleStorageManagerAgent(storage: Storage) extends SimpleStorageManager {
+class SimpleStorageManagerAgent(
+    storage: Storage,
+    schedule: Schedule) extends SimpleStorageManager {
 
   var currentOrder: LoadBalancingOrder = AnyLoad
 
@@ -33,9 +36,20 @@ class SimpleStorageManagerAgent(storage: Storage) extends SimpleStorageManager {
     Ack
   }
 
-  def update = currentOrder match {
+  var packet = EPacket(TypedActor.context.self, 3, 0, Flexible)
+  schedule.put(packet, schedule.now)
+  
+  def update = {/*currentOrder match {
     case ReduceLoad				=> storage.setState(Storage.State.UNLOADING)
-    case RiseLoad | AnyLoad 	=> storage.setState(Storage.State.LOADING)
+    case RiseLoad | AnyLoad 	=> storage.setState(Storage.State.LOADING)*/
+    schedule.getLoadAt(schedule.now) match {
+      case ReduceLoad => storage.setState(Storage.State.UNLOADING)
+      case _ => storage.setState(Storage.State.LOADING)
+    }
+    val newPacket = EPacket(TypedActor.context.self, 3, storage.getProsumedPower(), Flexible)
+    schedule.update(packet, newPacket)
+    schedule.move(newPacket, schedule.now)
+    packet = newPacket
   }
 
 }
