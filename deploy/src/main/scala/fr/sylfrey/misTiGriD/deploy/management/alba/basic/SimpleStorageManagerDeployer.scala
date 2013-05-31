@@ -26,12 +26,14 @@ import fr.sylfrey.misTiGriD.alba.basic.agents.LampManagerAgent
 import fr.sylfrey.misTiGriD.alba.basic.agents.SimpleStorageManager
 import fr.sylfrey.misTiGriD.alba.basic.agents.SimpleStorageManagerAgent
 import fr.sylfrey.misTiGriD.electricalGrid.Storage
+import fr.sylfrey.misTiGriD.alba.basic.model.Schedule
 
 
 @Component(name="SimpleStorageManager", immediate=true)
 class SimpleStorageManagerDeployer {
   
   @Requires(id="storage") var storage : Storage = _
+  @Requires var schedule: Schedule = _
   @Bind def bindActorSystem(asp : ActorSystemProvider)  { actorSystem = asp.getSystem() }
   @Requires var bundleContextProvider :BundleContextProvider = _
   	
@@ -44,7 +46,7 @@ class SimpleStorageManagerDeployer {
     manager = TypedActor.get(actorSystem).typedActorOf(
 	  TypedProps(
 		classOf[SimpleStorageManager], 
-        new SimpleStorageManagerAgent(storage)),
+        new SimpleStorageManagerAgent(storage, schedule)),
       actorPath)
     managerActorRef = TypedActor.get(actorSystem).getActorRefFor(manager)
 

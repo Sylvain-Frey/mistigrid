@@ -80,7 +80,7 @@ class MetaFactoryImpl extends MetaFactory {
     items.foreach { case (key, value) => value match {
         case config: JList[Tuple2[String, Any]] => map.put(key, parse(config))
         case string: String => map.put(key, string)
-        case erroneous => println("### skipping invalid configuration : " + (key, value))
+        case erroneous => println("### MetaFactory skipping invalid configuration : " + (key, value))
       }
     }
     DictionaryWrapper(map)
