@@ -76,7 +76,17 @@ class HouseLoadManagerAgent(
     riseLoadPrs.remove(prosumer)
   }
 
-  def setMaximumProsumption(threshold: Float) = baseMaxConsumption = threshold
+  def setMaximumProsumption(threshold: Float) = currentOrder match {
+    case ReduceLoad => {
+      baseMaxConsumption = threshold - loadReductionDelta
+    }
+    case AnyLoad => {
+      baseMaxConsumption = threshold
+    }
+    case RiseLoad => {
+      baseMaxConsumption = threshold + loadReductionDelta
+    }
+  }
 
   def getProsumption = Prosumption(TypedActor.context.self, currentAggregatedProsumption, new Date)
 
@@ -92,9 +102,18 @@ class HouseLoadManagerAgent(
     currentAggregatedProsumption = aggregator.getProsumedPower()
 
     currentOrder match {
-      case ReduceLoad => maxConsumption = baseMaxConsumption + loadReductionDelta
-      case AnyLoad => maxConsumption = baseMaxConsumption
-      case RiseLoad => maxConsumption = baseMaxConsumption - loadReductionDelta
+      case ReduceLoad => {
+        maxConsumption = baseMaxConsumption + loadReductionDelta
+        status = NonFlexible
+      }
+      case AnyLoad => {
+        maxConsumption = baseMaxConsumption
+        status = Flexible
+      }
+      case RiseLoad => {
+        maxConsumption = baseMaxConsumption - loadReductionDelta
+        status = NonFlexible
+      }
     }
 
       val now = localSchedule.now

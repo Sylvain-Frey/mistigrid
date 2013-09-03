@@ -74,11 +74,13 @@ class HeaterManagerAgent(
 
       heater.setEmissionPower(heater.getMaxEmissionPower())
       isHeating = true
+      _isEconomising = false
 
     } else if (room.getCurrentTemperature() > TPlus) {
 
       heater.setEmissionPower(0)
       isHeating = false
+      _isEconomising = false
 
     } else { // we're between TMinus and TPlus
 
@@ -87,15 +89,18 @@ class HeaterManagerAgent(
         if (room.getCurrentTemperature() < requiredTemperature) { // do continue heating
           heater.setEmissionPower(heater.getMaxEmissionPower())
           isHeating = true
+          _isEconomising = false
         } else { // interrupt heating in case of load surge
           if (// == ReduceLoad ||
               schedule.getLoadAt(now) == ReduceLoad) {
 //            println("# " + heater.getName() + "'s manager shutting down")
+            _isEconomising = true
             heater.setEmissionPower(0)
             isHeating = false
           } else {
             heater.setEmissionPower(heater.getMaxEmissionPower())
             isHeating = true
+            _isEconomising = false
           }
         }
 
@@ -103,16 +108,19 @@ class HeaterManagerAgent(
 
         if (room.getCurrentTemperature() > requiredTemperature) { // do not heat
           isHeating = false
+          _isEconomising = false
           heater.setEmissionPower(0)
         } else { // possibly anticipate heating
           if (//currentOrder != ReduceLoad &&
             schedule.getLoadAt(now) != ReduceLoad) {
             heater.setEmissionPower(heater.getMaxEmissionPower())
             isHeating = true
+            _isEconomising = true
           } else {
 //            println("# " + heater.getName() + "'s manager not heating")
             heater.setEmissionPower(0)
             isHeating = false
+            _isEconomising = false
           }
         }
 
