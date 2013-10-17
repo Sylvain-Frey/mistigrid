@@ -5,6 +5,7 @@ import org.apache.felix.ipojo.annotations.Property;
 import org.apache.felix.ipojo.annotations.Provides;
 import org.apache.felix.ipojo.annotations.Requires;
 
+import akka.actor.ActorRef;
 import fr.sylfrey.misTiGriD.alba.basic.agents.AlbaHeaterManager;
 import fr.sylfrey.misTiGriD.alba.basic.messages.LoadBalancingOrder;
 import fr.sylfrey.misTiGriD.alba.basic.messages.LoadBalancingOrderResponse;
@@ -87,6 +88,11 @@ public class HeaterManagerLayoutImpl implements HeaterManagerLayout {
 	public LoadBalancingOrderResponse tell(LoadBalancingOrder order) {
 		return manager.tell(order);
 	} 
+	
+	@Override
+	public void onReceive(Object msg, ActorRef sender) {
+		
+	}
 
 	@Property(name="layout.name")
 	public String name;

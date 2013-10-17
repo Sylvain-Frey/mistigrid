@@ -99,6 +99,10 @@ public class LoadManagerLayoutImpl implements LoadManagerLayout {
 		return manager.minConsumptionThreshold();
 	}
 
+	@Override
+	public void onReceive(Object msg, ActorRef sender) {
+		
+	}
 
 	@Property(name="layout.name")
 	public String name;
