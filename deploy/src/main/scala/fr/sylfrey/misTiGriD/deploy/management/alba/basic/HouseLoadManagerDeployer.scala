@@ -34,6 +34,8 @@ class HouseLoadManagerDeployer {
 
   @Property(mandatory = true) var maxConsumption: Float = _
   @Property(mandatory = true) var hysteresisThreshold: Float = _
+  @Property(mandatory = true) var loadReductionDelta: Float = _
+  @Property(mandatory = true) var acceptableLoadRange: Float = _
   @Property(mandatory = true) var prosumerStatus: String = _
   @Property(mandatory = true) var period: Int = _
   @Property(mandatory = true) var actorPath: String = _
@@ -65,6 +67,8 @@ class HouseLoadManagerDeployer {
           aggregator,
           maxConsumption,
           hysteresisThreshold,
+          loadReductionDelta,
+          acceptableLoadRange,
           status,
           schedule,
           fatherSchedule)),

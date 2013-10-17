@@ -259,7 +259,7 @@ class HouseFactoryImpl extends HouseFactory {
     spawn("LampManager",
         "instance.name" -> (name + "_manager"),          
         "ecoMaxPower" -> "-30",
-        "prosumerStatus" -> "Flexible",
+        "prosumerStatus" -> "nonFlexible",
         "period" -> "500",
         "actorPath" -> (name + "_manager"),
         "houseLoadManagerURI" -> "akka://MisTiGriD/user/houseLoadManager",
