@@ -36,6 +36,8 @@ class HouseLoadManagerAgent(
   val aggregator: Aggregator,
   var maxConsumption: Float,
   val hysteresisThreshold: Float,
+  val loadReductionDelta : Float,
+  val acceptableLoadRange: Float,
   var status: ProsumerStatus,
   val localSchedule: Schedule,
   val fatherSchedule: Option[Schedule]) extends HouseLoadManager {
@@ -217,8 +219,6 @@ class HouseLoadManagerAgent(
   }
 
   var baseMaxConsumption = maxConsumption
-  val loadReductionDelta = 500
-  val acceptableLoadRange = 1000
   def minConsumption = maxConsumption + acceptableLoadRange
   
   private def maxPacketise(sliceSize: Int) = {
