@@ -42,7 +42,7 @@ sylfrey.model.managers = (function() { // package definition
 		    manager.view.isEco.appendTo(manager.view);
 		    
 		    manager.view.mode.click( function(event) {
-		        post("/layouts/" + manager.type + "Layout/" + manager.name, {data : "toggle", metadata : "status"});
+                      post("/layouts/" + manager.type + "Layout/" + manager.name, {data : "toggle", metadata : "status"});
 		    });
 		    
 		};
@@ -146,12 +146,12 @@ sylfrey.model.managers = (function() { // package definition
    		    manager.view.threshCtrl.minus.appendTo(manager.view.threshCtrl);
 
 		    manager.view.threshCtrl.plus.click( function() {
-                var address = "/layouts/LoadManagerLayout/" + manager.name;
+                      var address = "/layouts/LoadManagerLayout/" + manager.name;
                 post(address, {data : false});
             });
             
 		    manager.view.threshCtrl.minus.click( function() {
-                var address = "/layouts/LoadManagerLayout/" + manager.name;
+                      var address = "/layouts/LoadManagerLayout/" + manager.name;
                 post(address, {data : true});
             });
             
@@ -168,8 +168,8 @@ sylfrey.model.managers = (function() { // package definition
 	
 		return manager;
 	};
-
-	// package contents
+        
+       	// package contents
 	return {
 	    Manager : Manager,
 		ProsumerManager : ProsumerManager,

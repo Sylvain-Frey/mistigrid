@@ -31,10 +31,10 @@ class GenericLayoutRegistry {
 
   val layouts = new HashMap[Tuple2[Class[_ <: Layout], String], Layout]()
   
+  val INDEX_PATH = "/layoutsIndex"
+  val LAYOUT_PREFIX = "/layouts"
   val WEBGUI_PREFIX = "/webgui"
-  val INDEX_PATH = WEBGUI_PREFIX + "/layoutsIndex"
-  val LAYOUT_PREFIX = WEBGUI_PREFIX + "/layouts"
-  val SCHEDULE_PREFIX = WEBGUI_PREFIX + "/schedule"
+  val SCHEDULE_PREFIX = "/schedule"
 
   var hmlCounter = 0
   var olCounter = 0

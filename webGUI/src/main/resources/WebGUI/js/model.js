@@ -175,7 +175,11 @@ sylfrey.model = (function() { // package definition
   // package contents
   return {
     Layout : Layout,
-    Factory : Factory
+    Factory : Factory,
+    thermic : sylfrey.model.thermic,
+    electric : sylfrey.model.electric,
+    managers : sylfrey.model.managers,
+    district: sylfrey.model.district
   };
 
 })();

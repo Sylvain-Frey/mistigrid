@@ -12,7 +12,7 @@ sylfrey.controller = (function() { // package definition
 		$.each(index, function(name, type) {
 			get("/layouts/" + type + "/" + name, function(specs) {
 			    if (specs != null) specs.name = name; //dirty
-			    var layout = Factory(specs)
+			    var layout = Factory(specs);
 				if (layout!=null) layouts[name] = layout;
 			});			
 		});
@@ -23,7 +23,8 @@ sylfrey.controller = (function() { // package definition
 	    
         get("/layouts/AllLayouts", function(allLayouts) {	    
 	        $.each(allLayouts, function(id, state) {
-			    layout = layouts[id].update(state);			    
+			    //layout = layouts[id].update(state); //wtf??
+			    layouts[id].update(state);
 			});
 		});		
 

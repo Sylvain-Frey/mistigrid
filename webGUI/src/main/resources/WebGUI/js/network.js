@@ -2,12 +2,6 @@ if (sylfrey == undefined) var sylfrey = {};
 
 sylfrey.network = (function() { // package definition
 
-    function trim(url) {        
-	    // trim leading slash
-	    if (url.indexOf('/')==0) return url.substring(1);
-	    else return url;
-    };
-
 	function parse(json) {
 		try {
 			return $.parseJSON(json.replace(/NaN/g,"0"));
@@ -19,7 +13,7 @@ sylfrey.network = (function() { // package definition
 	function get(address, callback) {
 		$.ajax({
 			type : "GET",
-			url : trim(address),
+			url : address,
 			success : function() {},
 			fail : function() {},
 			complete: function(resp) {
@@ -31,7 +25,7 @@ sylfrey.network = (function() { // package definition
 	function post(address, data, callback) {
 		$.ajax({
 			type : "POST",
-			url : trim(address),
+			url : address,
 			data : data,
 			success : function() {},
 			fail : function() {},
