@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+  <head> 
+    <title>Smartgrid House GUI</title> 
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/manpage.css" />
+  </head>
+  
+  <body>
+  
+    <h1>MisTiGriD Interface Manual</h1>
+    
+    <div class="section">
+        The interface represents a simulated smart house with its smart appliances.
+    </div>
+    
+    <div class="section">
+        <headline>Rooms and atmosphere</headline><br>
+        Rooms are represented by beige blocks with their name and current temperature. The outside temperature (top right corner) randomly oscillates around a base value that can be changed by clicking on <button>+</button> and <button>-</button> buttons (respectively +1&degC / -1&degC). <br>
+        Thermic transfers are simulated: a cold atmosphere will cool down the house, a hot room will heat up its neighbours. Clicking on doors between rooms will <div class="Opening open"  style="display: inline-block; border-color: rgb(175, 175, 156)">open</div> or <div class="Opening closed" style="display: inline-block"/>close</div> them, strengthening or weakening thermic transfers.
+    </div>
+    
+    <div class="section">
+        <headline>Appliances</headline><br>
+        Two types of appliances are available at the moment: heaters and lamps. They are displayed with their current consumed power and its maximum possible value. Click on the lamps to switch them on and off.
+    </div>
+    
+    <div class="section">
+        <headline>House load manager</headline><br>
+        The house load manager appears as a grey loop, at the top left corner. It displays the current aggregated prosumption of the house, equal to the sum of prosumptions of all appliances. The manager objective is to maintain this aggregated prosumption below a <highlight>maximum threshold</highlight>, also displayed. <br>
+        The objective of the load manager can be changed by clicking on <button>+</button> and <button>-</button> buttons (+100W / -100W respectively). Such change may represent a user objective ("do not care about savings" / "save energy") or a reaction to an order coming from the district load manager (not implemented in this simulation). <br>
+        When house prosumption crosses its threshold, the load manager sends <highlight>reduce load</highlight> to appliance managers, telling them to reduce their consumption. When house prosumption goes back to reasonable levels (here: 300W under the threshold) the manager sends <highlight>any load</highlight> orders cancelling the former ones.
+    </div>
+    
+    <div class="section">
+        <headline>Appliance managers</headline><br>
+        <div>
+        Appliance managers are represented with loops. They may be in several modes:
+        </div>
+    
+        <div class="enumDiv">
+            <div class="enumText"> 
+                Managers in <highlight>comfort</highlight> mode will sacrifice power savings in favour of optimal service quality: full-power lighting for lamps, 22&degC temperature for heaters. Such managers show a <highlight>non flexible status</highlight>, meaning they will ignore orders from the house load manager, and appear in red.</div>
+            <div class="enumImage rouge">
+                <div class='mode'>Mode: <button class="modeButton comfort">comfort</button></div>
+                Status: non flexible<br>
+                Economising: no
+            </div>
+        </div>
+        
+        <div class="enumDiv">
+            <div class="enumText"> 
+                Managers in <highlight>saving</highlight> mode will favour power savings, reducing service quality. Such managers show a <highlight>flexible status</highlight> and appear in yellow or green, depending on their state. <br>
+                When receiving <highlight>any load</highlight> orders from the house load manager, heater managers still maintain their temperature objective to 22&degC, and lamp managers do not limit lamp consumption. Such flexible but not economising managers appear in yellow. <br>
+                When receiving <highlight>reduce load</highlight> orders from the house load manager, heater managers reduce their temperature objective to 20&degC, and lamp managers limit lamp consumption to 30W. Such economising managers appear in green. 
+            </div>
+            <div class="enumImage jaune">
+                <div class='mode'>Mode: <button class="modeButton saving">saving</button></div>
+                Status: flexible<br>
+                Economising: no
+            </div>
+            <div class="enumImage verte">
+                <div class='mode'>Mode: <button class="modeButton saving">saving</button></div>
+                Status: flexible<br>
+                Economising: yes
+            </div>
+        </div>
+        <div style="height: 450px"></div>
+        <div class="section">
+            A manager mode can be switched from <button class="modeButton saving">saving</button> to <button class="modeButton comfort">comfort</button> and vice versa by clicking on the mode button.
+        </div>
+                
+    </div>
+    
+  </body>
+  
+</html> 

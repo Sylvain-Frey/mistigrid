@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+  <head> 
+    <title>Smartgrid House GUI</title> 
+    <link rel="stylesheet" type="text/css" href="css/sunny/jquery-ui-1.8.21.custom.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <script type="text/javascript" src="js/lib/jquery-1.7.2.min.js" ></script>
+    <script type="text/javascript" src="js/lib/jquery-ui-1.8.21.custom.min.js" ></script>
+    <script type="text/javascript" src="js/controls.js" ></script>
+    <script type="text/javascript" src="js/network.js" ></script>
+    <script type="text/javascript" src="js/model/thermic.js" ></script>
+    <script type="text/javascript" src="js/model/electric.js" ></script>
+    <script type="text/javascript" src="js/model/managers.js" ></script>
+    <script type="text/javascript" src="js/model.js" ></script>
+    <script type="text/javascript" src="js/controller.js" ></script>
+    <script type="text/javascript" src="js/main.js" ></script>
+  </head>
+  
+  <body>
+  
+    <h1>Welcome to the MisTiGriD Web User Interface</h1>
+    
+    <a id="man" href="manpage.html" target="_blank">Read the manual</a><br>
+    <a id="graphs" href="graphs.html" target="_blank">Look a some live plots</a>
+    
+    <div id="controls">
+        <div id="fontSizeControl">
+            <div>Change the font size : <div id="fontSize">12</div></div>
+            <button id="increaseFontSize">+</button>
+            <button id="decreaseFontSize">-</button>
+         </div>
+    </div>
+    
+    <div id ="houseContainer"></div>
+    
+    <div id="console">Console: (in case anything appears down there, hit "refresh"... Feedback and support: sylvain.frey(a)telecom-paristech.fr)</div>
+    
+  </body>
+  
+</html>

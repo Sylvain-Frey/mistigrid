@@ -66,6 +66,7 @@ class TraceServlet(
         data.add(datum)
     }
 
+    resp.setHeader("Access-Control-Allow-Origin", "*")
     resp.getWriter().write(data.toString())
 
   }
