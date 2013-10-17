@@ -1,4 +1,4 @@
-package fr.sylfrey.misTiGriD.configs.mouchez
+package fr.sylfrey.misTiGriD.configs.house1
 
 import scala.collection.JavaConversions._
 import scala.collection.mutable.ListBuffer
@@ -52,66 +52,40 @@ class Config {
     val loadManagerURI = "akka://MisTiGriD/user/" + houseLoadManager
     val districtLoadManagerURI = context.getProperty("MisTiGriD.districtLoadManagerURI")      
     // typical value: "akka://MisTiGriD@localhost:4004/user/districtLoadManager"
-    // cf. config.properties
-             
+    // cf. config.properties         
       
     ////////////////////
     // IDENTIFICATORS //
     ////////////////////
       
     // Room identificators.
-    val kitchen = "kitchen"
-    val bathroom = "bathroom"
-    val room = "room"
-    val livingroom = "livingroom"
-    val entrance = "entrance"
-    val wc = "wc"
+    
+  val bathroom = "bathroom"
+  val room = "room"
+  val livingroom = "livingroom"
 
-    // Wall identificators.
-    // Naming convention here: id = initial1 + initial2 + n/s/e/w
-    // (north/south/east/west) where the initials 
-    // designate the separated objects identificators; 
-    // if there is no conflict, the last letter is optional.
-    // Example: akn = Atmosphere Kitchen North.
-    val akn = "wall_akn"
-    val ab  = "wall_ab"
-    val arn = "wall_arn"
-    val rae = "wall_rae"
-    val lae = "wall_lae"
-    val las = "wall_las"
-    val alw = "wall_alw"
-    val akw = "wall_akw"
-    val kb  = "wall_kb"
-    val rl  = "wall_rl"
-    val ele = "wall_ele"
-    val kw  = "wall_kw"
-    val bw  = "wall_bw"
-    val wr  = "wall_wr"
-    val br  = "wall_br"
-    val er  = "wall_er"
-    val els = "wall_els"
-    val ae  = "wall_ae"
-    val ke  = "wall_ke"
-    val we  = "wall_we"
+  val arn = "wall_arn"
+  val arw = "wall_arw"
+  val ars = "wall_ars"
+  val abn = "wall_abn"
+  val abe = "wall_abe"
+  val ale = "wall_ale"
+  val als = "wall_als"
+  val rb  = "wall_rb"
+  val rl  = "wall_rl"
+  val bl  = "wall_bl"
+	
     
     // Heater identificators.
-    val heaterKitchen = "heater_" + kitchen
-    val heaterRoom = "heater_" + room
-    val heaterLR1 = "heater_" + livingroom + "_1"
-    val heaterLR2 = "heater_" + livingroom + "_2"
-    val heaterBathroom = "heater_" + bathroom
-    val heaterEntrance = "heater_" + entrance
+  val  heaterLivingroom  = "heater_" + livingroom
+  val heaterRoom = "heater_" + room
+  val heaterBathroom = "heater_" + bathroom
         
     // Lamp identificators.
     val lamp1 = "lamp_1"
     val lamp2 = "lamp_2"
     val lamp3 = "lamp_3"
-    val lamp4 = "lamp_4"
-    val lamp5 = "lamp_5"
 
-      
-      
-      
       
     ////////////////////
     // SPECIFICATIONS //
@@ -121,52 +95,28 @@ class Config {
     // Wall specifications.
     val walls = Map[String, Wall](
       // wallID -> Wall(surfacicHeatConductance, openness, openHeatConductance, length, list of neighbours)
-      akn -> Wall(0.01f, false, 0.05f, 3, List(atmosphere, kitchen)),
-      ab  -> Wall(0.01f, false, 0.05f, 2, List(atmosphere, bathroom)),
-      arn -> Wall(0.01f, false, 0.05f, 4, List(atmosphere, room)),
-      rae -> Wall(0.01f, false, 0.05f, 5, List(room, atmosphere)),
-      lae -> Wall(0.01f, false, 0.05f, 4, List(livingroom, atmosphere)),
-      las -> Wall(0.01f, false, 0.05f, 9, List(livingroom, atmosphere)),
-      alw -> Wall(0.01f, false, 0.05f, 3, List(atmosphere, livingroom)),
-      akw -> Wall(0.01f, false, 0.05f, 4, List(atmosphere, kitchen)),
-      kb  -> Wall(0.01f, false, 0.05f, 3, List(kitchen, bathroom)),
-      rl  -> Wall(0.01f, false, 0.05f, 4, List(room, livingroom)),
-      ele -> Wall(0.01f, false, 0.05f, 1, List(entrance, livingroom)),
-      kw  -> Wall(0.01f, false, 0.05f, 1, List(kitchen, wc)),
-      bw  -> Wall(0.01f, false, 0.05f, 2, List(bathroom, wc)),
-      wr  -> Wall(0.01f, false, 0.05f, 1, List(wc, room)),
-      br  -> Wall(0.01f, false, 0.05f, 3, List(bathroom, room)),
-      er  -> Wall(0.01f, false, 0.05f, 1, List(entrance, room)),
-      els -> Wall(0.01f, false, 0.05f, 5, List(entrance, livingroom)),
-      ae  -> Wall(0.01f, false, 0.05f, 2, List(atmosphere, entrance)),
-      ke  -> Wall(0.01f, false, 0.05f, 3, List(kitchen, entrance)),
-      we  -> Wall(0.01f, false, 0.05f, 2, List(wc, entrance)))
+      //val walls = Map[String, Wall](
+    arn -> Wall(0.01f, false, 0.05f, 3, List(atmosphere, room)),
+    arw  -> Wall(0.01f, false, 0.05f, 2, List(atmosphere, room)),
+    ars -> Wall(0.01f, false, 0.05f, 4, List(atmosphere, room)),
+    als -> Wall(0.01f, false, 0.05f, 5, List(atmosphere, livingroom)),
+    ale -> Wall(0.01f, false, 0.05f, 4, List(atmosphere, livingroom)),
+    abe -> Wall(0.01f, false, 0.05f, 9, List(atmosphere, bathroom)),
+    abn -> Wall(0.01f, false, 0.05f, 3, List(atmosphere, bathroom)),
+    rb -> Wall(0.01f, false, 0.05f, 4, List(room,   bathroom)),
+    rl  -> Wall(0.01f, false, 0.05f, 3, List(room, livingroom)),
+    bl  -> Wall(0.01f, false, 0.05f, 3, List(bathroom, livingroom)))
       
     // Room specifications.
     val rooms = Map[String, TH](
       // roomID -> TH(initialTemperature, heatCapacity, list of walls and heaters)
-      kitchen    -> TH(24, 12, List(akw, akn, kb, kw, ke, heaterKitchen)),
-      bathroom   -> TH(24, 6,  List(ab, br, bw, kb, heaterBathroom)),
-      room       -> TH(24, 20, List(arn, rae, rl, er, wr, br, heaterRoom)),
-      livingroom -> TH(24, 31, List(els, ele, rl, lae, las, alw, heaterLR1, heaterLR2)),
-      entrance   -> TH(24, 10, List(ke, we, er, ele, els, ae, heaterEntrance)),
-      wc         -> TH(24, 2,  List(bw, wr, we, kw)))
+      room    -> TH(24, 8, List(arn, arw, ars, rb, rl, heaterRoom)),
+      bathroom   -> TH(24, 5,  List(abn, abe, rb, bl, heaterBathroom)),
+      livingroom -> TH(24, 15, List(als, ale, rl, bl,  heaterLivingroom )))
       
     // Heater (and heater manager) specifications.
     val heaters = Map[String, Tuple2[Heater, HeaterManager]](
       // heaterID -> ...
-      heaterKitchen  -> Tuple2(
-          // Heater(initialProsumedPower, heatConductance, efficiency, maxPower, aggregatorID, roomID)
-          Heater(0, 0.02f, 0.1f, 200f, aggregator, kitchen),	
-          HeaterManager(
-              actorPath = heaterKitchen  + "_manager", 
-              period = 400,
-              requiredTemperature = 22,
-              prosumerStatus = "Flexible",
-              houseLoadManagerURI = loadManagerURI,
-              heater = heaterKitchen,
-              room = kitchen,
-              kp = 40, ki = 0, kd = 0)),
       heaterRoom     -> Tuple2(
           Heater(0, 0.02f, 0.1f, 200f, aggregator, room),
           HeaterManager(
@@ -178,28 +128,17 @@ class Config {
               heater = heaterRoom, 
               room = room,
               kp = 40, ki = 0, kd = 0)),
-      heaterLR1      -> Tuple2(
+      heaterLivingroom      -> Tuple2(
           Heater(0, 0.02f, 0.1f, 200f, aggregator, livingroom),
           HeaterManager(
-              actorPath = heaterLR1      + "_manager", 
+              actorPath = heaterLivingroom      + "_manager", 
               period = 400,
               requiredTemperature = 22,
               prosumerStatus = "Flexible",
               houseLoadManagerURI = loadManagerURI,
-              heater = heaterLR1,
+              heater = heaterLivingroom,
               room = livingroom,
               kp = 40, ki = 0f, kd = 0)),
-      heaterLR2      -> Tuple2(
-          Heater(0, 0.02f, 0.1f, 200f, aggregator, livingroom),
-          HeaterManager(
-              actorPath = heaterLR2      + "_manager", 
-              period = 400,
-              requiredTemperature = 22,
-              prosumerStatus = "Flexible",
-              houseLoadManagerURI = loadManagerURI,
-              heater = heaterLR2,
-              room = livingroom,
-              kp = 40, ki = 0, kd = 0)),
       heaterBathroom -> Tuple2(
           Heater(0, 0.02f, 0.1f, 200f, aggregator, bathroom),
           HeaterManager(
@@ -210,27 +149,15 @@ class Config {
               houseLoadManagerURI = loadManagerURI,
               heater = heaterBathroom,
               room = bathroom,
-              kp = 40, ki = 0, kd = 0)),
-      heaterEntrance -> Tuple2(
-          Heater(0, 0.02f, 0.1f, 200f, aggregator, entrance),
-          HeaterManager(
-              actorPath = heaterEntrance + "_manager", 
-              period = 400,
-              requiredTemperature = 22,
-              prosumerStatus = "Flexible",
-              houseLoadManagerURI = loadManagerURI,
-              heater = heaterEntrance,
-              room = entrance,
               kp = 40, ki = 0, kd = 0)))
+      
  
     // Lamp specifications.
     val lamps = Map[String, Int](
       // lampID -> maxPower  
       lamp1 -> 100,
       lamp2 -> 100,
-      lamp3 -> 100,
-      lamp4 -> 100,
-      lamp5 -> 100
+      lamp3 -> 100
     )
       
 
@@ -241,41 +168,30 @@ class Config {
     // Spatial organisation of rooms.
     val roomLayouts = Map[String, Dim](
       // roomID -> Dim(x, y, width, height, z)
-      kitchen    -> Dim(  50,  50, 300, 400, 5),
-      bathroom   -> Dim( 350,  50, 200, 300, 5),
-      room       -> Dim( 550,  50, 400, 500, 5),
-      livingroom -> Dim(  50, 550, 900, 400, 3),
-      entrance   -> Dim(  50, 450, 500, 200, 5),
-      wc         -> Dim( 350, 350, 200, 100, 5))  
+      bathroom   -> Dim( 350,  50, 600, 200, 5),
+    room       -> Dim( 50,  50, 300, 600, 5),
+    livingroom -> Dim(  350, 250, 600, 400, 3)) 
 
     // Spatial organisation of heaters.
     val heaterLayouts = Map[String, Tuple2[String,Pos]](
       // heaterID -> (roomID, Pos(x, y, z))
-      heaterKitchen 	-> (kitchen, 	Pos(60, 	250, 10)),
-      heaterBathroom 	-> (bathroom, 	Pos(360, 	200, 10)),
-      heaterRoom 		-> (room, 		Pos(790, 	400, 10)),
-      heaterLR1	 		-> (livingroom, Pos(790, 	770, 10)),
-      heaterLR2	 		-> (livingroom, Pos(60, 	770, 10)),
-      heaterEntrance 	-> (entrance, 	Pos(70, 	550, 10)))
+      heaterBathroom 	-> (bathroom, 	Pos(700, 120, 10)),
+    heaterRoom 		-> (room, 	Pos(80, 220, 10)),
+    heaterLivingroom	 	-> (livingroom, Pos(700, 400, 10)))
 
     // Spatial organisation of doors (not intuitive, I know).
     val wallLayouts = Map[String, Dim](
       // wallID -> Dim(x, y, width, height, z)
-      br 	-> Dim(540, 250, 10, 80, 6),
-      er 	-> Dim(550, 460, 10, 80, 6),
-      els   -> Dim(250, 640, 80, 10, 6),
-      ae 	-> Dim( 50, 550, 10, 80, 6),
-      ke 	-> Dim(160, 440, 80, 10, 6),
-      we 	-> Dim(360, 440, 80, 10, 6))
+     rl 	-> Dim(350, 300, 10, 80, 6),
+    	bl 	-> Dim(500, 250, 80, 10, 6),
+    	als    -> Dim(500, 650, 80, 10, 6))
     
     // Spatial organisation of lamps.
     val lampLayouts = Map[String, Tuple2[Int,Int]](
       // lampID -> (x, y)  
-      lamp1 -> (240, 230),
-      lamp2 -> (580, 330),
-      lamp3 -> (720, 150),
-      lamp4 -> (360, 760),
-      lamp5 -> (610, 760)
+      lamp1 -> (100, 450),
+      lamp2 -> (500, 100),
+      lamp3 -> (500, 400)
     )
           
       
@@ -295,9 +211,9 @@ class Config {
     spawn("HouseLoadManagerDeployer",
       "instance.name" -> houseLoadManager,
       "actorPath" -> houseLoadManager,
-      "maxConsumption" -> "-800",
+      "maxConsumption" -> "-600",
       "hysteresisThreshold" -> "300",
-      "loadReductionDelta" -> "500",
+      "loadReductionDelta" -> "300",
       "acceptableLoadRange" -> "1000",
       "prosumerStatus" -> "Flexible",
       "period" -> "50",
