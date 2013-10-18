@@ -36,11 +36,6 @@
          <version>2.1.0</version>
       </dependency>
       <dependency>
-         <groupId>org.osgi</groupId>
-         <artifactId>org.osgi.core</artifactId>
-         <version>4.2.0</version>
-      </dependency>
-      <dependency>
          <groupId>org.uncommons.maths</groupId>
          <artifactId>uncommons-maths</artifactId>
          <version>1.2.2a</version>
@@ -72,26 +67,6 @@
                </instructions>
             </configuration>
          </plugin>
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>moveFiles</id>
-						<phase>install</phase>
-						<configuration>
-							<target>
-								<copy todir="../microSmartGridSimulation/felix/bundles"
-									flatten="true" overwrite="true" verbose="true" failonerror="true">
-									<fileset dir="target/" includes="*.jar" />
-								</copy>
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 

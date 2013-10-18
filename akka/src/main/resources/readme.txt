@@ -1,1 +1,1 @@
-This an OSGi wrapper for Akka framework 2.1.0.
+This an OSGi wrapper for Akka framework 2.1.0 (core framework + remote extension) for Scala 2.10.0.
