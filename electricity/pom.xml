@@ -83,9 +83,6 @@
 						<goals>
 							<goal>ipojo-bundle</goal>
 						</goals>
-						<configuration>
-							<metadata>metadata.xml</metadata>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>

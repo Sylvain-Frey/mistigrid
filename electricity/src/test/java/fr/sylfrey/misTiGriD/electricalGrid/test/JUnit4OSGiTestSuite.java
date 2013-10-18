@@ -11,7 +11,6 @@ public class JUnit4OSGiTestSuite {
 
 	public static Test suite(BundleContext bc) {
 		OSGiTestSuite suite = new OSGiTestSuite("Electrical grid test suite", bc);
-//		suite.addTestSuite(AggregatorTest.class);
 		suite.addTestSuite(SimpleTunableProsumer.class);
 		suite.addTestSuite(StorageTest.class);
 		return suite;

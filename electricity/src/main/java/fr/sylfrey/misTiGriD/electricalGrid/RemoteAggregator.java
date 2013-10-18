@@ -2,6 +2,12 @@ package fr.sylfrey.misTiGriD.electricalGrid;
 
 import akka.actor.ActorRef;
 
+/**
+ * Specific interface for remote aggregator, 
+ * same functionality as Aggregator but with serialisable ActorRefs. 
+ * @author syl
+ *
+ */
 public interface RemoteAggregator extends Prosumer {
 	
 	public String getName();

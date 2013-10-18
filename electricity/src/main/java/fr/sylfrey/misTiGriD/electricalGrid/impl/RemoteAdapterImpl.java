@@ -9,11 +9,11 @@ import fr.sylfrey.misTiGriD.electricalGrid.BlackOut;
 import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
 import fr.sylfrey.misTiGriD.electricalGrid.RemoteAggregator;
 
-public class RemoteAggregatorImpl implements RemoteAggregator {
+public class RemoteAdapterImpl implements RemoteAggregator {
 
-	public RemoteAggregatorImpl(ActorSystem actorSystem, RemoteAggregator parent, String name) {
+	public RemoteAdapterImpl(Aggregator delegate, ActorSystem actorSystem) {
 		this.actorSystem = actorSystem;
-		this.delegate = new AggregatorImpl(parent, name);
+		this.delegate = delegate;
 	}
 	
 	@Override

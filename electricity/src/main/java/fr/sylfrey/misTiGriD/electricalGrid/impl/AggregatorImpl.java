@@ -3,20 +3,109 @@ package fr.sylfrey.misTiGriD.electricalGrid.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.felix.ipojo.annotations.Bind;
+import org.apache.felix.ipojo.annotations.Component;
+import org.apache.felix.ipojo.annotations.Invalidate;
+import org.apache.felix.ipojo.annotations.Property;
+import org.apache.felix.ipojo.annotations.Provides;
+import org.apache.felix.ipojo.annotations.Validate;
+
 import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
 import akka.actor.TypedActor;
+import akka.actor.TypedProps;
+import akka.japi.Creator;
+import fr.sylfrey.akka.ActorSystemProvider;
 import fr.sylfrey.misTiGriD.electricalGrid.Aggregator;
 import fr.sylfrey.misTiGriD.electricalGrid.BlackOut;
 import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
 import fr.sylfrey.misTiGriD.electricalGrid.RemoteAggregator;
 
+@Component(name="Aggregator")
+@Provides(specifications={Aggregator.class,Prosumer.class})
 public class AggregatorImpl implements Aggregator, Prosumer {
 
-	public AggregatorImpl(RemoteAggregator parent, String name) {
-		this.parent = parent;
-		this.name = name;
-		self = TypedActor.context().self();
+	@Validate
+	public void start() { 
+		
+		// publish yourself as a remote aggregator via Akka proxy
+		RemoteAggregator proxy = TypedActor.get(actorSystem).typedActorOf(
+				new TypedProps<RemoteAdapterImpl>(
+						RemoteAggregator.class, 
+						new Creator<RemoteAdapterImpl>() {
+							public RemoteAdapterImpl create() {
+								return new RemoteAdapterImpl(AggregatorImpl.this, actorSystem);
+							}
+						}),
+						actorPath);		
+		self = TypedActor.get(actorSystem).getActorRefFor(proxy);
+		System.out.println("# published remote aggregator at " + self);
+	
+		
+		if (hasRemoteParent && remoteParentURL!=null) {
+						
+			// connect to remote parent aggregator			
+			try {
+				
+				System.out.println("# connecting to " + remoteParentURL + "...");	
+				ActorRef parentRef = actorSystem.actorFor(remoteParentURL);
+				parent = TypedActor.get(actorSystem).typedActorOf(
+							new TypedProps<RemoteAggregator>(RemoteAggregator.class),								
+							parentRef);
+				parent.connect(self);
+				System.out.println("# succesfully connected to " + parent.getName() + " aka "+ parent.toString());
+								
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} 	
+
 	}
+	
+	@Invalidate
+	public void stop() {
+		if (parent!=null) {
+			parent.disconnect(self);
+		}
+		TypedActor.get(actorSystem).poisonPill(self);
+	}
+
+	
+	@Property(name="instance.name")
+	public String name;
+	
+	@Property
+	public String actorPath;
+
+	@Property
+	public boolean hasRemoteParent;
+	
+	@Property
+	public String remoteParentURL;
+	
+	@Bind
+	public void bindActorSystem(ActorSystemProvider provider) {
+		actorSystem = provider.getSystem();
+	}
+
+	public ActorSystem actorSystem;
+	private ActorRef self;
+	
+	private RemoteAggregator parent;
+
+	private Map<Prosumer,Float> prosumptions = new ConcurrentHashMap<Prosumer,Float>();
+	private Map<Prosumer,Float> consumptions = new ConcurrentHashMap<Prosumer,Float>();
+	private Map<Prosumer,Float> productions = new ConcurrentHashMap<Prosumer,Float>();
+
+	private float aggregatedPowerConsumption = 0;
+	private float aggregatedPowerProduction = 0;
+
+	private float price = 0f;
+	private float bill = 0f;
+	
+	private float prosumedPower;
+		
 	
 	@Override
 	public String getName() {
@@ -72,8 +161,6 @@ public class AggregatorImpl implements Aggregator, Prosumer {
 			}
 		}
 		
-//		System.out.println("# " + name + " updated: " + prosumer.toString() + " ~ " + prosumption);
-
 	}
 
 	@Override
@@ -121,22 +208,6 @@ public class AggregatorImpl implements Aggregator, Prosumer {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	
-	public String name;
-	public RemoteAggregator parent;
 
-	private Map<Prosumer,Float> prosumptions = new ConcurrentHashMap<Prosumer,Float>();
-	private Map<Prosumer,Float> consumptions = new ConcurrentHashMap<Prosumer,Float>();
-	private Map<Prosumer,Float> productions = new ConcurrentHashMap<Prosumer,Float>();
 
-	private float aggregatedPowerConsumption = 0;
-	private float aggregatedPowerProduction = 0;
-
-	private float price = 0f;
-	private float bill = 0f;
-	
-	private float prosumedPower;
-	
-	private ActorRef self;
-	
 }
