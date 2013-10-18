@@ -25,7 +25,7 @@ class DistrictAggregator {
     val aggregator = "districtAggregator"
     val districtLoadManager = "districtLoadManager"
 
-    spawn("RemoteAggregator",
+    spawn("Aggregator",
       "instance.name" -> aggregator,
       "actorPath" -> aggregator,
       "hasRemoteParent" -> "false",
