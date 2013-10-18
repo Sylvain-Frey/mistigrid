@@ -12,7 +12,7 @@ import org.apache.felix.ipojo.ComponentInstance
 import scala.concurrent.{Future, ExecutionContext}
 import fr.sylfrey.misTiGriD.deploy._
 import org.osgi.framework.BundleContext
-import fr.sylfrey.misTiGriD.management.BundleContextProvider
+import fr.sylfrey.misTiGriD.deploy.BundleContextProvider
 
 @Component
 @Instantiate

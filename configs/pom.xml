@@ -11,8 +11,8 @@
       <relativePath>../microSmartGridSimulation</relativePath>
    </parent>
    
-  <artifactId>misTiGriD_configs_district</artifactId>
-   <name>Micro_Smart_Grid_configs_district</name>
+  <artifactId>misTiGriD_configs_mouchez</artifactId>
+   <name>Micro_Smart_Grid_configs_mouchez</name>
    <packaging>bundle</packaging>
   
    <dependencies>
@@ -23,22 +23,8 @@
       </dependency>
    </dependencies>
    
-   
    <build>
       <plugins>
-         <plugin>
-            <groupId>org.scala-tools</groupId>
-            <artifactId>maven-scala-plugin</artifactId>
-            <executions>
-               <execution>
-                  <goals>
-                     <goal>add-source</goal>
-                     <goal>compile</goal>
-                     <goal>testCompile</goal>
-                  </goals>
-               </execution>
-            </executions>
-         </plugin>
          <plugin>
             <groupId>org.apache.felix</groupId>
             <artifactId>maven-bundle-plugin</artifactId>
@@ -49,25 +35,10 @@
                   <Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
                   <Bundle-Version>${project.version}</Bundle-Version>
                   <Export-Package>
-                     fr.sylfrey.misTiGriD.configs.district.*
+                     fr.sylfrey.misTiGriD.configs.mouchez.*
                   </Export-Package>
                </instructions>
             </configuration>
-         </plugin>
-         <plugin>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>maven-ipojo-plugin</artifactId>
-            <version>1.6.0</version>
-            <executions>
-               <execution>
-                  <goals>
-                     <goal>ipojo-bundle</goal>
-                  </goals>
-                  <configuration>
-                     <metadata>metadata.xml</metadata>
-                  </configuration>
-               </execution>
-            </executions>
          </plugin>
          <plugin>
             <artifactId>maven-antrun-plugin</artifactId>
