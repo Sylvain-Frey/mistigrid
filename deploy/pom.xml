@@ -100,7 +100,8 @@
 						<Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
                   <Export-Package>
-                     fr.sylfrey.misTiGriD.*
+                     fr.sylfrey.misTiGriD.deploy.*,
+                     fr.sylfrey.misTiGriD.management.*,
                   </Export-Package>
 					</instructions>
 				</configuration>
