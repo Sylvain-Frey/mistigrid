@@ -3,20 +3,14 @@ package fr.sylfrey.misTiGriD.trace;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.felix.ipojo.annotations.Bind;
-import org.apache.felix.ipojo.annotations.Component;
-import org.apache.felix.ipojo.annotations.Invalidate;
-import org.apache.felix.ipojo.annotations.Requires;
-import org.apache.felix.ipojo.annotations.Validate;
-
 import akka.actor.ActorSystem;
 import akka.actor.TypedActor;
 import akka.actor.TypedProps;
 import akka.japi.Creator;
 import fr.sylfrey.akka.ActorSystemProvider;
-import fr.sylfrey.misTiGriD.framework.ActorContainer;
-import fr.sylfrey.misTiGriD.framework.Consumer;
-import fr.sylfrey.misTiGriD.framework.topic.Topic;
+import fr.sylfrey.misTiGriD.trace.framework.ActorContainer;
+import fr.sylfrey.misTiGriD.trace.framework.Consumer;
+import fr.sylfrey.misTiGriD.trace.framework.topic.Topic;
 
 //@Component(name="TopicTracer",immediate=true)
 public class TopicTracerContainerImpl {

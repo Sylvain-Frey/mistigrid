@@ -1,7 +1,7 @@
 package fr.sylfrey.misTiGriD.trace;
 
-import fr.sylfrey.misTiGriD.framework.Consumer;
-import fr.sylfrey.misTiGriD.framework.data.Message;
+import fr.sylfrey.misTiGriD.trace.framework.Consumer;
+import fr.sylfrey.misTiGriD.trace.framework.data.Message;
 
 public class TopicTracerImpl implements Consumer<Object> {
 
