@@ -1,4 +1,4 @@
-package fr.sylfrey.misTiGriD.management;
+package fr.sylfrey.misTiGriD.deploy;
 
 import org.apache.felix.ipojo.annotations.Component;
 import org.apache.felix.ipojo.annotations.Instantiate;

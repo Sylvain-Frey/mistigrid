@@ -4,24 +4,28 @@ import scala.Array.canBuildFrom
 import scala.collection.JavaConversions.asJavaDictionary
 import scala.collection.mutable.Map
 import scala.concurrent.duration.DurationInt
+import scala.language.postfixOps
+
 import org.apache.felix.ipojo.annotations.Bind
 import org.apache.felix.ipojo.annotations.Component
 import org.apache.felix.ipojo.annotations.Property
 import org.apache.felix.ipojo.annotations.Requires
 import org.apache.felix.ipojo.annotations.Validate
 import org.apache.felix.ipojo.annotations.Invalidate
+
 import akka.actor.ActorRef
 import akka.actor.ActorSystem
 import akka.actor.Cancellable
 import akka.actor.TypedActor
 import akka.actor.TypedProps
+
 import fr.sylfrey.akka.ActorSystemProvider
 import fr.sylfrey.misTiGriD.alba.basic.agents.LampManager
 import fr.sylfrey.misTiGriD.alba.basic.agents.LampManagerAgent
 import fr.sylfrey.misTiGriD.alba.basic.roles.LoadManager
 import fr.sylfrey.misTiGriD.alba.basic.roles.ProsumerManager
 import fr.sylfrey.misTiGriD.electricalGrid.Lamp
-import fr.sylfrey.misTiGriD.management.BundleContextProvider
+import fr.sylfrey.misTiGriD.deploy.BundleContextProvider
 import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
 import fr.sylfrey.misTiGriD.alba.basic.model.Schedule
 

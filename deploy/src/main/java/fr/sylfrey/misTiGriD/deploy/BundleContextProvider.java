@@ -1,4 +1,4 @@
-package fr.sylfrey.misTiGriD.management;
+package fr.sylfrey.misTiGriD.deploy;
 
 import org.osgi.framework.BundleContext;
 

@@ -3,7 +3,11 @@ package fr.sylfrey.misTiGriD.deploy
 import java.util.{ List => JList, Map => JMap }
 import java.util.HashMap
 import java.util.Dictionary
+
+import scala.concurrent.{promise, Promise, Future, ExecutionContext}
 import scala.collection.JavaConversions._
+import scala.language.existentials
+
 import org.osgi.framework.ServiceReference
 import org.apache.felix.ipojo.annotations.Component
 import org.apache.felix.ipojo.annotations.Bind
@@ -11,7 +15,6 @@ import org.apache.felix.ipojo.annotations.Unbind
 import org.apache.felix.ipojo.annotations.Provides
 import org.apache.felix.ipojo.annotations.Instantiate
 import org.apache.felix.ipojo.Factory
-import scala.concurrent.{promise, Promise, Future, ExecutionContext}
 import org.apache.felix.ipojo.ComponentInstance
 
 trait MetaFactory {
@@ -62,7 +65,6 @@ class MetaFactoryImpl extends MetaFactory {
   def spawn(factoryName: String, items: (String, _)*) : Promise[ComponentInstance] = {
     val p = promise[ComponentInstance]
     if (_factories.containsKey(factoryName)) { // factory available: call it
-//      println("# spawning " + parse(items))
       p success _factories.get(factoryName).createComponentInstance(parse(items))
     } else { // store the job for when factory becomes available
       val job = Tuple2(p, parse(items))
@@ -78,12 +80,12 @@ class MetaFactoryImpl extends MetaFactory {
   def parse(items: JList[(String, _)]): Dictionary[String, _] = {
     val map = new HashMap[String, Any]()
     items.foreach { case (key, value) => value match {
-        case config: JList[Tuple2[String, Any]] => map.put(key, parse(config))
+        case config: JList[(String, Any) @ unchecked] => map.put(key, parse(config))
         case string: String => map.put(key, string)
         case erroneous => println("### MetaFactory skipping invalid configuration : " + (key, value))
       }
     }
-    DictionaryWrapper(map)
+    asJavaDictionary(map)
   }
 
   def &(items: (String, String)*): JList[Tuple2[String, Any]] = {
