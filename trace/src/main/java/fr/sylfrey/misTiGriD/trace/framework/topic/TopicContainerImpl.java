@@ -10,8 +10,8 @@ import org.apache.felix.ipojo.annotations.Validate;
 import akka.actor.ActorSystem;
 import akka.actor.TypedActor;
 import akka.actor.TypedProps;
-import fr.sylfrey.akka.ActorSystemProvider;
 import fr.sylfrey.misTiGriD.trace.framework.ActorContainer;
+import fr.sylfrey.misTiGriD.wrappers.ActorSystemProvider;
 
 @Component(name="Topic",immediate=true)
 @Provides(specifications={ActorContainer.class})

@@ -7,10 +7,10 @@ import akka.actor.ActorSystem;
 import akka.actor.TypedActor;
 import akka.actor.TypedProps;
 import akka.japi.Creator;
-import fr.sylfrey.akka.ActorSystemProvider;
 import fr.sylfrey.misTiGriD.trace.framework.ActorContainer;
 import fr.sylfrey.misTiGriD.trace.framework.Consumer;
 import fr.sylfrey.misTiGriD.trace.framework.topic.Topic;
+import fr.sylfrey.misTiGriD.wrappers.ActorSystemProvider;
 
 //@Component(name="TopicTracer",immediate=true)
 public class TopicTracerContainerImpl {
