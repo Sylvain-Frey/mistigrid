@@ -23,7 +23,6 @@ sylfrey.controller = (function() { // package definition
 	    
         get("/layouts/AllLayouts", function(allLayouts) {	    
 	        $.each(allLayouts, function(id, state) {
-			    //layout = layouts[id].update(state); //wtf??
 			    layouts[id].update(state);
 			});
 		});		

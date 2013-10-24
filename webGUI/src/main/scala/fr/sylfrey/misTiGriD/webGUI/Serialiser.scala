@@ -21,7 +21,6 @@ object Serialiser {
 
   val mapper = new ObjectMapper()
 
-  val LoadHierarch = "LoadHierarch"
   val AtmosphereLayout = "AtmosphereLayout"
   val ThermicObjectLayout = "ThermicObjectLayout"
   val ProsumerLayout = "ProsumerLayout"
@@ -198,7 +197,6 @@ object Serialiser {
     index.put(HeaterLayout, hls)
     index.put(HeaterManagerLayout, hmls)
     index.put(OpeningLayout, ols)
-    index.put(LoadHierarch, LoadHierarch)
     
     index.toString
   }

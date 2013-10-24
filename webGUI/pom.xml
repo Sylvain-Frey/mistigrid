@@ -18,11 +18,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.apache.felix.ipojo.annotations</artifactId>
-			<version>1.8.0</version>
-		</dependency>
-		<dependency>
 			<groupId>fr.sylfrey</groupId>
 			<version>1.1</version>
 			<artifactId>misTiGriD_layout</artifactId>
@@ -39,41 +34,13 @@
 		</dependency>
       <dependency>
          <groupId>fr.sylfrey</groupId>
-         <artifactId>akka</artifactId>
          <version>1.1</version>
+         <artifactId>misTiGriD_wrappers</artifactId>
       </dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
-         <plugin>
-            <groupId>org.scala-tools</groupId>
-            <artifactId>maven-scala-plugin</artifactId>
-            <executions>
-               <execution>
-                  <goals>
-                     <goal>add-source</goal>
-                     <goal>compile</goal>
-                     <goal>testCompile</goal>
-                  </goals>
-               </execution>
-               <execution>
-                  <id>scala-compile-first</id>
-                  <phase>process-resources</phase>
-                  <goals>
-                     <goal>add-source</goal>
-                     <goal>compile</goal>
-                  </goals>
-               </execution>
-               <execution>
-                  <id>scala-test-compile</id>
-                  <phase>process-test-resources</phase>
-                  <goals>
-                     <goal>testCompile</goal>
-                  </goals>
-               </execution>
-            </executions>
-         </plugin>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
@@ -88,41 +55,6 @@
 						</Export-Package>
 					</instructions>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-ipojo-plugin</artifactId>
-				<version>1.6.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>ipojo-bundle</goal>
-						</goals>
-						<configuration>
-							<metadata>metadata.xml</metadata>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>moveFiles</id>
-						<phase>install</phase>
-						<configuration>
-							<target>
-								<copy todir="../microSmartGridSimulation/felix/bundles/hot"
-									flatten="true" overwrite="true" verbose="true" failonerror="true">
-									<fileset dir="target/" includes="*.jar" />
-								</copy>
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

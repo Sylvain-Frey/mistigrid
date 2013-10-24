@@ -29,7 +29,10 @@ class GenericLayoutRegistry {
   @Requires var httpService: HttpService = _
   @Requires var schedule: Schedule = _
 
-  val layouts = new HashMap[Tuple2[Class[_ <: Layout], String], Layout]()
+  val _layouts = new HashMap[(Class[_ <: Layout], String), Layout]()
+  // clone layouts to avoid ConcurrentModificationExceptions
+  def layouts = _layouts.clone().asInstanceOf[HashMap[(Class[_ <: Layout], String), Layout]] 
+  
   
   val INDEX_PATH = "/layoutsIndex"
   val LAYOUT_PREFIX = "/layouts"
@@ -62,13 +65,14 @@ class GenericLayoutRegistry {
   
   @Unbind(specification="fr.sylfrey.misTiGriD.layout.Layout",aggregate=true)
   def unbind(layout : Layout) : Unit = {
-    for (entry <- layouts.entrySet()) {
-      if (entry.getValue == layout) layouts.remove(entry.getKey)
+    _layouts.entrySet().find(_.getValue == layout) match {
+      case Some(key) => _layouts.remove(key)
+      case None => println("# warning: unbinding unknown layout " + layout)
     }
   }
   
   def store[L <: Layout](clazz: Class[_ <: L], name: String, layout: L) {
-    layouts.put((clazz, name), layout)
+    _layouts.put((clazz, name), layout)
   }
   
   @Validate def start() : Unit = {
@@ -96,7 +100,7 @@ class GenericLayoutRegistry {
   
   
   def get[L <: Layout](clazz: Class[L], name: String) = {
-    layouts.get((clazz, name)).asInstanceOf[L]
+    _layouts.get((clazz, name)).asInstanceOf[L]
   }
 
 }

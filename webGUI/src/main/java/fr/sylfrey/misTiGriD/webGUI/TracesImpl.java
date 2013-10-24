@@ -23,9 +23,9 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.actor.UntypedActorFactory;
 import akka.event.EventBus;
-import fr.sylfrey.akka.ActorSystemProvider;
 import fr.sylfrey.misTiGriD.trace.Archiver;
 import fr.sylfrey.misTiGriD.trace.ArchiverEvent;
+import fr.sylfrey.misTiGriD.wrappers.ActorSystemProvider;
 
 @Component(name = "Traces", immediate = true)
 @Provides

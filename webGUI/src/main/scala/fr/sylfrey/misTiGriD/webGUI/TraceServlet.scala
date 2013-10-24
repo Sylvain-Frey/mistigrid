@@ -12,7 +12,7 @@ import org.codehaus.jackson.map.ObjectMapper
 import org.osgi.service.http.HttpService
 import akka.actor.Actor
 import akka.actor.Props
-import fr.sylfrey.akka.ActorSystemProvider
+import fr.sylfrey.misTiGriD.wrappers.ActorSystemProvider
 import fr.sylfrey.misTiGriD.trace.Archiver
 import fr.sylfrey.misTiGriD.trace.ArchiverEvent
 import javax.servlet.http.HttpServlet
@@ -23,7 +23,7 @@ import akka.actor.ActorSystem
 import akka.actor.ActorRef
 import akka.event.EventBus
 
-@Component
+@Component(immediate=true)
 @Provides
 @Instantiate
 class TraceServlet(
@@ -31,25 +31,29 @@ class TraceServlet(
   @Requires actorSystemProvider: ActorSystemProvider,
   @Requires archiver: Archiver) extends HttpServlet {
 
-  private var actorSystem: ActorSystem = _
-  private var currentState: ConcurrentHashMap[String, Any] = _
-  private var mapper: ObjectMapper = _
-  private var subscriber: ActorRef = _
+  lazy val actorSystem = actorSystemProvider.getSystem()
+  lazy val currentState = new ConcurrentHashMap[String, Any]()
+  lazy val mapper = new ObjectMapper()
+  lazy val subscriber = actorSystem.actorOf(
+      Props(new ArchiveSubscriber(currentState)))
   
   @Validate def start() = {
 
-    val bus = archiver.bus()
-    actorSystem = actorSystemProvider.getSystem()
-    currentState = new ConcurrentHashMap[String, Any]()
-    mapper = new ObjectMapper()
-    subscriber = actorSystem.actorOf(
-      Props(new ArchiveSubscriber(currentState)))
-
+	val bus = archiver.bus()
     httpService.registerServlet("/traces", this, null, null)
     bus.subscribe(
       subscriber.asInstanceOf[bus.Subscriber],
       classOf[ArchiverEvent[AnyRef]].asInstanceOf[bus.Classifier])
       
+  }
+  
+  @Invalidate def stop() = {
+    
+    httpService.unregister("/traces")
+	val bus = archiver.bus()
+	if (bus!=null) bus.unsubscribe(subscriber.asInstanceOf[bus.Subscriber])
+    actorSystem.stop(subscriber)
+    
   }
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse): Unit = {
@@ -68,12 +72,6 @@ class TraceServlet(
 
     resp.getWriter().write(data.toString())
 
-  }
-
-  @Invalidate def stop() = {
-    val bus = archiver.bus()
-    bus.unsubscribe(subscriber.asInstanceOf[bus.Subscriber])
-    actorSystem.stop(subscriber)
   }
 
 }
