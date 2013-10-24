@@ -12,8 +12,8 @@
 		<relativePath>../microSmartGridSimulation</relativePath>
 	</parent>
 
-	<artifactId>akka</artifactId>
-	<name>Akka_OSGi_integration</name>
+	<artifactId>misTiGriD_wrappers</artifactId>
+	<name>Micro_Smart_Grid_wrappers</name>
 	<packaging>bundle</packaging>
 
 	<repositories>
@@ -58,9 +58,8 @@
                <instructions>
                   <Bundle-SymbolicName>${project.name}</Bundle-SymbolicName>
                   <Bundle-Version>${project.version}</Bundle-Version>
-                  <Bundle-Activator>fr.sylfrey.akka.ActorSystemProviderImpl</Bundle-Activator>
                   <Export-Package>
-                     fr.sylfrey.akka.*,
+                     fr.sylfrey.misTiGriD.wrappers.*,
                      org.uncommons.maths.*
                   </Export-Package>
                   <Embed-Dependency>artifactId=uncommons-maths</Embed-Dependency>
