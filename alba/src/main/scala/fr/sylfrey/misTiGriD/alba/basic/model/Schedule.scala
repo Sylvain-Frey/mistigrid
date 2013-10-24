@@ -12,7 +12,7 @@ import fr.sylfrey.misTiGriD.environment.Time
 import org.apache.felix.ipojo.annotations.Validate
 import fr.sylfrey.misTiGriD.alba.basic.messages.ProsumerStatus
 import org.osgi.framework.BundleContext
-import fr.sylfrey.akka.ActorSystemProvider
+import fr.sylfrey.misTiGriD.wrappers.ActorSystemProvider
 import akka.actor.TypedActor
 import akka.actor.TypedProps
 import fr.sylfrey.misTiGriD.alba.basic.messages.LoadBalancingOrder
