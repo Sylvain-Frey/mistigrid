@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Sylvain Frey.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/gpl.html
+ * 
+ * Contributors:
+ *     Sylvain Frey - initial API and implementation
+ ******************************************************************************/
 package fr.sylfrey.misTiGriD.configs.mouchez
 
 import scala.collection.JavaConversions._
@@ -12,16 +22,28 @@ import org.apache.felix.ipojo.ComponentInstance
 import scala.concurrent.{Future, ExecutionContext}
 import fr.sylfrey.misTiGriD.deploy._
 import org.osgi.framework.BundleContext
-import fr.sylfrey.misTiGriD.deploy.BundleContextProvider
+import fr.sylfrey.misTiGriD.wrappers.BundleContextProvider
 
+/**
+ * Sample house configuration:
+ * 6 rooms, 6 smart heaters, 5 smart lamps.
+ */
 @Component
-@Instantiate
-class Config {
+@Instantiate(name="ConfigMouchez")
+class Config(  
+  @Requires houseFactory : HouseFactory,
+  @Requires metaFactory : MetaFactory,
+  @Requires contextProvider: BundleContextProvider) {
   
-  @Requires var houseFactory : HouseFactory = null
-  @Requires var metaFactory : MetaFactory = null
-  @Requires var contextProvider: BundleContextProvider = null
-  implicit val ec = ExecutionContext.Implicits.global 
+  implicit lazy val ec = ExecutionContext.Implicits.global 
+  
+  lazy val instances = ListBuffer[ComponentInstance]()
+    
+  private def spawn(factoryName: String, items: (String, Any)*): Unit = {
+    metaFactory.spawn(factoryName, items: _*).future onSuccess {
+      case componentInstance => instances += componentInstance
+    }
+  }
     
   @Validate def start() = {
     
@@ -143,14 +165,14 @@ class Config {
       we  -> Wall(0.01f, false, 0.05f, 2, List(wc, entrance)))
       
     // Room specifications.
-    val rooms = Map[String, TH](
-      // roomID -> TH(initialTemperature, heatCapacity, list of walls and heaters)
-      kitchen    -> TH(24, 12, List(akw, akn, kb, kw, ke, heaterKitchen)),
-      bathroom   -> TH(24, 6,  List(ab, br, bw, kb, heaterBathroom)),
-      room       -> TH(24, 20, List(arn, rae, rl, er, wr, br, heaterRoom)),
-      livingroom -> TH(24, 31, List(els, ele, rl, lae, las, alw, heaterLR1, heaterLR2)),
-      entrance   -> TH(24, 10, List(ke, we, er, ele, els, ae, heaterEntrance)),
-      wc         -> TH(24, 2,  List(bw, wr, we, kw)))
+    val rooms = Map[String, ThermicObject](
+      // roomID -> ThermicObject(initialTemperature, heatCapacity, list of walls and heaters)
+      kitchen    -> ThermicObject(24, 12, List(akw, akn, kb, kw, ke, heaterKitchen)),
+      bathroom   -> ThermicObject(24, 6,  List(ab, br, bw, kb, heaterBathroom)),
+      room       -> ThermicObject(24, 20, List(arn, rae, rl, er, wr, br, heaterRoom)),
+      livingroom -> ThermicObject(24, 31, List(els, ele, rl, lae, las, alw, heaterLR1, heaterLR2)),
+      entrance   -> ThermicObject(24, 10, List(ke, we, er, ele, els, ae, heaterEntrance)),
+      wc         -> ThermicObject(24, 2,  List(bw, wr, we, kw)))
       
     // Heater (and heater manager) specifications.
     val heaters = Map[String, Tuple2[Heater, HeaterManager]](
@@ -223,14 +245,14 @@ class Config {
               room = entrance,
               kp = 40, ki = 0, kd = 0)))
  
-    // Lamp specifications.
-    val lamps = Map[String, Int](
-      // lampID -> maxPower  
-      lamp1 -> 100,
-      lamp2 -> 100,
-      lamp3 -> 100,
-      lamp4 -> 100,
-      lamp5 -> 100
+    // Lamp (and lamp manager) specifications.
+    val lamps = Map[String, Lamp](
+      // lampID -> (maxPower, aggregator, loadManagerURI)  
+      lamp1 -> Lamp(100, aggregator, loadManagerURI),
+      lamp2 -> Lamp(100, aggregator, loadManagerURI),
+      lamp3 -> Lamp(100, aggregator, loadManagerURI),
+      lamp4 -> Lamp(100, aggregator, loadManagerURI),
+      lamp5 -> Lamp(100, aggregator, loadManagerURI)
     )
       
 
@@ -317,17 +339,9 @@ class Config {
   
   }
   
-  val instances = ListBuffer[ComponentInstance]()
-  
   @Invalidate def stop() : Unit = {
     instances.foreach( instance => { instance.stop; instance.dispose } )
     instances.clear
-  }
-  
-  def spawn(factoryName: String, items: (String, Any)*): Unit = {
-    metaFactory.spawn(factoryName, items: _*).future onSuccess {
-      case componentInstance => instances += componentInstance
-    }
   }
     
 }
