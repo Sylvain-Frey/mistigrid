@@ -15,11 +15,11 @@ import akka.actor.ActorSystem;
 import akka.actor.TypedActor;
 import akka.actor.TypedProps;
 import akka.japi.Creator;
-import fr.sylfrey.akka.ActorSystemProvider;
 import fr.sylfrey.misTiGriD.electricalGrid.Aggregator;
 import fr.sylfrey.misTiGriD.electricalGrid.BlackOut;
 import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
 import fr.sylfrey.misTiGriD.electricalGrid.RemoteAggregator;
+import fr.sylfrey.misTiGriD.wrappers.ActorSystemProvider;
 
 @Component(name="Aggregator")
 @Provides(specifications={Aggregator.class,Prosumer.class})

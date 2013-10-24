@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>fr.sylfrey</groupId>
 			<version>1.1</version>
-			<artifactId>akka</artifactId>
+         <artifactId>misTiGriD_wrappers</artifactId>
 		</dependency>
 	</dependencies>
 
