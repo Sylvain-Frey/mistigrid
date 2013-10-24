@@ -2,6 +2,11 @@ package fr.sylfrey.misTiGriD.deploy
 
 import java.util.{ List => JList }
 
+/**
+ * Series of type-safe wrappers for 
+ * non-type-safe iPOJO instance configurations.
+ */
+
 case class Atmosphere(
   name: String,
   temperature: Float,
@@ -22,7 +27,7 @@ case class Wall(
   size: Float,
   neighbours: JList[String])
 
-case class TH(temperature: Float,
+case class ThermicObject(temperature: Float,
   heatCapacity: Float,
   walls: JList[String])
 
@@ -44,11 +49,12 @@ case class HeaterManager(
   room: String,
   kp : Float,
   ki : Float,
-  kd : Float	
-  /*loadTopic: String,
-  controller: String,
-  hierarch: String,
-  isCollaborative: Boolean*/)
+  kd : Float)
+  
+case class Lamp(
+    maxPower: Int,
+    aggregator: String,
+    loadManagerURI: String)
 
 case class Pos(x: Int, y: Int, layer: Int)
 

@@ -17,78 +17,118 @@ import org.apache.felix.ipojo.annotations.Instantiate
 import org.apache.felix.ipojo.Factory
 import org.apache.felix.ipojo.ComponentInstance
 
+/**
+ * MetaFactory aggregates all available iPOJO factories
+ * and allows to spawn (create instances of) iPOJO components.
+ * Cf. fr.sylfrey.misTiGriD.configs.* and
+ * fr.sylfrey.misTiGriD.deploy.HouseFactory for example use.
+ */
 trait MetaFactory {
+  
+  /**
+   * Available iPOJO factories. 
+   */
   def factories: JMap[String, Factory]
-  def spawn(factoryName: String, items: (String, _)*): Promise[ComponentInstance]
+  
+  /**
+   * Create an iPOJO component instance 
+   * via factory with name factoryName
+   * and with configuration config.
+   */
+  def spawn(factoryName: String, config: (String, _)*): Promise[ComponentInstance]
+  
+  /**
+   * Parse a list of (key, value) tuples 
+   * and generate an iPOJO-compatible instance configuration.
+   */
   def parse(items: JList[(String, _)]): Dictionary[String, _]
-  def &(items: (String, String)*): JList[Tuple2[String, Any]]
+  
+  /**
+   * Utility function for generating configurations.
+   */
+  def &(items: (String, String)*): JList[(String, Any)]
+  
 } 
+
 
 @Component
 @Provides(specifications=Array(classOf[MetaFactory]))
 @Instantiate
 class MetaFactoryImpl extends MetaFactory {
   
+  // implicit execution context required for Promise completion
   implicit val ec = ExecutionContext.Implicits.global
 
-  val _factories = new HashMap[String, Factory]()
+  // list of available factories
+  val factories = new HashMap[String, Factory]
   
+  // list of pending instantiation jobs 
+  // waiting for an appropriate factory to become available
   val factorables = new HashMap[
                                 String, 
                                 List[
-                                  Tuple2[Promise[ComponentInstance], Dictionary[String, _]]
+                                  (Promise[ComponentInstance], Dictionary[String, _])
                                 ]
                          ]
   
   
   @Bind(aggregate=true)
   def bind(factory: Factory) {
+    
     val factoryName = factory.getName()
-    _factories.put(factoryName, factory)
+    factories.put(factoryName, factory)
+    
     // check for pending jobs
     if (factorables.containsKey(factoryName)) {
-    	factorables.remove(factoryName).foreach( _ match {
-    	  case (promise, config) => 
-//    	    println("# spawning " + config)
-    	    promise success factory.createComponentInstance(config)
-    	})
+      // there are pending jobs for the new bound factory: execute them
+      factorables.remove(factoryName).foreach( _ match {
+    	case (promise, config) => 
+    	  promise success factory.createComponentInstance(config)
+      })
     }
   }
 
   @Unbind
   def unbind(factory: Factory) {
-    _factories.remove(factory.getName())
+    factories.remove(factory.getName())
   }
   
-  def factories: JMap[String, Factory] = _factories
-
-  def spawn(factoryName: String, items: (String, _)*) : Promise[ComponentInstance] = {
+  def spawn(factoryName: String, items: (String, _)*) = {
+    
     val p = promise[ComponentInstance]
-    if (_factories.containsKey(factoryName)) { // factory available: call it
-      p success _factories.get(factoryName).createComponentInstance(parse(items))
+    val config = parse(items)
+    
+    if (factories.containsKey(factoryName)) { // factory available: call it
+    
+      p success factories.get(factoryName).createComponentInstance(config)
+      
     } else { // store the job for when factory becomes available
-      val job = Tuple2(p, parse(items))
+      
+      val job = (p, config)
       if (factorables.containsKey(factoryName)) {
         factorables.put(factoryName, job +: factorables.get(factoryName))
       } else {
         factorables.put(factoryName, List(job) )
       }
+      
     }
+    
     p
+    
   }
 
-  def parse(items: JList[(String, _)]): Dictionary[String, _] = {
-    val map = new HashMap[String, Any]()
+  def parse(items: JList[(String, _)]) = {
+    val map = new HashMap[String, Any]
     items.foreach { case (key, value) => value match {
         case config: JList[(String, Any) @ unchecked] => map.put(key, parse(config))
         case string: String => map.put(key, string)
-        case erroneous => println("### MetaFactory skipping invalid configuration : " + (key, value))
+        case erroneous => println("### Error: MetaFactory skipping invalid configuration : " + (key, value))
       }
     }
     asJavaDictionary(map)
   }
 
-  def &(items: (String, String)*): JList[Tuple2[String, Any]] = {
+  def &(items: (String, String)*) = {
     items.toList
   }
 

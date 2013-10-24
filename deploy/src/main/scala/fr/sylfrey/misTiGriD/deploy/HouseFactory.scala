@@ -15,6 +15,10 @@ import org.apache.felix.ipojo.Factory
 import org.apache.felix.ipojo.ComponentInstance
 import org.osgi.framework.ServiceReference
 
+
+/**
+ * Type-safe wrapper for non-type-safe iPOJO factories.
+ */
 trait HouseFactory {
 
   def make(
@@ -22,45 +26,37 @@ trait HouseFactory {
     aggregator: Aggregator,
     walls: Map[String, Wall],
     wallLayouts: Map[String, Dim],
-    rooms: Map[String, TH],
+    rooms: Map[String, ThermicObject],
     roomLayouts: Map[String, Dim],
-    heaters: Map[String, Tuple2[Heater, HeaterManager]],
-    heaterLayouts: Map[String, Tuple2[String, Pos]],
-    lamps: Map[String, Int],
-    lampLayouts: Map[String, Tuple2[Int, Int]]): List[Promise[ComponentInstance]]
+    heaters: Map[String, (Heater, HeaterManager)],
+    heaterLayouts: Map[String, (String, Pos)],
+    lamps: Map[String, Lamp],
+    lampLayouts: Map[String, (Int, Int)]): List[Promise[ComponentInstance]]
   
   def makeAtmosphere(atmosphere: Atmosphere): Promise[ComponentInstance]  
   def makeAggregator(aggregator: Aggregator): Promise[ComponentInstance]
-  def makeTH(name: String, th: TH): Promise[ComponentInstance]
+  def makeThermicObject(name: String, th: ThermicObject): Promise[ComponentInstance]
   def makeWall(name: String, wall: Wall): Promise[ComponentInstance]
   def makeHeater(name: String, heater: Heater): Promise[ComponentInstance]
   def makeHeaterManager(name: String, heaterManager: HeaterManager): Promise[ComponentInstance]
-  def makeLamp(name: String, maxPower: Int): Promise[ComponentInstance]
-  def makeLampManager(name: String): Promise[ComponentInstance]
+  def makeLamp(name: String, maxPower: Int, aggregator: String): Promise[ComponentInstance]
+  def makeLampManager(name: String, loadManagerURI: String): Promise[ComponentInstance]
   
-  def makeTOLayout(name: String, dim: Dim, target: String): Promise[ComponentInstance]
+  def makeThermicObjectLayout(name: String, dim: Dim, target: String): Promise[ComponentInstance]
   def makeWallLayout(name: String, dim: Dim, wall: String): Promise[ComponentInstance]
   def makeHeaterLayout(name: String, dim: Dim, heater: String): Promise[ComponentInstance]
   def makeHeaterManagerLayout(name: String, dim: Dim, manager: String): Promise[ComponentInstance]
   def makeAtmosphereLayout(atmosphere: Atmosphere): Promise[ComponentInstance]
   def makeLampLayout(name: String, x: Int, y: Int): Promise[ComponentInstance]
   def makeLampManagerLayout(name: String, x: Int, y: Int): Promise[ComponentInstance]
-  
-  /*
-  def makeTOView(name: String, target: String): Promise[ComponentInstance]
-  def makeHeaterView(name: String, heater: String): Promise[ComponentInstance]
-  def makeHeaterManagerView(name: String, manager: String, room: String): Promise[ComponentInstance]
-  def makeWallView(name: String, wall: String): Promise[ComponentInstance]
-  */
-  
+    
 }
 
 @Component
 @Provides(specifications = Array(classOf[HouseFactory]))
 @Instantiate
-class HouseFactoryImpl extends HouseFactory {
-
-  @Requires var metaFactory: MetaFactory = _
+class HouseFactoryImpl(
+    @Requires metaFactory: MetaFactory) extends HouseFactory {
 
   private def spawn(factoryName: String, items: (String, _)*): Promise[ComponentInstance] = {
     metaFactory.spawn(factoryName, items: _*)
@@ -74,12 +70,12 @@ class HouseFactoryImpl extends HouseFactory {
     aggregator: Aggregator, 
     walls: Map[String, Wall], 
     wallLayouts: Map[String, Dim], 
-    rooms: Map[String, TH], 
+    rooms: Map[String, ThermicObject], 
     roomLayouts: Map[String, Dim], 
-    heaters: Map[String, Tuple2[Heater, HeaterManager]], 
-    heaterLayouts: Map[String, Tuple2[String, Pos]], 
-    lamps: Map[String, Int], 
-    lampLayouts: Map[String, Tuple2[Int, Int]]): List[Promise[ComponentInstance]] = {
+    heaters: Map[String, (Heater, HeaterManager)], 
+    heaterLayouts: Map[String, (String, Pos)], 
+    lamps: Map[String, Lamp], 
+    lampLayouts: Map[String, (Int, Int)]): List[Promise[ComponentInstance]] = {
 
     // list of future instances created by the house factory
     val result = ListBuffer[Promise[ComponentInstance]]()
@@ -97,7 +93,7 @@ class HouseFactoryImpl extends HouseFactory {
     }
 
     for ((name, th) <- rooms) {
-      result += makeTH(name, th)
+      result += makeThermicObject(name, th)
     }
 
     for ((name, (heater, manager)) <- heaters) {
@@ -105,10 +101,10 @@ class HouseFactoryImpl extends HouseFactory {
       result += makeHeaterManager(name + "_manager", manager)
     }
     
-    for (lamp <- lamps.keys) {
-      val maxPower = lamps(lamp)
-      result += makeLamp(lamp, maxPower)
-      result += makeLampManager(lamp)     
+    for (name <- lamps.keys) {
+      val lamp = lamps(name)
+      result += makeLamp(name, lamp.maxPower, lamp.aggregator)
+      result += makeLampManager(name, lamp.loadManagerURI)     
     }
 
     /////////////
@@ -118,7 +114,7 @@ class HouseFactoryImpl extends HouseFactory {
     result += makeAtmosphereLayout(atmosphere)
 
     for ((room, dim) <- roomLayouts) {
-      result += makeTOLayout(
+      result += makeThermicObjectLayout(
         name = room + "_layout",
         dim = dim,
         target = room)
@@ -147,27 +143,6 @@ class HouseFactoryImpl extends HouseFactory {
       result += makeLampLayout(lamp, x, y)
       result += makeLampManagerLayout(lamp, x, y)
     }
-
-    /*
-    result += makeTOView("atmosphereView", "atmosphere_layout")
-    for (room <- roomLayouts.keys) result += makeTOView(room + "_view", room + "_layout")
-
-    for ((heater, (room, pos)) <- heaterLayouts) {
-      result += makeHeaterView(
-        name = heater + "_view",
-        heater = heater + "_layout")
-      result += makeHeaterManagerView(
-        name = heater + "_manager_view",
-        manager = heater + "_manager_layout",
-        room = room + "_layout")
-    }
-
-    for (wall <- wallLayouts.keys) {
-      result += makeWallView(
-        name = wall + "_view",
-        wall = wall + "_layout")
-    }
-    */
     
     result.toList
 
@@ -198,14 +173,14 @@ class HouseFactoryImpl extends HouseFactory {
       "remoteParentURL" -> aggregator.remoteParentURL)
   }
     
-  def makeTH(name: String, th: TH) = {
+  def makeThermicObject(name: String, thermicObject: ThermicObject) = {
     spawn("ThermicObject",
       "instance.name" -> name,
-      "temperature" -> th.temperature.toString(),
-      "heatCapacity" -> th.heatCapacity.toString(),
+      "temperature" -> thermicObject.temperature.toString(),
+      "heatCapacity" -> thermicObject.heatCapacity.toString(),
       "period" -> "50",
       "requires.filters" -> &("walls" ->
-        th.walls.mkString("(|(instance.name=", ")(instance.name=", "))")))
+        thermicObject.walls.mkString("(|(instance.name=", ")(instance.name=", "))")))
   }
 
   def makeWall(name: String, wall: Wall) = {
@@ -247,22 +222,22 @@ class HouseFactoryImpl extends HouseFactory {
         "room" -> heaterManager.room))
   }
     
-  def makeLamp(name: String, maxPower: Int) = {
+  def makeLamp(name: String, maxPower: Int, aggregator: String) = {
       spawn("Lamp",
         "instance.name" -> name,
         "prosumedPower" -> "0",
         "maxEmissionPower" -> maxPower.toString,
-        "requires.from" -> &("aggregator" -> "houseAggregator"))
+        "requires.from" -> &("aggregator" -> aggregator))
   }
        
-  def makeLampManager(name: String) = {
+  def makeLampManager(name: String, loadManagerURI: String) = {
     spawn("LampManager",
         "instance.name" -> (name + "_manager"),          
         "ecoMaxPower" -> "-30",
         "prosumerStatus" -> "nonFlexible",
         "period" -> "500",
         "actorPath" -> (name + "_manager"),
-        "houseLoadManagerURI" -> "akka://MisTiGriD/user/houseLoadManager",
+        "houseLoadManagerURI" -> loadManagerURI,
         "requires.from" -> &("lamp" -> name))
   }    
   
@@ -283,7 +258,7 @@ class HouseFactoryImpl extends HouseFactory {
       "requires.from" -> &("atmosphere" -> atmosphere.name))
   }  
 
-  def makeTOLayout(name: String, dim: Dim, target: String) = {
+  def makeThermicObjectLayout(name: String, dim: Dim, target: String) = {
     spawn("ThermicObjectLayout",
       "instance.name" -> name,
       "x" -> dim.x.toString(),
@@ -351,33 +326,4 @@ class HouseFactoryImpl extends HouseFactory {
         "requires.from" -> &("manager" -> (name + "_manager")))
   }  
 
-  /*def makeTOView(name: String, target: String) = {
-    spawn("ThermicObjectView",
-      "instance.name" -> name,
-      "period" -> "200",
-      "requires.from" -> &("thermicObject" -> target))
-  }
-
-  def makeHeaterView(name: String, heater: String) = {
-    spawn("HeaterView",
-      "instance.name" -> name,
-      "period" -> "200",
-      "requires.from" -> &("heater" -> heater))
-  }
-
-  def makeHeaterManagerView(name: String, manager: String, room: String) = {
-    spawn("HeaterManagerView",
-      "instance.name" -> name,
-      "period" -> "200",
-      "requires.from" -> &("manager" -> manager, "room" -> room))
-  }
-
-  def makeWallView(name: String, wall: String) = {
-    spawn("WallView",
-      "instance.name" -> name,
-      "period" -> "200",
-      "requires.from" -> &("opening" -> wall))
-  }
-  */
-  
 }
