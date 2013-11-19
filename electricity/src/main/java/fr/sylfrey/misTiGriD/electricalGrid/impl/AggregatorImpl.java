@@ -29,11 +29,12 @@ import fr.sylfrey.misTiGriD.electricalGrid.Aggregator;
 import fr.sylfrey.misTiGriD.electricalGrid.BlackOut;
 import fr.sylfrey.misTiGriD.electricalGrid.Prosumer;
 import fr.sylfrey.misTiGriD.electricalGrid.RemoteAggregator;
+import fr.sylfrey.misTiGriD.environment.Updatable;
 import fr.sylfrey.misTiGriD.wrappers.ActorSystemProvider;
 
 @Component(name="Aggregator")
-@Provides(specifications={Aggregator.class,Prosumer.class})
-public class AggregatorImpl implements Aggregator, Prosumer {
+@Provides(specifications={Aggregator.class,Prosumer.class, Updatable.class})
+public class AggregatorImpl implements Aggregator, Prosumer, Updatable {
 
 	@Validate
 	public void start() { 
@@ -139,38 +140,54 @@ public class AggregatorImpl implements Aggregator, Prosumer {
 			System.err.println("# warning, non declared prosumer in Aggregator " + name);
 			return;
 		}
-
-		// mind the old value
-		float oldValue = prosumptions.get(prosumer);
-		prosumedPower += prosumption - oldValue;
 		prosumptions.put(prosumer, prosumption);
-
-		if (prosumption>0) {
-			productions.put(prosumer, prosumption);
-			consumptions.remove(prosumer);
-			aggregatedPowerProduction += prosumption;
-		} else {
-			consumptions.put(prosumer, prosumption);
-			productions.remove(prosumer);
-			aggregatedPowerConsumption -= prosumption;
-		}
-
-		if (oldValue>0) {
-			aggregatedPowerProduction -= oldValue;
-		} else {
-			aggregatedPowerConsumption += oldValue;
-		}
-
-		bill += prosumption*price;
+	}
+	
+	@Override
+	public void update() {
 		
-		if (parent!=null) {
-			try {
-				parent.updateProsumption(self,prosumedPower);
-			} catch (BlackOut e) {
-				blackout();
+		aggregatedPowerProduction = 0;
+		aggregatedPowerConsumption = 0;
+		prosumedPower = 0;
+		
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("### " + prosumedPower + " == ");
+		
+		for (Prosumer prosumer : prosumptions.keySet()) {
+			
+//			sb.append(prosumer.getName() + ":" + prosumptions.get(prosumer) + ", ");
+			
+			float prosumption = prosumptions.get(prosumer);
+			prosumedPower += prosumption;
+
+			if (prosumption>0) {
+				productions.put(prosumer, prosumption);
+				consumptions.remove(prosumer);
+				aggregatedPowerProduction += prosumption;
+			} else {
+				consumptions.put(prosumer, prosumption);
+				productions.remove(prosumer);
+				aggregatedPowerConsumption -= prosumption;
 			}
+
+			bill += prosumption*price;
+			
+			if (parent!=null) {
+				try {
+					parent.updateProsumption(self,prosumedPower);
+				} catch (BlackOut e) {
+					blackout();
+				}
+			}
+			
 		}
+//		System.out.println(sb.toString());
 		
+	}
+
+	@Override
+	public int getPeriod() {
+		return 50; // default 50ms period
 	}
 
 	@Override
