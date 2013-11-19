@@ -14,6 +14,7 @@ import java.util.HashMap
 import scala.collection.JavaConversions.asScalaSet
 import org.apache.felix.ipojo.annotations.Bind
 import org.apache.felix.ipojo.annotations.Component
+import org.apache.felix.ipojo.annotations.Instantiate
 import org.apache.felix.ipojo.annotations.Invalidate
 import org.apache.felix.ipojo.annotations.Requires
 import org.apache.felix.ipojo.annotations.Unbind
@@ -34,6 +35,7 @@ import fr.sylfrey.misTiGriD.layout.StorageLayout
 import fr.sylfrey.misTiGriD.alba.basic.model.Schedule
 
 @Component(name="LayoutRegistry",immediate=true)
+@Instantiate
 class GenericLayoutRegistry {
 
   @Requires var httpService: HttpService = _
@@ -52,7 +54,7 @@ class GenericLayoutRegistry {
   var hmlCounter = 0
   var olCounter = 0
 
-  @Bind(specification = "fr.sylfrey.misTiGriD.layout.Layout", aggregate = true, optional = true)
+  @Bind(aggregate = true, optional = true)
   def bind(layout: Layout): Unit = layout match {
     case l: AtmosphereLayout => store[AtmosphereLayout](classOf[AtmosphereLayout], l.getName, l)
     case l: StorageLayout => store[StorageLayout](classOf[StorageLayout], l.getName, l)
@@ -73,7 +75,7 @@ class GenericLayoutRegistry {
     case l => println("### warning: bad Layout " + l.getClass() + " not bound to GenericLayoutRegistry")
   }
   
-  @Unbind(specification="fr.sylfrey.misTiGriD.layout.Layout",aggregate=true)
+  @Unbind(aggregate=true)
   def unbind(layout : Layout) : Unit = {
     _layouts.entrySet().find(_.getValue == layout) match {
       case Some(key) => _layouts.remove(key)

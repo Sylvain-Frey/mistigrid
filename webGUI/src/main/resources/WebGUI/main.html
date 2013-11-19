@@ -1,4 +1,16 @@
 <!DOCTYPE HTML>
+
+<!--
+  Copyright (c) 2013 syl.
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the GNU Public License v3.0
+  which accompanies this distribution, and is available at
+  http://www.gnu.org/licenses/gpl.html
+  
+  Contributors:
+      syl - initial API and implementation
+-->
+
 <html>
   <head> 
     <title>Smartgrid House GUI</title> 
@@ -21,8 +33,27 @@
   
     <h1>Welcome to the MisTiGriD Web User Interface</h1>
     
-    <a id="man" href="manpage.html" target="_blank">Read the manual</a><br>
-    <a id="graphs" href="graphs.html" target="_blank">Look a some live plots</a>
+    <h2>Getting started:</h2>
+    
+    <ol>
+      <li> <b>Configure</b> goals :
+      <ul>
+      <li> house power goal (upper left corner : "Change goal: <button>+</button> <button>-</button>").
+        <li> comfort goal (click on the manager of a heater or lamp : <button class="modeButton comfort">comfort</button> or <button class="modeButton saving">saving</button>).
+      </ul>
+      <li> <b>Observe</b> the autonomic system trying to achieve the new goals:
+      <ul>
+        <li> Orange managers ("Saving" mode) change to Green (reducing power or temperature goals), as needed to help achieve the goals.
+        <li> Red managers ("Comfort" mode) do not contribute.
+        <li> <a href="graphs.html" target="_blank">Check out the live graphs displaying goals, power consumptions, temperature</a>
+      </ul>
+      <li> <b>Play</b> with the environment's temperature (upper right corner <button>+</button> <button>-</button>), click on lamps to switch them on and off, try different combinations of comfort and power goal.
+    </ol>
+    
+    Please refer to the <a id="man" href="manpage.html" target="_blank">manual</a> for further details on using the simulator.<br>
+    
+    <!--<a id="man" href="manpage.html" target="_blank">Read the manual</a><br>-->
+    <a id="graphs" href="graphs.html" target="_blank">Look at some live plots</a>
     
     <div id="controls">
         <div id="fontSizeControl">
