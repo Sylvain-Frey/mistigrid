@@ -11,6 +11,7 @@
 package fr.sylfrey.misTiGriD.trace;
 
 import java.util.Collection;
+import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -91,19 +92,28 @@ public class ArchiverImpl implements Updatable, Archiver {
 	@Override
 	public void update() {
 		
-		for (ThermicObject to : thermicObjects) {
-			tracer.logValue("temperature_" + to.getName(), to.getCurrentTemperature());
-			bus.publish(new ArchiverEvent<Float>("temperature_" + to.getName(), to.getCurrentTemperature()));
-		}
-		
-		for (Prosumer prosumer : prosumers) {
-			tracer.logValue("prosumption_" + prosumer.getName(), prosumer.getProsumedPower());
-			bus.publish(new ArchiverEvent<Float>("prosumption_" + prosumer.getName(), prosumer.getProsumedPower()));
-			if (prosumer instanceof Heater) {
-				bus.publish(new ArchiverEvent<Float>(
-						"temperature_" + prosumer.getName(), 
-						((Heater) prosumer).getCurrentTemperature()));
+		try {			
+			// ConcurrentModificationException happen 
+			// when new POJOs are bound to the ArchiverImpl:
+			// discard them.
+			
+			for (ThermicObject to : thermicObjects) {
+				tracer.logValue("temperature_" + to.getName(), to.getCurrentTemperature());
+				bus.publish(new ArchiverEvent<Float>("temperature_" + to.getName(), to.getCurrentTemperature()));
 			}
+			
+			for (Prosumer prosumer : prosumers) {
+				tracer.logValue("prosumption_" + prosumer.getName(), prosumer.getProsumedPower());
+				bus.publish(new ArchiverEvent<Float>("prosumption_" + prosumer.getName(), prosumer.getProsumedPower()));
+				if (prosumer instanceof Heater) {
+					bus.publish(new ArchiverEvent<Float>(
+							"temperature_" + prosumer.getName(), 
+							((Heater) prosumer).getCurrentTemperature()));
+				}
+			}
+			
+		} catch (ConcurrentModificationException e) {
+			// losing logs is no big deal, is it?
 		}
 		
 		if (houseLoadManager != null) {
