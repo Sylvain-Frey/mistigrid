@@ -65,27 +65,6 @@
 					</instructions>
 				</configuration>
 			</plugin>
-         <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <executions>
-               <execution>
-                  <id>moveFiles</id>
-                  <phase>install</phase>
-                  <configuration>
-                     <target>
-                        <!-- do not deploy the smarduino bundle -->
-                        <copy todir="target" 
-                           flatten="true" overwrite="true" verbose="true" failonerror="true">
-                           <fileset dir="target/" includes="*.jar" />
-                        </copy>
-                     </target>
-                  </configuration>
-                  <goals>
-                     <goal>run</goal>
-                  </goals>
-               </execution>
-            </executions>
-         </plugin>
 		</plugins>
 	</build>
 
