@@ -124,12 +124,12 @@ class Config(
     val heaterBathroom = "heater_" + bathroom
     val heaterEntrance = "heater_" + entrance
         
-    // Lamp identificators.
-    val lamp1 = "lamp_1"
-    val lamp2 = "lamp_2"
-    val lamp3 = "lamp_3"
-    val lamp4 = "lamp_4"
-    val lamp5 = "lamp_5"
+    // Lamp identificators -> moved to lamps configuration
+//    val lamp1 = "lamp_1"
+//    val lamp2 = "lamp_2"
+//    val lamp3 = "lamp_3"
+//    val lamp4 = "lamp_4"
+//    val lamp5 = "lamp_5"
 
       
       
@@ -245,15 +245,15 @@ class Config(
               room = entrance,
               kp = 40, ki = 0, kd = 0)))
  
-    // Lamp (and lamp manager) specifications.
-    val lamps = Map[String, Lamp](
-      // lampID -> (maxPower, aggregator, loadManagerURI)  
-      lamp1 -> Lamp(100, aggregator, loadManagerURI),
-      lamp2 -> Lamp(100, aggregator, loadManagerURI),
-      lamp3 -> Lamp(100, aggregator, loadManagerURI),
-      lamp4 -> Lamp(100, aggregator, loadManagerURI),
-      lamp5 -> Lamp(100, aggregator, loadManagerURI)
-    )
+    // Lamp (and lamp manager) specifications -> moved to lamps configuration
+    val lamps = Map[String, Lamp]()
+//      // lampID -> (maxPower, aggregator, loadManagerURI)  
+//      lamp1 -> Lamp(100, aggregator, loadManagerURI),
+//      lamp2 -> Lamp(100, aggregator, loadManagerURI),
+//      lamp3 -> Lamp(100, aggregator, loadManagerURI),
+//      lamp4 -> Lamp(100, aggregator, loadManagerURI),
+//      lamp5 -> Lamp(100, aggregator, loadManagerURI)
+//    )
       
 
     /////////////
@@ -290,15 +290,15 @@ class Config(
       ke 	-> Dim(160, 440, 80, 10, 6),
       we 	-> Dim(360, 440, 80, 10, 6))
     
-    // Spatial organisation of lamps.
-    val lampLayouts = Map[String, Tuple2[Int,Int]](
-      // lampID -> (x, y)  
-      lamp1 -> (240, 230),
-      lamp2 -> (580, 330),
-      lamp3 -> (720, 150),
-      lamp4 -> (360, 760),
-      lamp5 -> (610, 760)
-    )
+    // Spatial organisation of lamps -> moved to lamps configuration
+    val lampLayouts = Map[String, Tuple2[Int,Int]]()
+//      // lampID -> (x, y)  
+//      lamp1 -> (240, 230),
+//      lamp2 -> (580, 330),
+//      lamp3 -> (720, 150),
+//      lamp4 -> (360, 760),
+//      lamp5 -> (610, 760)
+//    )
           
       
     houseFactory.make(
