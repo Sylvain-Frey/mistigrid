@@ -1,0 +1,59 @@
+# actor system running and available : MisTiGriD
+[INFO] [05/21/2013 16:53:42.133] [FelixStartLevel] [NettyRemoteTransport(akka://MisTiGriD@localhost:4204)] RemoteServerStarted@akka://MisTiGriD@localhost:4204
+DEBUG: EventAdmin: org.apache.felix.eventadmin.CacheSize=30
+DEBUG: EventAdmin: org.apache.felix.eventadmin.ThreadPoolSize=20
+DEBUG: EventAdmin: org.apache.felix.eventadmin.Timeout=5000
+DEBUG: EventAdmin: org.apache.felix.eventadmin.RequireTopic=true
+[INFO] Started jetty 6.1.x at port(s) HTTP:8080
+DEBUG: EventAdmin: org.apache.felix.eventadmin.CacheSize=30
+DEBUG: EventAdmin: org.apache.felix.eventadmin.ThreadPoolSize=20
+DEBUG: EventAdmin: org.apache.felix.eventadmin.Timeout=5000
+DEBUG: EventAdmin: org.apache.felix.eventadmin.RequireTopic=true
+[INFO] Started jetty 6.1.x at port(s) HTTP:8080
+# remote schedule deployed: Actor[akka://MisTiGriD/user/schedule]
+# getting houseLoadManager @ akka://MisTiGriD/user/houseLoadManager
+# getting houseLoadManager @ akka://MisTiGriD/user/houseLoadManager
+# getting houseLoadManager @ akka://MisTiGriD/user/houseLoadManager
+# getting houseLoadManager @ akka://MisTiGriD/user/houseLoadManager
+# getting houseLoadManager @ akka://MisTiGriD/user/houseLoadManager
+# houseLoadManager deployed : Actor[akka://MisTiGriD/user/houseLoadManager]
+# getting houseLoadManager @ akka://MisTiGriD/user/houseLoadManager
+# loadManager registered Actor[akka://MisTiGriD/user/heater_room_manager]
+# getting houseLoadManager @ akka://MisTiGriD/user/houseLoadManager
+# loadManager registered Actor[akka://MisTiGriD/user/heater_kitchen_manager]
+# getting houseLoadManager @ akka://MisTiGriD/user/houseLoadManager
+# loadManager registered Actor[akka://MisTiGriD/user/heater_entrance_manager]
+# getting houseLoadManager @ akka://MisTiGriD/user/houseLoadManager
+# loadManager registered Actor[akka://MisTiGriD/user/heater_bathroom_manager]
+# getting houseLoadManager @ akka://MisTiGriD/user/houseLoadManager
+# loadManager registered Actor[akka://MisTiGriD/user/heater_livingroom_1_manager]
+# getting houseLoadManager @ akka://MisTiGriD/user/houseLoadManager
+# loadManager registered Actor[akka://MisTiGriD/user/heater_livingroom_2_manager]
+# tracer created log/loadManager_maxConsumptionGoal.log
+# tracer created log/loadManager_minConsumptionGoal.log
+# tracer created log/prosumption_lamp_4.log
+# tracer created log/prosumption_heater_livingroom_1.log
+# tracer created log/prosumption_lamp_1.log
+# tracer created log/prosumption_lamp_2.log
+# tracer created log/prosumption_heater_kitchen.log
+# tracer created log/prosumption_houseAggregator.log
+# tracer created log/prosumption_lamp_3.log
+# tracer created log/prosumption_heater_room.log
+# tracer created log/prosumption_heater_livingroom_2.log
+# tracer created log/prosumption_lamp_5.log
+# tracer created log/prosumption_heater_entrance.log
+# tracer created log/prosumption_heater_bathroom.log
+# tracer created log/temperature_heater_livingroom_1.log
+# tracer created log/temperature_kitchen.log
+# tracer created log/temperature_entrance.log
+# tracer created log/temperature_atmosphere.log
+# tracer created log/temperature_livingroom.log
+# tracer created log/temperature_heater_kitchen.log
+# tracer created log/temperature_room.log
+# tracer created log/temperature_wc.log
+# tracer created log/temperature_heater_room.log
+# tracer created log/temperature_heater_livingroom_2.log
+# tracer created log/temperature_heater_entrance.log
+# tracer created log/temperature_bathroom.log
+# tracer created log/temperature_heater_bathroom.log
+# 0:0:0:0:0:0:0:1 GET : null
