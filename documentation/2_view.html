@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>MisTiGriD documentation</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
+  <body>
+  <h1>MisTiGriD view</h1>
+
+  <a href="./overview.html">back to overview</a><br>
+  <br>
+
+  <a href="../traces"><headline>traces module</headline></a><br>
+  
+  Writes stuff on the disk...<br>
+  <br>
+  
+  <a href="../webGUI"><headline>web module</headline></a><br>
+  
+  This module provides an interactive user interface for interacting with the simulation at runtime. The interface is accessible remotely via a web browser. It is served by the HttpService provided by Felix. The web interface code executed by the browser interacts with the simulation via several servlets running on the platform:
+  <ul>
+    <li> the <a href="../webGUI/src/main/scala/fr/sylfrey/misTiGriD/webGUI/IndexServlet.scala">index servlet</a> provides a JSON list of the types and names of the components running in the simulation model. Each component is individually available for monitoring at a path looking like ... to be continued
+    <li> the <a href="../webGUI/src/main/scala/fr/sylfrey/misTiGriD/webGUI/TouchpointServlet.scala">touchpoint servlet</a>
+    <li> the <a href="../webGUI/src/main/scala/fr/sylfrey/misTiGriD/webGUI/TraceServlet.scala">trace servlet</a>
+  </ul>
+  <br>
+  <br>
+  
+  
+  
+  <a href="../webGUI/src/main/resources/WebGUI"><headline>web interface</headline></a><br>
+  
+  The web interface itself is written in HTML/CSS/Javascript and uses notably the JQuery and highcharts libraries.
+  
+ 
+  </body>
+</html>

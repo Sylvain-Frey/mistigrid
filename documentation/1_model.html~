@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>MisTiGriD documentation</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
+  <body>
+  <h1>MisTiGriD model</h1>
+    
+  <a href="./overview.html">back to overview</a><br>
+  <br>
+  
+  <a href="../environment"><headline>Environment</headline></a><br>
+  
+  This module defines the <a href="../environment/src/main/java/fr/sylfrey/misTiGriD/environment/Updatable.java">Updatable</a> interface provided by components that need to be updated periodically when the simulation runs. This interface is consumed by a unique <a href="../environment/src/main/java/fr/sylfrey/misTiGriD/environment/impl/TimeImpl.java">TimeImpl</a> component performing the scheduling of updates. This component also provides the <a href="../environment/src/main/java/fr/sylfrey/misTiGriD/environment/Time.java">Time</a> service that may be consumed by components requiring time information. For instance, this is where the length of a simulated day is defined.<br>
+  <br>
+  
+  <a href="../electricity"><headline>Electricity</headline></a><br>
+  
+  This module provides a library for simulating an electricity network. The base component of such a network is a <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Prosumer.java">Prosumer</a> component that prosumes (produces or consumes) power. By convention, a positive prosumption is a production and a negative prosumption is a consumption.<br>
+  <br>
+  
+  Such a <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Prosumer.java">Prosumer</a> must be connected to an <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Aggregator.java">Aggregator</a> supplying power, either from local Prosumers or from its own parent network. Indeed, an <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Aggregator.java">Aggregator</a> is itself a <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Prosumer.java">Prosumer</a>, its prosumption being equal to the sum of prosumptions of all its <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Prosumer.java">Prosumers</a>. An <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Aggregator.java">Aggregator</a> may also have its own parent <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Aggregator.java">Aggregator</a>. Typically, in a MisTiGriD simulation, appliances are leaf 
+<a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Prosumer.java">Prosumers</a>, connected to a house-level <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Aggregator.java">Aggregator</a>, that may be itself connected to a remote district-level <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/RemoteAggregator.java">RemoteAggregator</a>, depending on the configuration chosen by the user. A district <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/RemoteAggregator.java">RemoteAggregator</a> is usually deployed on a separate MisTiGriD instance, so as to be able to run and connect many MisTiGriD instances in a single district network, possibly on separate machines.<br>
+  <br>
+  
+  The simple <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Prosumer.java">Prosumer</a> interface is extended by several interfaces: <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/OnOffProsumer.java">OnOffProsumer</a> for simple lamp-like appliances, <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/TunableProsumer.java">TunableProsumer</a> for prosumers with variable prosumption profiles, <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Storage.java">Storage</a> for batteries. These <a href="../electricity/src/main/java/fr/sylfrey/misTiGriD/electricalGrid/Prosumer.java">Prosumers</a> can be configured so as to exhibit different prosumption behaviours.<br>
+  <br>
+  
+  <br>
+  <a href="../temperature"><headline>Temperature</headline></a><br>
+  <br>
+  
+  This module provides a library for simulating objects with a temperature, namely <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/ThermicObject.java">ThermicObjects</a>, exchanging heat with their neighbours through common <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Wall.java">Walls</a> ("wall" here may designate an actual wall between two rooms, but also the surface off a heater in contact with air in its surrounding room). The configuration of a <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/ThermicObject.java">ThermicObject</a> determines the amount of heat it can absorb and its temperature (that is likely to change as the simulation is running). <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Wall.java">Wall</a> configuration determines the topology of the system (i.e. says who is who's neighbour) and how easily heat goes through the wall (cf. <a href="http://wikipedia.org">Newton's law of heat transfer</a>).
+ Some <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Wall.java">Walls</a> are <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Opening.java">Openings</a> such as doors or windows the user can open and close during the simulation.<br>
+  <br>
+  
+  <img src="temperature_component_diagram.png"><br>
+  
+  <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Atmosphere.java">Atmosphere</a> is a special <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/ThermicObject.java">ThermicObject</a> since it can transfer heat to its neighbours, but its own temperature is not affected by them (namely, a thermostat). Instead, the <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Atmosphere.java">Atmosphere</a>'s tmeperature is determined by the component itself, which allows the developper to implement interesting weather condition. As it is now, the <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Atmosphere.java">Atmosphere</a>'s temperature randomly oscillates around a mean value which is manually set by the user during the simulation. Other possible behaviours include simulating a periodic oscillation simulating a day/night cycle, using the local <a href="../environment/src/main/java/fr/sylfrey/misTiGriD/environment/Time.java">Time</a> 
+service.<br> 
+  <br>
+  
+  
+  
+  <a href="../appliances"><headline>Appliances</headline></a><br>
+  
+  This module contains the <a href="../appliances/src/main/java/fr/sylfrey/misTiGriD/appliances/Heater.java">Heater</a> component that consumes power on the network so as to heat the room it belongs to. Such an appliance will be a managed resource of choice for autonomic managers.<br>
+  <br>
+  
+  
+  
+  <a href="../alba"><headline>Alba</headline></a><br>
+  
+  Alba stands for Autonomic Load Balancing Architecture. This library provides autonomic managers for prosumers and aggregators (house-level or district-level).<br>
+  <br>
+  
+  
+  
+  
+  
+  
+  <a href="../layout"><headline>Layouts</headline></a><br>
+  
+  This module gathers all spatial information on the layout of simulated model components: height, lenght, coordinates of rooms, appliances, managers, etc. These layouts are consumed by <a href="./2_view">view</a> services providing the graphical interface to the simulation model. Layout components are to be specified and instantiated separately from the actual simulated components: the <a href="./3_deploy.html">simulation configuration</a> must define a <a href="../layout/src/main/java/fr/sylfrey/misTiGriD/layout/HeaterLayout.java">Heater</a> component for each <a href="../appliances/src/main/java/fr/sylfrey/misTiGriD/appliances/Heater.java">Heater</a> it deploys.<br>
+  <br>
+  
+  
+  <a href="../arduino"><headline>Arduino</headline></a><br>
+  
+  Coming soon...
+  
+  </body>
+</html>
