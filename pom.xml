@@ -9,18 +9,18 @@
 	<packaging>pom</packaging>
 
 	<modules>
-      	<module>../wrappers</module>
-		<module>../environment</module>
-		<module>../electricity</module>
-		<module>../temperature</module>
-		<module>../appliances</module>
-		<module>../arduino</module>
-      	<module>../trace</module>
-      	<module>../alba</module>
-		<module>../layout</module>
-		<module>../webGUI</module>
-      	<module>../deploy</module>
-<!--       	<module>../configs</module> -->
+      		<module>wrappers</module>
+		<module>environment</module>
+		<module>electricity</module>
+		<module>temperature</module>
+		<module>appliances</module>
+		<module>arduino</module>
+      		<module>trace</module>
+      		<module>alba</module>
+		<module>layout</module>
+		<module>webGUI</module>
+      		<module>deploy</module>
+<!--       	<module>../configs</module> --> <!-- compile this one separately -->
 	</modules>
 	
 	

@@ -9,7 +9,7 @@
 		<groupId>fr.sylfrey</groupId>
 		<artifactId>misTiGriD</artifactId>
 		<version>1.1</version>
-		<relativePath>../microSmartGridSimulation</relativePath>
+		<relativePath>..</relativePath>
 	</parent>
 
 	<artifactId>misTiGriD_electricity</artifactId>

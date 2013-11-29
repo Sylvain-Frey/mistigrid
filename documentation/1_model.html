@@ -36,7 +36,7 @@
   
   <img src="temperature_component_diagram.png"><br>
   
-  <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Atmosphere.java">Atmosphere</a> is a special <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/ThermicObject.java">ThermicObject</a> since it can transfer heat to its neighbours, but its own temperature is not affected by them (namely, a thermostat). Instead, the <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Atmosphere.java">Atmosphere</a>'s tmeperature is determined by the component itself, which allows the developper to implement interesting weather condition. As it is now, the <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Atmosphere.java">Atmosphere</a>'s temperature randomly oscillates around a mean value which is manually set by the user during the simulation. Other possible behaviours include simulating a periodic oscillation simulating a day/night cycle, using the local <a href="../environment/src/main/java/fr/sylfrey/misTiGriD/environment/Time.java">Time</a> 
+  <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Atmosphere.java">Atmosphere</a> is a special <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/ThermicObject.java">ThermicObject</a> since it can transfer heat to its neighbours, but its own temperature is not affected by them (namely, a thermostat). Instead, the <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Atmosphere.java">Atmosphere</a>'s temperature is determined by the component itself, which allows the developper to implement interesting weather condition. As it is now, the <a href="../temperature/src/main/java/fr/sylfrey/misTiGriD/temperature/Atmosphere.java">Atmosphere</a>'s temperature randomly oscillates around a mean value which is manually set by the user during the simulation. Other possible behaviours include simulating a periodic oscillation simulating a day/night cycle, using the local <a href="../environment/src/main/java/fr/sylfrey/misTiGriD/environment/Time.java">Time</a> 
 service.<br> 
   <br>
   
@@ -51,7 +51,7 @@ service.<br>
   
   <a href="../alba"><headline>Alba</headline></a><br>
   
-  Alba stands for Autonomic Load Balancing Architecture. This library provides autonomic managers for prosumers and aggregators (house-level or district-level).<br>
+  Alba stands for Autonomic Load Balancing Architecture. This library provides autonomic managers for prosumers and aggregators (house-level or district-level). As such, it is probably the ugliest piece of code in MisTiGriD, since it was implemented in a rush to get demonstrable demo scenarios. <br>
   <br>
   
   

@@ -6,9 +6,17 @@
   <body>
   <h1>MisTiGriD documentation overview</h1>
   
+  
+  
   <headline>Prerequisites</headline><br> 
-  The reader is supposed to be familiar with the base concepts of autonomic computing, and Java technologies such as the <a href="http://felix.apache.org">OSGi</a> and <a href="http://ipojo.org">iPOJO</a> frameworks. MisTiGriD is composed of several OSGi modules compiled with <a href="http://maven.apache.org">maven</a> and running on a <a href="http://felix.apache.org">Felix</a> platform.<br>
+  The reader is supposed to be familiar with the base concepts of autonomic computing, and Java technologies such as the <a href="http://felix.apache.org">Felix</a> and <a href="http://ipojo.org">iPOJO</a> frameworks. MisTiGriD is composed of several OSGi modules compiled with <a href="http://maven.apache.org">maven</a> and running on a <a href="http://felix.apache.org">Felix</a> platform.<br>
   <br>
+  
+  Parts of MisTiGriD are written in Scala, basic knowledge of which could be necessary in case you end up down there (which is a nice occasion to discover this cool language).<br>
+  <br>
+  
+  
+  <headline>Overview</headline><br> 
   MisTiGriD is a smart micro-grid simulation platform: an instance of MisTiGriD simulates a smart house with several appliances and their autonomic managers. MisTiGriD intends to provide an interactive and extensible demonstration playground for developpers of autonomic systems.<br>
   <br>
   MisTiGriD modules are organised as follows:
@@ -19,7 +27,27 @@
     <li> a set of utility modules, including a series of third-party libraries (cf. bundles folder in Felix) and a home-made wrapper for the <a href="http://akka.io">Akka</a> actor library.
   </ul>
   
-  A typical use of MisTiGriD consists in writing an initial house configuration, running the simulation and playing with it through the web interface, and then analysing the replay through persisted traces on the disk.
+  A typical use of MisTiGriD consists in writing an initial house configuration, running the simulation and playing with it through the web interface, and then analysing the replay through persisted traces on the disk.<br>
+  <br>
+  
+  
+  
+  <headline>Setup</headline><br> 
+  Running MisTiGriD only requires a Java jre to be installed (tested with Java 6 and 7).<br>
+  <br>
+  
+  Compiling MisTiGriD requires <a href="http://maven.apache.org">Maven 2</a>. Run "mvn clean install" from the root folder to build MisTiGriD. Run "mvn clean javadoc:javadoc" before committing.<br>
+  <br>
+  
+  Eclipse users will benefit from installing the following plugins:
+  <ul>
+    <li> <a href="http://www.eclipse.org/egit">Eclipse EGit</a>
+    <li> <a href="http://www.eclipse.org/m2e">Maven Eclipse plugin</a>
+    <li> <a href="http://scala-ide.org">Scala Eclipse plugin</a>
+    <li> <a href="https://github.com/sonatype/m2eclipse-scala">Maven integration for Scala</a>
+    <li> <a href="http://stan4j.com">Stan4j</a> (not compulsory, but this is a neat analysis tool when diving into someone else's code)
+  </ul>
+  <br>
   
   </body>
 </html>
