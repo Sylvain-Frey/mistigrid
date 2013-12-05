@@ -1,6 +1,6 @@
-if (sylfrey == undefined) var sylfrey = {};
 /*******************************************************************************
- * Copyright (c) 2013 Sylvain Frey.
+ * Copyright (c) 2013 EDF. This software was developed with the 
+ * collaboration of Télécom ParisTech (Sylvain Frey).
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Public License v3.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@ if (sylfrey == undefined) var sylfrey = {};
  * Contributors:
  *     Sylvain Frey - initial API and implementation
  ******************************************************************************/
+if (sylfrey == undefined) var sylfrey = {};
 
 sylfrey.graph = (function() { // package definition
         
