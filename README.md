@@ -8,3 +8,5 @@ MisTiGriD is a smart micro-grid simulation platform: an instance of MisTiGriD si
 Have a look at :
   - the mistigrid_instance/ folder to get a runnable instance of MisTiGriD
   - the documentation/ folder for general documentation about the source code
+
+Additional information and contact: http://perso.enst.fr/sfrey
